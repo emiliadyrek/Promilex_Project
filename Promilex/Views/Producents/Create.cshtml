@@ -1,0 +1,170 @@
+﻿@model Promiex.Models.Producent
+
+@{
+    ViewData["Title"] = "Dodaj Producenta";
+}
+
+<style>
+    .producer-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center; 
+        justify-content: center; 
+        padding: 40px 20px;
+    }
+
+    .producer-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        overflow: hidden;
+        width: 100%;
+        max-width: 500px; 
+        border: none;
+        animation: fadeInScale 0.5s ease-out;
+    }
+
+    @@keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .producer-header {
+        background: linear-gradient(135deg, #2C3E50 0%, #3498DB 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .producer-header i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        display: block;
+        color: rgba(255,255,255,0.9);
+    }
+
+    .producer-body {
+        padding: 40px;
+    }
+
+    .form-label-custom {
+        font-weight: 800;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #7F8C8D;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .producer-input {
+        border-radius: 15px;
+        border: 2px solid #F0F3F4;
+        padding: 12px 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .producer-input:focus {
+        border-color: #3498DB;
+        box-shadow: 0 0 12px rgba(52, 152, 219, 0.1);
+        background-color: #fbfdfe;
+        outline: none;
+    }
+
+    .btn-producer-save {
+        background: #2C3E50;
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        margin-top: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(44, 62, 80, 0.15);
+    }
+
+    .btn-producer-save:hover {
+        background: #3498DB;
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(52, 152, 219, 0.25);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #95A5A6;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        color: #2C3E50;
+    }
+
+    .input-group-text {
+        border-radius: 15px 0 0 15px !important;
+        background-color: #F8F9F9;
+        border: 2px solid #F0F3F4;
+        border-right: none;
+        color: #BDC3C7;
+    }
+
+    .producer-input-grouped {
+        border-radius: 0 15px 15px 0 !important;
+    }
+</style>
+
+<div class="producer-page-wrapper">
+    <div class="producer-card shadow-lg">
+        
+        <div class="producer-header">
+            <i class="bi bi-building-fill-add"></i>
+            <h2 class="fw-bold m-0 h3">Nowy Producent</h2>
+            <p class="small opacity-75 mt-2">Zarejestruj nową markę w systemie</p>
+        </div>
+
+        <div class="producer-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+                <div class="mb-4">
+                    <label asp-for="Nazwa" class="form-label-custom">Pełna Nazwa Firmy</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                        <input asp-for="Nazwa" class="form-control producer-input producer-input-grouped" placeholder="np. Dom Pérignon" />
+                    </div>
+                    <span asp-validation-for="Nazwa" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-5">
+                    <label asp-for="KrajPochodzenia" class="form-label-custom">Kraj / Region</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-globe-americas"></i></span>
+                        <input asp-for="KrajPochodzenia" class="form-control producer-input producer-input-grouped" placeholder="np. Francja" />
+                    </div>
+                    <span asp-validation-for="KrajPochodzenia" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn-producer-save">
+                    <i class="bi bi-check2-circle me-2"></i> Dodaj do bazy
+                </button>
+
+                <a asp-action="Index" class="back-link">
+                    <i class="bi bi-arrow-left-short"></i> Wróć do listy dostawców
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

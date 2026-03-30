@@ -1,0 +1,160 @@
+﻿@model Promiex.Models.Recenzja
+
+@{
+    ViewData["Title"] = "Retuszowanie Zeznań";
+}
+
+<style>
+    .rev-edit-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .rev-edit-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        max-width: 500px;
+        width: 100%;
+        overflow: hidden;
+        border: none;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .rev-edit-header {
+        background: linear-gradient(135deg, #C0308C 0%, #E83A61 100%);
+        padding: 45px 30px;
+        color: white;
+        text-align: center;
+    }
+
+    .rev-edit-header i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .rev-edit-body {
+        padding: 45px;
+    }
+
+    .rev-input-styled {
+        border-radius: 15px;
+        border: 2px solid #FEF3DC;
+        padding: 12px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .rev-input-styled:focus {
+        border-color: #C0308C;
+        box-shadow: 0 0 10px rgba(192, 48, 140, 0.1);
+        background-color: #fffcfd;
+        outline: none;
+    }
+
+    .form-label-mini {
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #95A5A6;
+        letter-spacing: 1.5px;
+        font-size: 11px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .btn-rev-save {
+        background: #333;
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        margin-top: 15px;
+    }
+
+    .btn-rev-save:hover {
+        background: #C0308C;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(192, 48, 140, 0.2);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #777;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        color: #E83A61;
+        transform: translateX(-3px);
+    }
+</style>
+
+<div class="rev-edit-wrapper">
+    <div class="rev-edit-card shadow-lg">
+        
+        <div class="rev-edit-header">
+            <i class="bi bi-magic"></i>
+            <h2 class="fw-bold m-0 h3">Retusz Zeznań</h2>
+            <p class="small opacity-75 mt-2">Przesadziłeś z opisem? Pora na delikatną korektę rzeczywistości.</p>
+        </div>
+
+        <div class="rev-edit-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-4 text-center">
+                    <label asp-for="ProduktId" class="form-label-mini">ID Dowodu (Produkt)</label>
+                    <input asp-for="ProduktId" class="form-control rev-input-styled" />
+                    <span asp-validation-for="ProduktId" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4 text-center">
+                    <label asp-for="Tresc" class="form-label-mini">Zaktualizowana Wersja Wydarzeń</label>
+                    <textarea asp-for="Tresc" class="form-control rev-input-styled" rows="3"></textarea>
+                    <span asp-validation-for="Tresc" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4 text-center">
+    <label asp-for="Ocena" class="form-label-mini">Nowa Skala Bólu (1-5)</label>
+    <input asp-for="Ocena" class="form-control rev-input-styled" />
+    <span asp-validation-for="Ocena" class="text-danger small"></span>
+</div>
+
+                <button type="submit" class="btn-rev-save">
+                    <i class="bi bi-check-lg me-1"></i> Zalegalizuj zmiany
+                </button>
+
+                <a asp-action="Index" class="back-link">
+                    <i class="bi bi-arrow-left me-1"></i> Zostaw jak jest
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

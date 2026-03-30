@@ -1,0 +1,147 @@
+﻿@model Promiex.Models.Klient
+
+@{
+    ViewData["Title"] = "Usuwanie Klienta";
+}
+
+<style>
+    .delete-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .delete-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(160, 82, 45, 0.15);
+        overflow: hidden;
+        width: 100%;
+        max-width: 550px;
+        border: none;
+        animation: shake 0.5s ease-in-out;
+    }
+
+    @@keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
+    .delete-header {
+        background: linear-gradient(135deg, #c0392b 0%, #8B4513 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .delete-header i {
+        font-size: 55px;
+        margin-bottom: 15px;
+        display: block;
+        color: #F1C40F; 
+    }
+
+    .delete-body {
+        padding: 40px;
+    }
+
+    .client-info-box {
+        background: #fdfaf3; 
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 30px;
+        border-left: 5px solid #A0522D;
+    }
+
+    .info-label {
+        font-weight: 800;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #95A5A6;
+        letter-spacing: 1px;
+        margin-bottom: 2px;
+    }
+
+    .info-value {
+        font-size: 18px;
+        font-weight: 700;
+        color: #2C3E50;
+        margin-bottom: 15px;
+    }
+
+    .btn-delete-confirm {
+        background: #c0392b;
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(192, 57, 43, 0.2);
+    }
+
+    .btn-delete-confirm:hover {
+        background: #a93226;
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(169, 50, 38, 0.3);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #7F8C8D;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        color: #A0522D;
+    }
+</style>
+
+<div class="delete-page-wrapper">
+    <div class="delete-card">
+        
+        <div class="delete-header">
+            <i class="bi bi-person-x-fill"></i>
+            <h2 class="fw-bold m-0 h3">Pozbywasz się świadka?</h2>
+            <p class="small opacity-75 mt-2">Pamiętaj, martwi klienci nie płacą rachunków.</p>
+        </div>
+
+        <div class="delete-body">
+            <h5 class="text-center mb-4 fw-bold" style="color: #A0522D;">Czy na pewno chcesz usunąć tego klienta?</h5>
+
+            <div class="client-info-box">
+                <div class="info-label">Imię i Nazwisko</div>
+                <div class="info-value">@Model.Imie @Model.Nazwisko</div>
+
+                <div class="info-label">Ostatnio znany adres E-mail</div>
+                <div class="info-value">@Model.Email</div>
+
+                <div class="info-label">Status w kartotece</div>
+                <div class="info-value text-muted">Obiekt: #@Model.Id</div>
+            </div>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                
+                <button type="submit" class="btn-delete-confirm">
+                    <i class="bi bi-trash3-fill me-2"></i> Usuń z czarnej listy
+                </button>
+
+                <a asp-action="Index" class="back-link">
+                    <i class="bi bi-arrow-left-short"></i> Nie, dajmy mu jeszcze jedną szansę
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

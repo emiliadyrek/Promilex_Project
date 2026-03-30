@@ -1,0 +1,201 @@
+﻿@model IEnumerable<Promiex.Models.Produkt>
+
+@{
+    ViewData["Title"] = "Nasze Trunki";
+}
+
+<style>
+    .products-page {
+        background-color: #FEF3DC; 
+        min-height: 100vh;
+        padding-bottom: 100px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .products-header {
+        text-align: center;
+        padding: 60px 0;
+    }
+
+    .products-title {
+        font-size: 48px;
+        font-weight: 900;
+        color: #F9812A;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+    }
+
+    .product-card {
+        background: white;
+        border: none;
+        border-radius: 30px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        height: 100%;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        position: relative;
+    }
+
+    .product-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 40px rgba(249, 129, 42, 0.15);
+    }
+
+    .product-img-box {
+        height: 200px;
+        background: #fffcf7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 70px;
+        border-bottom: 2px solid #FEF3DC;
+    }
+
+    .alcohol-badge {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: rgba(232, 58, 97, 0.1);
+        color: #E83A61;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-weight: 800;
+        font-size: 13px;
+    }
+
+    .product-info {
+        padding: 25px;
+        text-align: center;
+    }
+
+    .product-name {
+        font-size: 22px;
+        font-weight: 800;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .product-desc {
+        color: #777;
+        font-size: 14px;
+        height: 40px;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+
+    .product-price-tag {
+        font-size: 28px;
+        font-weight: 900;
+        color: #E83A61;
+        margin-bottom: 20px;
+    }
+
+    .btn-actions-group {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+    }
+
+    .circle-btn {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        transition: 0.3s;
+        border: none;
+    }
+
+    .btn-edit { background-color: #FFB800; }
+    .btn-details { background-color: #F9812A; }
+    .btn-delete { background-color: #333; }
+
+    .circle-btn:hover {
+        transform: scale(1.2);
+        color: white;
+        filter: brightness(1.1);
+    }
+
+    .fab-add {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #F9812A 0%, #E83A61 100%);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        box-shadow: 0 10px 25px rgba(232, 58, 97, 0.4);
+        transition: all 0.3s;
+        text-decoration: none;
+        z-index: 999;
+    }
+
+    .fab-add:hover {
+        transform: rotate(90deg) scale(1.1);
+        color: white;
+    }
+</style>
+
+<div class="products-page">
+    <div class="container">
+        
+        <div class="products-header">
+            <h1 class="products-title">Nasza Spiżarnia 🍷</h1>
+            <p class="text-muted">Wybierz coś dla siebie (albo dla kolegi)</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var item in Model) {
+                <div class="col-md-4 col-lg-3">
+                    <div class="product-card shadow-sm">
+                        <div class="alcohol-badge">
+                            <i class="bi bi-percent"></i> @item.ZawartoscAlkoholu%
+                        </div>
+
+                        <div class="product-img-box">
+                            @if (item.Nazwa.ToLower().Contains("wino")) {
+                                <span>🍷</span>
+                            } else if (item.Nazwa.ToLower().Contains("piwo")) {
+                                <span>🍺</span>
+                            } else {
+                                <span>🍾</span>
+                            }
+                        </div>
+                        
+                        <div class="product-info">
+                            <h3 class="product-name">@item.Nazwa</h3>
+                            <p class="product-desc">@item.Opis</p>
+                            <div class="product-price-tag">@item.Cena.ToString("N2") zł</div>
+                            
+                            <div class="btn-actions-group">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="circle-btn btn-edit" title="Edytuj">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="circle-btn btn-details" title="Szczegóły">
+                                    <i class="bi bi-search"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="circle-btn btn-delete" title="Usuń">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<a asp-action="Create" class="fab-add shadow-lg" title="Dodaj nowy produkt">
+    <i class="bi bi-plus-lg"></i>
+</a>

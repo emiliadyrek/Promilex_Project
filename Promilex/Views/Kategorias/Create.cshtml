@@ -1,0 +1,136 @@
+﻿@model Promiex.Models.Kategoria
+
+@{
+    ViewData["Title"] = "Nowa Kategoria";
+}
+
+<style>
+    .category-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        padding: 80px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .category-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        overflow: hidden;
+        border: none;
+        animation: fadeInScale 0.4s ease-out;
+    }
+
+    @@keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .category-header {
+        background: linear-gradient(135deg, #C0308C 0%, #E83A61 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .category-header i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .category-body {
+        padding: 50px;
+    }
+
+    .category-input {
+        border-radius: 20px;
+        border: 2px solid #FEF3DC;
+        padding: 18px 25px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .category-input:focus {
+        border-color: #C0308C;
+        box-shadow: 0 0 15px rgba(192, 48, 140, 0.1);
+        background-color: #fff9fc;
+        outline: none;
+    }
+
+    .btn-category-save {
+        background: #333;
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        margin-top: 30px;
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+    }
+
+    .btn-category-save:hover {
+        background: #C0308C;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(192, 48, 140, 0.3);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #666;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .back-link:hover { color: #E83A61; }
+</style>
+
+<div class="category-page-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <div class="category-card shadow-lg">
+                    
+                    <div class="category-header">
+                        <i class="bi bi-tags-fill"></i>
+                        <h2 class="fw-bold m-0">Nowa Kategoria</h2>
+                        <p class="small opacity-75">Porządek w trunkach to podstawa!</p>
+                    </div>
+
+                    <div class="category-body">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                            <div class="mb-2 text-center">
+                                <label asp-for="Nazwa" class="form-label fw-bold small text-uppercase text-muted">Nazwa Kategorii</label>
+                                <input asp-for="Nazwa" class="form-control category-input" placeholder="np. Wina Czerwone" />
+                                <span asp-validation-for="Nazwa" class="text-danger"></span>
+                            </div>
+
+                            <button type="submit" class="btn-category-save">
+                                <i class="bi bi-plus-lg me-2"></i> Utwórz kategorię
+                            </button>
+
+                            <a asp-action="Index" class="back-link">
+                                <i class="bi bi-arrow-left me-1"></i> Wróć do listy
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

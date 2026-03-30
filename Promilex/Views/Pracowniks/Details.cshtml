@@ -1,0 +1,214 @@
+﻿@model Promiex.Models.Pracownik
+
+@{
+    ViewData["Title"] = "Profil Pracownika";
+}
+
+<style>
+    .details-page-wrapper {
+        background-color: #FEF3DC; 
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .details-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(108, 92, 231, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 600px;
+        border: none;
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .worker-header {
+        background: linear-gradient(135deg, #6C5CE7 0%, #E83A61 100%);
+        padding: 50px 40px;
+        text-align: center;
+        color: white;
+    }
+
+    .worker-avatar-box {
+        width: 90px;
+        height: 90px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid #FFB800; 
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        color: #FFB800;
+        margin: 0 auto 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .worker-name {
+        font-size: 30px;
+        font-weight: 900;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+    }
+
+    .worker-id-label {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        opacity: 0.9;
+        font-weight: 700;
+    }
+
+    .details-body {
+        padding: 40px;
+    }
+
+    .info-row {
+        display: flex;
+        align-items: center;
+        padding: 20px 0;
+        border-bottom: 2px solid #FEF3DC;
+    }
+
+    .info-row:last-of-type {
+        border-bottom: none;
+    }
+
+    .info-icon {
+        width: 50px;
+        height: 50px;
+        background: #fffcf7;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6C5CE7; 
+        font-size: 22px;
+        margin-right: 20px;
+        border: 1px solid #FEF3DC;
+    }
+
+    .info-content label {
+        display: block;
+        font-size: 11px;
+        font-weight: 800;
+        color: #F9812A; 
+        text-transform: uppercase;
+        margin-bottom: 2px;
+        letter-spacing: 1px;
+    }
+
+    .info-content span {
+        font-size: 19px;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .details-footer {
+        padding: 0 40px 40px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn-edit-worker {
+        background: linear-gradient(90deg, #6C5CE7 0%, #E83A61 100%);
+        color: white;
+        border: none;
+        padding: 16px 25px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        flex: 2;
+        text-decoration: none;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 8px 20px rgba(108, 92, 231, 0.25);
+    }
+
+    .btn-edit-worker:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 12px 25px rgba(108, 92, 231, 0.4);
+        color: white;
+    }
+
+    .btn-back-list {
+        background: #333;
+        color: white;
+        padding: 16px 20px;
+        border-radius: 50px;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-decoration: none;
+        flex: 1;
+        text-align: center;
+        transition: 0.3s;
+        font-size: 14px;
+    }
+
+    .btn-back-list:hover {
+        background: #000;
+        color: white;
+        transform: translateY(-2px);
+    }
+</style>
+
+<div class="details-page-wrapper">
+    <div class="details-card shadow-lg">
+        
+        <div class="worker-header">
+            <div class="worker-avatar-box">
+                <i class="bi bi-person-bounding-box"></i>
+            </div>
+            <h2 class="worker-name">@Model.Imie @Model.Nazwisko</h2>
+            <div class="worker-id-label">Karta Pracownika #@Model.Id</div>
+        </div>
+
+        <div class="details-body">
+            <div class="info-row">
+                <div class="info-icon"><i class="bi bi-person-fill"></i></div>
+                <div class="info-content">
+                    <label>Imię i Nazwisko</label>
+                    <span>@Model.Imie @Model.Nazwisko</span>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-icon"><i class="bi bi-briefcase-fill"></i></div>
+                <div class="info-content">
+                    <label>Aktualne Stanowisko</label>
+                    <span style="color: #6C5CE7;">@Model.Stanowisko</span>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-icon"><i class="bi bi-shield-lock-fill"></i></div>
+                <div class="info-content">
+                    <label>Uprawnienia</label>
+                    <span>Dostęp do Spiżarni Promiex</span>
+                </div>
+            </div>
+
+            <p class="text-center text-muted small mt-4" style="font-style: italic;">
+                Oficjalny profil członka zespołu Promiex 🥂
+            </p>
+        </div>
+
+        <div class="details-footer">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-edit-worker">
+                <i class="bi bi-pencil-square me-2"></i> Edytuj Profil
+            </a>
+            <a asp-action="Index" class="btn-back-list">
+                Lista
+            </a>
+        </div>
+    </div>
+</div>

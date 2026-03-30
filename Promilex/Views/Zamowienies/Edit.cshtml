@@ -1,0 +1,179 @@
+﻿@model Promiex.Models.Zamowienie
+
+@{
+    ViewData["Title"] = "Korekta Zamówienia";
+}
+
+<style>
+    .order-page-wrapper {
+        background-color: #FEF3DC; 
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .order-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(232, 58, 97, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 500px;
+        border: none;
+        animation: fadeInScale 0.5s ease-out;
+    }
+
+    @@keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .order-header {
+        background: linear-gradient(135deg, #E83A61 0%, #F9812A 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .order-header i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        display: block;
+        color: #FFB800; 
+    }
+
+    .order-body {
+        padding: 40px;
+    }
+
+    .form-label-custom {
+        font-weight: 800;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #95A5A6;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .order-input {
+        border-radius: 15px;
+        border: 2px solid #FEF3DC;
+        padding: 12px 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .order-input:focus {
+        border-color: #E83A61;
+        box-shadow: 0 0 12px rgba(232, 58, 97, 0.1);
+        background-color: #fffcf7;
+        outline: none;
+    }
+
+    .btn-order-update {
+        background: linear-gradient(90deg, #F9812A 0%, #E83A61 100%);
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        margin-top: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(232, 58, 97, 0.2);
+    }
+
+    .btn-order-update:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(232, 58, 97, 0.4);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #7F8C8D;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        color: #E83A61;
+    }
+
+    .input-group-text {
+        border-radius: 15px 0 0 15px !important;
+        background-color: #fffcf7;
+        border: 2px solid #FEF3DC;
+        border-right: none;
+        color: #F9812A;
+    }
+
+    .order-input-grouped {
+        border-radius: 0 15px 15px 0 !important;
+    }
+</style>
+
+<div class="order-page-wrapper">
+    <div class="order-card shadow-lg">
+        
+        <div class="order-header">
+            <i class="bi bi-pencil-square"></i>
+            <h2 class="fw-bold m-0 h3">Edytuj Zamówienie</h2>
+            <p class="small opacity-75 mt-2">Popraw dane transakcji w rejestrze</p>
+        </div>
+
+        <div class="order-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="DataZamowienia" class="form-label-custom">Data Rezerwacji</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-calendar-heart"></i></span>
+                        <input asp-for="DataZamowienia" class="form-control order-input order-input-grouped" />
+                    </div>
+                    <span asp-validation-for="DataZamowienia" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="KlientId" class="form-label-custom">Wspólnik (ID)</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                        <input asp-for="KlientId" class="form-control order-input order-input-grouped" />
+                    </div>
+                    <span asp-validation-for="KlientId" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Status" class="form-label-custom">Status</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                        <input asp-for="Status" class="form-control order-input order-input-grouped" />
+                    </div>
+                    <span asp-validation-for="Status" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn-order-update">
+                    <i class="bi bi-save2 me-2"></i> Zaktualizuj zamówienie
+                </button>
+
+                <a asp-action="Index" class="back-link">
+                    <i class="bi bi-arrow-left-short"></i> Porzuć zmiany
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

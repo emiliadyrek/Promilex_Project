@@ -1,0 +1,154 @@
+﻿@model Promiex.Models.Dostawca
+
+@{
+    ViewData["Title"] = "Nowy Kontrakt";
+}
+
+<style>
+    .sup-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        padding: 80px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .sup-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        overflow: hidden;
+        border: none;
+        animation: fadeInScale 0.4s ease-out;
+    }
+
+    @@keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .sup-header {
+        background: linear-gradient(135deg, #C0308C 0%, #E83A61 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .sup-header i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .sup-body {
+        padding: 50px;
+    }
+
+    .sup-input-styled {
+        border-radius: 20px;
+        border: 2px solid #FEF3DC;
+        padding: 15px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .sup-input-styled:focus {
+        border-color: #C0308C;
+        box-shadow: 0 0 15px rgba(192, 48, 140, 0.1);
+        background-color: #fff9fc;
+        outline: none;
+    }
+
+    .btn-sup-save {
+        background: #333;
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+    }
+
+    .btn-sup-save:hover {
+        background: #C0308C;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(192, 48, 140, 0.3);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #666;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .back-link:hover { 
+        color: #E83A61;
+        transform: translateX(-3px);
+    }
+
+    .form-label-custom {
+        font-weight: 800;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #95A5A6;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        display: block;
+    }
+</style>
+
+<div class="sup-page-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <div class="sup-card shadow-lg">
+                    
+                    <div class="sup-header">
+                        <i class="bi bi-truck-flatbed"></i>
+                        <h2 class="fw-bold m-0 h3">Nowy Kontrakt</h2>
+                        <p class="small opacity-75 mt-2">Dodaj dostawcę do swojej siatki połączeń.</p>
+                    </div>
+
+                    <div class="sup-body">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+                            <div class="mb-4">
+                                <label asp-for="NazwaFirmy" class="form-label-custom text-center">Nazwa Kontrahenta</label>
+                                <input asp-for="NazwaFirmy" class="form-control sup-input-styled text-center" placeholder="np. Neon Distillery Inc." />
+                                <span asp-validation-for="NazwaFirmy" class="text-danger small"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="NumerTelefonu" class="form-label-custom text-center">Gorąca Linia</label>
+                                <input asp-for="NumerTelefonu" class="form-control sup-input-styled text-center" placeholder="+48 000 000 000" />
+                                <span asp-validation-for="NumerTelefonu" class="text-danger small"></span>
+                            </div>
+
+                            <button type="submit" class="btn-sup-save">
+                                <i class="bi bi-plus-lg me-2"></i> Podpisz umowę
+                            </button>
+
+                            <a asp-action="Index" class="back-link">
+                                <i class="bi bi-arrow-left me-1"></i> Wróć do listy dostawców
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

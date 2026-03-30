@@ -1,0 +1,165 @@
+﻿@model Promiex.Models.Produkt
+
+@{
+    ViewData["Title"] = "Edycja Produktu";
+}
+
+<style>
+    .edit-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        padding: 60px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .edit-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        overflow: hidden;
+        border: none;
+    }
+
+    /* Nagłówek formularza */
+    .edit-header {
+        background: linear-gradient(135deg, #F9812A 0%, #E83A61 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+        .edit-header i {
+            font-size: 50px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+    /* Stylizacja pól formularza */
+    .edit-body {
+        padding: 50px;
+    }
+
+    .form-floating > label {
+        color: #999;
+        font-weight: 600;
+    }
+
+    .form-control {
+        border-radius: 15px;
+        border: 2px solid #FEF3DC;
+        padding: 15px;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #F9812A;
+            box-shadow: 0 0 10px rgba(249, 129, 42, 0.1);
+            background-color: #fffcf7;
+        }
+
+    /* Przyciski */
+    .btn-save-custom {
+        background: #F9812A;
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(249, 129, 42, 0.3);
+    }
+
+        .btn-save-custom:hover {
+            background: #E83A61;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(232, 58, 97, 0.4);
+            color: white;
+        }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #666;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .back-link:hover {
+            color: #F9812A;
+        }
+
+    /* Błędy walidacji */
+    .text-danger {
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 5px;
+        display: block;
+    }
+</style>
+
+<div class="edit-page-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="edit-card animate-in">
+                    
+                    <div class="edit-header">
+                        <i class="bi bi-pencil-square"></i>
+                        <h2 class="fw-bold m-0">Edytuj Trunek</h2>
+                        <p class="small opacity-75">Aktualizacja danych produktu: @Model.Nazwa</p>
+                    </div>
+
+                    <div class="edit-body">
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                            <input type="hidden" asp-for="Id" />
+
+                            <div class="mb-4">
+                                <label asp-for="Nazwa" class="form-label fw-bold small text-uppercase text-muted"></label>
+                                <input asp-for="Nazwa" class="form-control form-control-lg" placeholder="np. Wino Bordeaux" />
+                                <span asp-validation-for="Nazwa" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="Opis" class="form-label fw-bold small text-uppercase text-muted"></label>
+                                <textarea asp-for="Opis" class="form-control" rows="3" placeholder="Opisz ten wyjątkowy produkt..."></textarea>
+                                <span asp-validation-for="Opis" class="text-danger"></span>
+                            </div>
+
+                            <div class="row mb-5">
+                                <div class="col-md-6">
+                                    <label asp-for="Cena" class="form-label fw-bold small text-uppercase text-muted"></label>
+                                    <div class="input-group">
+                                        <input asp-for="Cena" class="form-control form-control-lg" />
+                                        <span class="input-group-text bg-white border-start-0" style="border-radius: 0 15px 15px 0; border: 2px solid #FEF3DC; border-left: none;">zł</span>
+                                    </div>
+                                    <span asp-validation-for="Cena" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6 mt-3 mt-md-0">
+                                    <label asp-for="ZawartoscAlkoholu" class="form-label fw-bold small text-uppercase text-muted">Procenty (%)</label>
+                                    <input asp-for="ZawartoscAlkoholu" class="form-control form-control-lg" />
+                                    <span asp-validation-for="ZawartoscAlkoholu" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-save-custom">
+                                <i class="bi bi-check-lg me-2"></i> Zapisz zmiany
+                            </button>
+
+                            <a asp-action="Index" class="back-link">
+                                <i class="bi bi-arrow-left me-1"></i> Wróć do spiżarni
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

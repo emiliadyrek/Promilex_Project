@@ -1,0 +1,182 @@
+﻿@model Promiex.Models.Klient
+
+@{
+    ViewData["Title"] = "Aktualizacja Kartoteki";
+}
+
+<style>
+    .client-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .client-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(160, 82, 45, 0.15); 
+        overflow: hidden;
+        width: 100%;
+        max-width: 500px;
+        border: none;
+        animation: fadeInScale 0.5s ease-out;
+    }
+
+    @@keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .client-header {
+        background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .client-header i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        display: block;
+        color: #F1C40F; 
+    }
+
+    .client-body {
+        padding: 40px;
+    }
+
+    .form-label-custom {
+        font-weight: 800;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #8B4513; 
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .client-input {
+        border-radius: 15px;
+        border: 2px solid #F0F3F4;
+        padding: 12px 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .client-input:focus {
+        border-color: #A0522D;
+        box-shadow: 0 0 12px rgba(160, 82, 45, 0.1);
+        background-color: #fdfaf3;
+        outline: none;
+    }
+
+    .btn-client-update {
+        background: #A0522D;
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        margin-top: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(160, 82, 45, 0.2);
+    }
+
+    .btn-client-update:hover {
+        background: #8B4513;
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(139, 69, 19, 0.3);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #8B4513;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+        opacity: 0.7;
+    }
+
+    .back-link:hover {
+        color: #A0522D;
+        opacity: 1;
+    }
+
+    .input-group-text {
+        border-radius: 15px 0 0 15px !important;
+        background-color: #fdfaf3;
+        border: 2px solid #F0F3F4;
+        border-right: none;
+        color: #A0522D; 
+    }
+
+    .client-input-grouped {
+        border-radius: 0 15px 15px 0 !important;
+    }
+</style>
+
+<div class="client-page-wrapper">
+    <div class="client-card shadow-lg">
+        
+        <div class="client-header">
+            <i class="bi bi-person-gear"></i>
+            <h2 class="fw-bold m-0 h3">Edytuj Wspólnika</h2>
+            <p class="small opacity-75 mt-2">Zmienił nazwisko, czy ucieka przed rachunkiem?</p>
+        </div>
+
+        <div class="client-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="Imie" class="form-label-custom">Imię (jeśli jeszcze pamięta)</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input asp-for="Imie" class="form-control client-input client-input-grouped" />
+                    </div>
+                    <span asp-validation-for="Imie" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Nazwisko" class="form-label-custom">Nazwisko / Alibi</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+                        <input asp-for="Nazwisko" class="form-control client-input client-input-grouped" />
+                    </div>
+                    <span asp-validation-for="Nazwisko" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Email" class="form-label-custom">Nowy adres do spamu</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope-at"></i></span>
+                        <input asp-for="Email" class="form-control client-input client-input-grouped" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn-client-update">
+                    <i class="bi bi-check2-all me-2"></i> Zatwierdź zmiany
+                </button>
+
+                <a asp-action="Index" class="back-link">
+                    <i class="bi bi-arrow-left-short"></i> Wyjdź bez zapisywania zeznań
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

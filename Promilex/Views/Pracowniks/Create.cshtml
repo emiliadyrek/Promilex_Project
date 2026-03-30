@@ -1,0 +1,179 @@
+﻿@model Promiex.Models.Pracownik
+
+@{
+    ViewData["Title"] = "Dodaj Nowego Pracownika";
+}
+
+<style>
+    .create-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        padding: 60px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .create-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(108, 92, 231, 0.1); 
+        overflow: hidden;
+        border: none;
+        animation: slideUp 0.5s ease-out;
+    }
+
+    @@keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .create-header {
+        background: linear-gradient(135deg, #6C5CE7 0%, #E83A61 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .create-header i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        display: block;
+        color: #FFB800; 
+    }
+
+    .create-body {
+        padding: 50px;
+    }
+
+    .form-label-custom {
+        font-weight: 800;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #95A5A6;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .form-control-custom {
+        border-radius: 15px;
+        border: 2px solid #FEF3DC;
+        padding: 12px 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .form-control-custom:focus {
+        border-color: #6C5CE7;
+        box-shadow: 0 0 10px rgba(108, 92, 231, 0.1);
+        background-color: #fffcf7;
+        outline: none;
+    }
+
+    .btn-create-custom {
+        background: linear-gradient(90deg, #6C5CE7 0%, #E83A61 100%);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
+    }
+
+    .btn-create-custom:hover {
+        transform: scale(1.02);
+        box-shadow: 0 15px 30px rgba(108, 92, 231, 0.4);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #7F8C8D;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        color: #6C5CE7;
+    }
+
+    .input-group-text {
+        border-radius: 15px 0 0 15px !important;
+        background-color: #fffcf7;
+        border: 2px solid #FEF3DC;
+        border-right: none;
+        color: #6C5CE7;
+    }
+
+    .grouped-input {
+        border-radius: 0 15px 15px 0 !important;
+    }
+</style>
+
+<div class="create-page-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-5">
+                <div class="create-card shadow-lg">
+                    
+                    <div class="create-header">
+                        <i class="bi bi-person-plus-fill"></i>
+                        <h2 class="fw-bold m-0">Nowy Współpracownik</h2>
+                        <p class="small opacity-75 mt-2">Powiększamy ekipę spiżarni!</p>
+                    </div>
+
+                    <div class="create-body">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+                            <div class="mb-3">
+                                <label asp-for="Imie" class="form-label-custom">Imię</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    <input asp-for="Imie" class="form-control form-control-custom grouped-input" placeholder="np. Jan" />
+                                </div>
+                                <span asp-validation-for="Imie" class="text-danger small"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Nazwisko" class="form-label-custom">Nazwisko</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                                    <input asp-for="Nazwisko" class="form-control form-control-custom grouped-input" placeholder="np. Kowalski" />
+                                </div>
+                                <span asp-validation-for="Nazwisko" class="text-danger small"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="Stanowisko" class="form-label-custom">Stanowisko</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                                    <input asp-for="Stanowisko" class="form-control form-control-custom grouped-input" placeholder="np. Specjalista ds. degustacji" />
+                                </div>
+                                <span asp-validation-for="Stanowisko" class="text-danger small"></span>
+                            </div>
+
+                            <button type="submit" class="btn-create-custom">
+                                <i class="bi bi-check2-circle me-2"></i> Dodaj do zespołu
+                            </button>
+
+                            <a asp-action="Index" class="back-link">
+                                <i class="bi bi-arrow-left-short"></i> Wróć do listy pracowników
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,130 @@
+﻿@model Promiex.Models.Kategoria
+
+@{
+    ViewData["Title"] = "Edytuj Kategorię";
+}
+
+<style>
+    .category-edit-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .edit-cat-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        max-width: 500px;
+        width: 100%;
+        overflow: hidden;
+        border: none;
+    }
+
+    .edit-cat-header {
+        background: linear-gradient(135deg, #C0308C 0%, #E83A61 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+        .edit-cat-header i {
+            font-size: 45px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+    .edit-cat-body {
+        padding: 45px;
+    }
+
+    .cat-input-styled {
+        border-radius: 15px;
+        border: 2px solid #FEF3DC;
+        padding: 15px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .cat-input-styled:focus {
+            border-color: #C0308C;
+            box-shadow: 0 0 10px rgba(192, 48, 140, 0.1);
+            background-color: #fffcfd;
+        }
+
+    .btn-cat-save {
+        background: #C0308C;
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(192, 48, 140, 0.2);
+        margin-top: 10px;
+    }
+
+        .btn-cat-save:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+    .back-to-list {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #777;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+        .back-to-list:hover {
+            color: #C0308C;
+        }
+</style>
+
+<div class="category-edit-wrapper">
+    <div class="edit-cat-card animate-in">
+        
+        <div class="edit-cat-header">
+            <i class="bi bi-pencil-fill"></i>
+            <h2 class="fw-bold m-0">Zmień nazwę</h2>
+            <p class="small opacity-75 mt-1">Aktualizujesz kategorię: <b>@Model.Nazwa</b></p>
+        </div>
+
+        <div class="edit-cat-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-4">
+                    <label asp-for="Nazwa" class="form-label fw-bold small text-uppercase text-muted">Nowa nazwa sekcji</label>
+                    <input asp-for="Nazwa" class="form-control cat-input-styled" placeholder="np. Wina Musujące" />
+                    <span asp-validation-for="Nazwa" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn-cat-save">
+                    <i class="bi bi-check2-circle me-2"></i> Zaktualizuj
+                </button>
+
+                <a asp-action="Index" class="back-to-list">
+                    <i class="bi bi-arrow-left me-1"></i> Porzuć zmiany i wróć
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

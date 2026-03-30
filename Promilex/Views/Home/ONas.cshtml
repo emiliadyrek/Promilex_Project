@@ -1,0 +1,268 @@
+﻿@{
+    ViewData["Title"] = "O nas";
+}
+
+<style>
+    
+    .on-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        padding-bottom: 80px;
+        animation: fadeInPage 0.8s ease-in-out;
+    }
+
+    @@keyframes fadeInPage {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .on-header {
+        text-align: center;
+        padding: 80px 0;
+    }
+    .on-title {
+        font-size: 50px;
+        font-weight: 800;
+        color: #F9812A;
+        letter-spacing: 1px;
+        transition: transform 0.3s ease;
+    }
+    .on-title:hover { transform: scale(1.05); }
+
+    .history-card {
+        background: white;
+        border-radius: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        padding: 40px;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        margin-bottom: 80px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .history-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+
+    .history-image {
+        flex: 1;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 20px;
+        transition: filter 0.3s ease;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        text-align: center;
+        border: none;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+        transform: translateY(-10px);
+        background-color: #fff9f0;
+    }
+
+    .stat-icon-box {
+        width: 60px; height: 60px; border-radius: 15px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 24px; color: white; margin: 0 auto 25px auto;
+        transition: transform 0.3s ease;
+    }
+    
+    .counter {
+        display: inline-block;
+    }
+
+    .team-card {
+        border-radius: 25px;
+        padding: 30px;
+        text-align: center;
+        border: none;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+    .team-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .team-avatar {
+        width: 80px; height: 80px;
+        border-radius: 50%;
+        object-fit: contain;
+        margin-bottom: 20px;
+    }
+
+    .contact-cta-wrapper {
+        background: linear-gradient(90deg, #F9812A 0%, #E83A61 100%);
+        border-radius: 30px;
+        padding: 60px;
+        color: white;
+        margin: 80px 0;
+        box-shadow: 0 20px 50px rgba(232, 58, 97, 0.3);
+    }
+
+    .contact-item {
+        background-color: rgba(255,255,255,0.1);
+        border-radius: 15px;
+        padding: 15px 20px;
+        display: flex; align-items: center; gap: 15px;
+        margin-bottom: 10px;
+        transition: all 0.3s ease;
+    }
+    .contact-item:hover {
+        background-color: rgba(255,255,255,0.25);
+        transform: translateX(8px);
+    }
+
+    .curiosity-box {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        margin: 60px 0;
+        border-left: 5px solid #FFB800;
+    }
+</style>
+
+<div class="on-page-wrapper">
+    <div class="container">
+        
+        <div class="on-header">
+            <h1 class="on-title">O nas ✨</h1>
+            <p class="on-subtitle lead text-muted">Odkryj historię najlepszego zaopatrzenia w mieście!</p>
+        </div>
+
+        <div class="history-card shadow-lg">
+            <img src="~/images/neon_cocktail.png" class="history-image shadow" alt="Klimat Promilex">
+            <div class="history-text">
+                <h2 class="fw-bold mb-3" style="color: #E83A61;">Nasza Historia 📖</h2>
+                <p class="mb-3">Promilex powstał w 2011 roku z pasji do najlepszych alkoholi świata. Od tamtej pory nieprzerwanie serwujemy naszym klientom najwyższą jakość w przystępnych cenach!</p>
+                <p class="mb-3">Jesteśmy dumni z naszej kolekcji win z Francji, whisky ze Szkocji i craftowych piw z lokalnych browarów. Każdy produkt jest starannie wyselekcjonowany przez nasz zespół ekspertów! 🌟</p>
+                <p>W weekendy organizujemy darmowe degustacje - to świetna okazja, żeby poznać nowe smaki i spotkać się z innymi pasjonatami dobrych trunków!</p>
+                <p class="text-muted small fst-italic mt-3">*(Wszystkie opinie klientów zostały zebrane przed otwarciem trzeciej butelki)</p>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-icon-box" style="background-color: #F9812A;"><i class="bi bi-award"></i></div>
+                    <h1 class="display-3 fw-bold" style="color: #F9812A;">
+                        <span class="counter" data-target="15">0</span>+
+                    </h1>
+                    <p class="fw-bold text-muted">Lat doświadczenia <br><small>(i cierpienia)</small></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-icon-box" style="background-color: #FFB800;"><i class="bi bi-people"></i></div>
+                    <h1 class="display-3 fw-bold" style="color: #FFB800;">
+                        <span class="counter" data-target="5000">0</span>+
+                    </h1>
+                    <p class="fw-bold text-muted">Zadowolonych klientów <br><small>(przynajmniej rano)</small></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-icon-box" style="background-color: #C0308C;"><i class="bi bi-heart"></i></div>
+                    <h1 class="display-3 fw-bold" style="color: #C0308C;">
+                        <span class="counter" data-target="500">0</span>+
+                    </h1>
+                    <p class="fw-bold text-muted">Produktów premium <br><small>(i kilka dla biednych)</small></p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-center fw-bold mt-5 mb-5" style="color: #E83A61;">Nasz Zespół 👥</h2>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="team-card shadow-sm" style="background: linear-gradient(135deg, #FFEFD6 0%, #F5DCC0 100%);">
+                    <img src="~/images/avatar_marek.png" class="team-avatar shadow" alt="Marek">
+                    <h4 class="fw-bold">Marek</h4>
+                    <p class="text-muted small mb-1">Manager</p>
+                    <p class="small fst-italic">Sprzedał swoją duszę za rabat 10%</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="team-card shadow-sm" style="background: linear-gradient(135deg, #FEF0F7 0%, #FDDDEF 100%);">
+                    <img src="~/images/icon_wine.png" class="team-avatar shadow" alt="Anna">
+                    <h4 class="fw-bold">Anna</h4>
+                    <p class="text-muted small mb-1">Sommelierka</p>
+                    <p class="small fst-italic">Zna różnicę między winem a winnym</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="team-card shadow-sm" style="background: linear-gradient(135deg, #FFF8E6 0%, #FEF0BF 100%);">
+                    <img src="~/images/icon_beer.png" class="team-avatar shadow" alt="Piotr">
+                    <h4 class="fw-bold">Piotr</h4>
+                    <p class="text-muted small mb-1">Specjalista piw</p>
+                    <p class="small fst-italic">Testuje produkty od 15 lat</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-cta-wrapper shadow-lg">
+            <h2 class="text-center display-5 fw-bold text-white mb-5">Odwiedź nas! 📍</h2>
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6">
+                    <div class="contact-item"><i class="bi bi-geo-alt-fill fs-4"></i> <div>Adres:<br><b>ul. Alkoholowa 42<br>00-123 Warszawa</b></div></div>
+                    <div class="contact-item"><i class="bi bi-clock-fill fs-4"></i> <div>Godziny otwarcia:<br><b>Pn-Pt: 10:00 - 22:00<br>Sb: 10:00 - 23:00</b></div></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-item"><i class="bi bi-telephone-fill fs-4"></i> <div>Telefon:<br><b>+48 123 456 789</b></div></div>
+                    <div class="contact-item"><i class="bi bi-envelope-fill fs-4"></i> <div>Email:<br><b>kontakt@@promilex.pl</b></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="curiosity-box text-muted shadow-sm">
+            <i class="bi bi-lightbulb-fill" style="color: #FFB800;"></i> <b>Ciekawostka:</b> Nazwa "Promilex" pochodzi od łacińskiego "promissio" (obietnica) - obietnica najlepszej jakości! ☀️
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 100; 
+
+            const startCount = (el) => {
+                const target = +el.getAttribute('data-target');
+                let count = 0;
+                
+                const increment = target / speed;
+
+                const updateCount = () => {
+                    count += increment;
+                    if (count < target) {
+                        el.innerText = Math.ceil(count);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        el.innerText = target;
+                    }
+                };
+                updateCount();
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startCount(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.6 });
+
+            counters.forEach(counter => observer.observe(counter));
+        });
+    </script>
+}

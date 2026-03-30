@@ -1,0 +1,154 @@
+﻿@model Promiex.Models.Dostawca
+
+@{
+    ViewData["Title"] = "Renegocjacja Kontraktu";
+}
+
+<style>
+    .sup-edit-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .edit-sup-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        max-width: 500px;
+        width: 100%;
+        overflow: hidden;
+        border: none;
+        animation: fadeInScale 0.4s ease-out;
+    }
+
+    @@keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .edit-sup-header {
+        background: linear-gradient(135deg, #C0308C 0%, #E83A61 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .edit-sup-header i {
+        font-size: 45px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .edit-sup-body {
+        padding: 45px;
+    }
+
+    .sup-input-styled {
+        border-radius: 15px;
+        border: 2px solid #FEF3DC;
+        padding: 15px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .sup-input-styled:focus {
+        border-color: #C0308C;
+        box-shadow: 0 0 10px rgba(192, 48, 140, 0.1);
+        background-color: #fffcfd;
+        outline: none;
+    }
+
+    .form-label-mini {
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #95A5A6;
+        letter-spacing: 1.5px;
+        font-size: 11px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .btn-sup-save {
+        background: #333;
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        margin-top: 10px;
+    }
+
+    .btn-sup-save:hover {
+        background: #C0308C;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(192, 48, 140, 0.2);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #777;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        color: #C0308C;
+        transform: translateX(-3px);
+    }
+</style>
+
+<div class="sup-edit-wrapper">
+    <div class="edit-sup-card shadow-lg">
+        
+        <div class="edit-sup-header">
+            <i class="bi bi-pencil-square"></i>
+            <h2 class="fw-bold m-0">Zmień Detale</h2>
+            <p class="small opacity-75 mt-1">Aktualizujesz kontrakt: <b>@Model.NazwaFirmy</b></p>
+        </div>
+
+        <div class="edit-sup-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-4 text-center">
+                    <label asp-for="NazwaFirmy" class="form-label-mini">Nowa Nazwa Podmiotu</label>
+                    <input asp-for="NazwaFirmy" class="form-control sup-input-styled" placeholder="np. Nowa Gorzelnia Sp. z o.o." />
+                    <span asp-validation-for="NazwaFirmy" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4 text-center">
+                    <label asp-for="NumerTelefonu" class="form-label-mini">Zaktualizowany Kontakt</label>
+                    <input asp-for="NumerTelefonu" class="form-control sup-input-styled" placeholder="+48 000 000 000" />
+                    <span asp-validation-for="NumerTelefonu" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn-sup-save">
+                    <i class="bi bi-check2-circle me-2"></i> Zatwierdź zmiany
+                </button>
+
+                <a asp-action="Index" class="back-link">
+                    <i class="bi bi-arrow-left me-1"></i> Porzuć renegocjacje
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

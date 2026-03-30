@@ -1,0 +1,150 @@
+﻿@model Promiex.Models.Producent
+
+@{
+    ViewData["Title"] = "Edytuj Producenta";
+}
+
+<style>
+    .producer-edit-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+    }
+
+    .producer-edit-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        overflow: hidden;
+        max-width: 550px;
+        width: 100%;
+        border: none;
+    }
+
+    .producer-edit-header {
+        background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .producer-edit-header i {
+        font-size: 45px;
+        margin-bottom: 10px;
+        display: block;
+        color: #3498DB;
+    }
+
+    .producer-edit-body {
+        padding: 45px;
+    }
+
+    .form-label-biz {
+        font-weight: 800;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #7F8C8D;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .biz-input {
+        border-radius: 12px;
+        border: 2px solid #F0F3F4;
+        padding: 12px 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .biz-input:focus {
+        border-color: #3498DB;
+        box-shadow: 0 0 10px rgba(52, 152, 219, 0.1);
+        background-color: #fbfdfe;
+    }
+
+    .btn-biz-save {
+        background: #2C3E50;
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .btn-biz-save:hover {
+        background: #3498DB;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(52, 152, 219, 0.2);
+        color: white;
+    }
+
+    .biz-back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #95A5A6;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .biz-back-link:hover {
+        color: #2C3E50;
+    }
+</style>
+
+<div class="producer-edit-wrapper">
+    <div class="producer-edit-card shadow-lg animate-in">
+        
+        <div class="producer-edit-header">
+            <i class="bi bi-pencil-square"></i>
+            <h2 class="fw-bold m-0">Aktualizuj Dane</h2>
+            <p class="small opacity-75 mt-1">ID Dostawcy: #PROD-@Model.Id</p>
+        </div>
+
+        <div class="producer-edit-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-4">
+                    <label asp-for="Nazwa" class="form-label-biz">Nazwa Podmiotu</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-0" style="border-radius: 12px 0 0 12px;"><i class="bi bi-building"></i></span>
+                        <input asp-for="Nazwa" class="form-control biz-input" style="border-radius: 0 12px 12px 0;" />
+                    </div>
+                    <span asp-validation-for="Nazwa" class="text-danger"></span>
+                </div>
+
+                <div class="mb-5">
+                    <label asp-for="KrajPochodzenia" class="form-label-biz">Region / Kraj</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-0" style="border-radius: 12px 0 0 12px;"><i class="bi bi-geo-alt"></i></span>
+                        <input asp-for="KrajPochodzenia" class="form-control biz-input" style="border-radius: 0 12px 12px 0;" />
+                    </div>
+                    <span asp-validation-for="KrajPochodzenia" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn-biz-save shadow-sm">
+                    <i class="bi bi-cloud-arrow-up-fill me-2"></i> Zaktualizuj Partnera
+                </button>
+
+                <a asp-action="Index" class="biz-back-link">
+                    <i class="bi bi-arrow-left-short"></i> Powrót do bazy dostawców
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

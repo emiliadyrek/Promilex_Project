@@ -1,0 +1,221 @@
+﻿@model Promiex.Models.Zamowienie
+
+@{
+    ViewData["Title"] = "Szczegóły Zamówienia";
+}
+
+<style>
+    .details-page-wrapper {
+        background-color: #FEF3DC; 
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .details-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(232, 58, 97, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 600px;
+        border: none;
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .order-header {
+        background: linear-gradient(135deg, #E83A61 0%, #F9812A 100%);
+        padding: 50px 40px;
+        text-align: center;
+        color: white;
+    }
+
+    .order-icon-box {
+        width: 85px;
+        height: 85px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid #FFB800; 
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 35px;
+        color: #FFB800;
+        margin: 0 auto 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .order-title {
+        font-size: 28px;
+        font-weight: 900;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+    }
+
+    .order-subtitle {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        opacity: 0.9;
+        font-weight: 700;
+    }
+
+    .details-body {
+        padding: 40px;
+    }
+
+    .data-row {
+        display: flex;
+        align-items: center;
+        padding: 20px 0;
+        border-bottom: 2px solid #FEF3DC;
+    }
+
+    .data-row:last-of-type {
+        border-bottom: none;
+    }
+
+    .data-icon {
+        width: 50px;
+        height: 50px;
+        background: #fffcf7;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #E83A61; 
+        font-size: 22px;
+        margin-right: 20px;
+        border: 1px solid #FEF3DC;
+    }
+
+    .data-content label {
+        display: block;
+        font-size: 11px;
+        font-weight: 800;
+        color: #F9812A; 
+        text-transform: uppercase;
+        margin-bottom: 2px;
+        letter-spacing: 1px;
+    }
+
+    .data-content span {
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .details-footer {
+        padding: 0 40px 40px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn-edit-order {
+        background: linear-gradient(90deg, #F9812A 0%, #E83A61 100%);
+        color: white;
+        border: none;
+        padding: 16px 25px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        flex: 2;
+        text-decoration: none;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 8px 20px rgba(232, 58, 97, 0.25);
+    }
+
+    .btn-edit-order:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 12px 25px rgba(232, 58, 97, 0.4);
+        color: white;
+    }
+
+    .btn-back-order {
+        background: #333; 
+        color: white;
+        padding: 16px 20px;
+        border-radius: 50px;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-decoration: none;
+        flex: 1;
+        text-align: center;
+        transition: 0.3s;
+        font-size: 14px;
+    }
+
+    .btn-back-order:hover {
+        background: #000;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .status-highlight {
+        color: #E83A61 !important;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="details-page-wrapper">
+    <div class="details-card shadow-lg">
+        
+        <div class="order-header">
+            <div class="order-icon-box">
+                <i class="bi bi-heart-fill"></i>
+            </div>
+            <h2 class="order-title">Karta Rezerwacji</h2>
+            <div class="order-subtitle">Numer systemowy: #ZAM-@Model.Id</div>
+        </div>
+
+        <div class="details-body">
+            <div class="data-row">
+                <div class="data-icon"><i class="bi bi-calendar2-heart"></i></div>
+                <div class="data-content">
+                    <label>Data złożenia</label>
+                    <span>@Model.DataZamowienia.ToString("dd MMMM yyyy, HH:mm")</span>
+                </div>
+            </div>
+
+            <div class="data-row">
+                <div class="data-icon"><i class="bi bi-person-circle"></i></div>
+                <div class="data-content">
+                    <label>Wspólnik (Klient)</label>
+                    <span>Uczestnik Rejestru #@Model.KlientId</span>
+                </div>
+            </div>
+
+            <div class="data-row">
+                <div class="data-icon"><i class="bi bi-bookmark-star"></i></div>
+                <div class="data-content">
+                    <label>Aktualny status</label>
+                    <span class="status-highlight">
+                        @Model.Status
+                    </span>
+                </div>
+            </div>
+
+            <p class="text-center text-muted small mt-4" style="font-style: italic;">
+                Dziękujemy za zaufanie do spiżarni Promiex! 🍷
+            </p>
+        </div>
+
+        <div class="details-footer">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-edit-order">
+                <i class="bi bi-pencil-fill me-2"></i> Popraw dane
+            </a>
+            <a asp-action="Index" class="btn-back-order">
+                Wstecz
+            </a>
+        </div>
+    </div>
+</div>

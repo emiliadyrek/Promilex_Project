@@ -1,0 +1,149 @@
+﻿@model Promiex.Models.Zamowienie
+
+@{
+    ViewData["Title"] = "Anulowanie Zamówienia";
+}
+
+<style>
+    .delete-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .delete-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(44, 62, 80, 0.15);
+        overflow: hidden;
+        width: 100%;
+        max-width: 550px;
+        border: none;
+        animation: shake 0.5s ease-in-out;
+    }
+
+    @@keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
+    .delete-header {
+        background: linear-gradient(135deg, #2C3E50 0%, #C0392B 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .delete-header i {
+        font-size: 55px;
+        margin-bottom: 15px;
+        display: block;
+        color: #F1C40F; 
+    }
+
+    .delete-body {
+        padding: 40px;
+    }
+
+    .order-info-box {
+        background: #F8F9F9;
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 30px;
+        border-left: 5px solid #2C3E50;
+    }
+
+    .info-label {
+        font-weight: 800;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #95A5A6;
+        letter-spacing: 1px;
+        margin-bottom: 2px;
+    }
+
+    .info-value {
+        font-size: 18px;
+        font-weight: 700;
+        color: #2C3E50;
+        margin-bottom: 15px;
+    }
+
+    .btn-delete-confirm {
+        background: #C0392B;
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(192, 57, 43, 0.2);
+    }
+
+    .btn-delete-confirm:hover {
+        background: #A93226;
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(169, 50, 38, 0.3);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #7F8C8D;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        color: #2C3E50;
+    }
+</style>
+
+<div class="delete-page-wrapper">
+    <div class="delete-card shadow-lg">
+        
+        <div class="delete-header">
+            <i class="bi bi-cart-x-fill"></i>
+            <h2 class="fw-bold m-0 h3">Usuwasz ślad?</h2>
+            <p class="small opacity-75 mt-2">Zamówienie zniknie z rejestru na zawsze.</p>
+        </div>
+
+        <div class="delete-body">
+            <h5 class="text-center mb-4 fw-bold" style="color: #2C3E50;">Czy na pewno chcesz to wymazać?</h5>
+
+            <div class="order-info-box">
+                <div class="info-label">Data operacji</div>
+                <div class="info-value">@Model.DataZamowienia.ToString("dd.MM.yyyy HH:mm")</div>
+
+                <div class="info-label">ID Wspólnika (Klienta)</div>
+                <div class="info-value">#@Model.KlientId</div>
+
+                <div class="info-label">Status końcowy</div>
+                <div class="info-value">
+                    <span class="badge bg-secondary opacity-75">@Model.Status</span>
+                </div>
+            </div>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                
+                <button type="submit" class="btn-delete-confirm">
+                    <i class="bi bi-eraser-fill me-2"></i> Potwierdź usunięcie
+                </button>
+
+                <a asp-action="Index" class="back-link">
+                    <i class="bi bi-arrow-left-short"></i> Nie, zostawmy to w papierach
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

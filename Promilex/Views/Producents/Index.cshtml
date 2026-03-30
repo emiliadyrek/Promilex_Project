@@ -1,0 +1,190 @@
+﻿@model IEnumerable<Promiex.Models.Producent>
+
+@{
+    ViewData["Title"] = "Baza Producentów";
+}
+
+<style>
+    .producer-index-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        padding: 60px 0;
+        padding-bottom: 120px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .producer-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .producer-title {
+        font-size: 42px;
+        font-weight: 900;
+        color: #2C3E50;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+    }
+
+    .producer-card {
+        background: white;
+        border-radius: 30px;
+        padding: 35px 25px;
+        border: none;
+        height: 100%;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(44, 62, 80, 0.05);
+    }
+
+        .producer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(52, 152, 219, 0.15);
+        }
+
+    .producer-icon-box {
+        width: 70px;
+        height: 70px;
+        background: #f0f4f8;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        color: #3498DB;
+        margin-bottom: 20px;
+        transition: 0.3s;
+    }
+
+    .producer-card:hover .producer-icon-box {
+        background: #2C3E50;
+        color: white;
+    }
+
+    .producer-name {
+        font-size: 22px;
+        font-weight: 800;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .producer-country {
+        font-size: 14px;
+        color: #7F8C8D;
+        font-weight: 600;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .action-group-pill {
+        display: flex;
+        gap: 10px;
+        margin-top: auto;
+        background: #f8f9fa;
+        padding: 10px 15px;
+        border-radius: 50px;
+    }
+
+    .action-btn-mini {
+        color: #2C3E50;
+        text-decoration: none;
+        font-size: 18px;
+        transition: 0.2s;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+        .action-btn-mini:hover {
+            background: white;
+            color: #3498DB;
+            transform: scale(1.2);
+        }
+
+        .action-btn-mini.btn-delete:hover {
+            color: #E83A61 !important;
+        }
+
+    .fab-add-producer {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        width: 75px;
+        height: 75px;
+        background: #2C3E50;
+        color: white;
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        box-shadow: 0 10px 30px rgba(44, 62, 80, 0.3);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        z-index: 1000;
+    }
+
+        .fab-add-producer:hover {
+            transform: scale(1.1) rotate(90deg);
+            background: #3498DB;
+            color: white;
+        }
+</style>
+
+<div class="producer-index-wrapper">
+    <div class="container">
+        <div class="producer-header">
+            <h1 class="producer-title">Baza Producentów 🏢</h1>
+            <p class="text-muted">Lista kontaktów, których nie powinieneś wybierać po 22:00.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="producer-card shadow-sm">
+                        <div class="producer-icon-box shadow-sm">
+                            <i class="bi bi-briefcase-fill"></i>
+                        </div>
+                        <div class="producer-name">@item.Nazwa</div>
+                        <div class="producer-country">
+                            <i class="bi bi-globe-europe-africa"></i> @item.KrajPochodzenia
+                        </div>
+                        <div class="action-group-pill shadow-sm">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="action-btn-mini" title="Edytuj dane">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="action-btn-mini" title="Szczegóły">
+                                <i class="bi bi-info-circle-fill"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="action-btn-mini btn-delete" title="Usuń producenta">
+                                <i class="bi bi-trash3-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="col-12 text-center py-5">
+                    <div class="opacity-25 display-1 mb-3">🏢</div>
+                    <h3 class="text-muted fw-light">Baza producentów jest pusta.</h3>
+                    <p class="text-muted small">Użyj wielkiego plusa w rogu, aby dodać pierwszą firmę.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<a asp-action="Create" class="fab-add-producer shadow-lg" title="Dodaj nowego producenta">
+    <i class="bi bi-plus-lg" style="color: white !important;"></i>
+</a>

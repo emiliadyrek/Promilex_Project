@@ -1,0 +1,207 @@
+﻿@{
+    ViewData["Title"] = "Start";
+}
+
+<style>
+    
+    .hero-wrapper {
+        background-color: #FEF3DC;
+        overflow: hidden;
+        padding: 50px 0;
+    }
+
+    .hero-container {
+        display: flex;
+        align-items: center;
+        min-height: 80vh;
+        gap: 40px;
+    }
+
+    .hero-image-box {
+        flex: 1;
+        position: relative;
+        perspective: 1000px; 
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 70vh;
+        object-fit: cover;
+        border-radius: 30px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        
+        animation: floatImage 4s ease-in-out infinite;
+        
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transform-origin: center center;
+    }
+
+    .hero-image-box:hover .hero-image {
+        animation-play-state: paused; 
+        transform: scale(1.05) rotate(2deg); 
+        box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+        cursor: pointer;
+    }
+
+    @@keyframes floatImage {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .hero-text {
+        flex: 1.2;
+        padding-right: 50px;
+    }
+    
+    .badge-terapia {
+        background: linear-gradient(90deg, #F15A2B 0%, #E83A61 100%);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-promilex {
+        background: linear-gradient(90deg, #F9812A 0%, #E83A61 100%);
+        color: white !important;
+        border: none;
+        border-radius: 50px;
+        padding: 18px 45px;
+        font-weight: 800;
+        font-size: 18px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 25px rgba(232, 58, 97, 0.3);
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-promilex:hover {
+        transform: scale(1.1);
+        box-shadow: 0 15px 35px rgba(232, 58, 97, 0.5);
+    }
+
+    .card-benefit { border: none; border-radius: 20px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: 0.3s; height: 100%; text-align: center; }
+    .card-benefit:hover { transform: translateY(-10px); background-color: #fff; }
+    .icon-box { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; margin-bottom: 20px; }
+
+    .promo-card { position: relative; border-radius: 25px; overflow: hidden; border: none; height: 380px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+    .promo-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .promo-card:hover .promo-img { transform: scale(1.15); }
+    .promo-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: white; }
+    .promo-tag { position: absolute; top: 20px; left: 20px; background: #F9812A; color: white; padding: 6px 18px; border-radius: 50px; font-weight: bold; z-index: 2; }
+
+    .black-warning { background: black; color: #F9812A; border: 2px solid #F9812A; border-radius: 25px; padding: 50px; text-align: center; margin: 80px 0; }
+    .cta-box { background: linear-gradient(90deg, #F9812A 0%, #E83A61 100%); color: white; border-radius: 30px; padding: 60px; text-align: center; margin-bottom: 80px; box-shadow: 0 20px 40px rgba(232, 58, 97, 0.3); }
+</style>
+
+<div class="hero-wrapper">
+    <div class="container p-0">
+        <div class="hero-container">
+            <div class="hero-text">
+                <span class="badge-terapia mb-3 shadow"><i class="bi bi-magic"></i> TERAPIA W BUTELCE OD 2011</span>
+                <h1 class="display-1 fw-bold mb-3" style="color: #F15A2B; line-height: 0.85;">Witaj w <br><span style="color: #C0308C;">PROMILEX!</span></h1>
+                <p class="lead mt-4 text-muted" style="max-width: 500px;">Twoje centrum alkoholowe premium! Odkryj naszą kolekcję najlepszych trunków z całego świata. 🍷🥃🍺</p>
+                <p class="fst-italic text-secondary small">"Życie jest zbyt krótkie, żeby pić tanie piwo" — Mądrość ludowa</p>
+                
+                <div class="mt-5">
+                    <a asp-controller="Produkts" asp-action="Index" class="btn-promilex">
+                        <i class="bi bi-cart3"></i> ZOBACZ PRODUKTY!
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-image-box d-none d-md-block">
+                <img src="~/images/logo.png" class="hero-image shadow-lg" alt="Regał Promilex">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5 pt-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card-benefit">
+                <div class="icon-box mx-auto" style="background: #F9812A;"><i class="bi bi-award"></i></div>
+                <h4 class="fw-bold">Premium Quality</h4>
+                <p class="text-muted">Bo tanim winem można się tylko otruć. U nas tylko sprawdzone marki.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-benefit">
+                <div class="icon-box mx-auto" style="background: #FFB800;"><i class="bi bi-truck"></i></div>
+                <h4 class="fw-bold">Świeże dostawy</h4>
+                <p class="text-muted">Uzupełniamy zapasy szybciej niż Ty zdążysz je wykończyć.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-benefit">
+                <div class="icon-box mx-auto" style="background: #E83A61;"><i class="bi bi-clock-history"></i></div>
+                <h4 class="fw-bold">Długie godziny</h4>
+                <p class="text-muted">Dla tych, którzy o braku zapasów przypominają sobie o 21:50.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5 pt-5">
+    <h2 class="text-center fw-bold mb-5" style="color: #E83A61; letter-spacing: 2px;">🔥 GORĄCE PROMOCJE! 🔥</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="promo-card">
+                <img src="~/images/whisky_promo.png" class="promo-img">
+                <div class="promo-tag">-25%</div>
+                <div class="promo-overlay">
+                    <h5 class="fw-bold">Whisky Week</h5>
+                    <p class="small mb-0">Zapomnij o problemach* <br><small>*Przynajmniej do jutra rana</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="promo-card">
+                <img src="~/images/wine_promo.png" class="promo-img">
+                <div class="promo-tag" style="background: #C0308C;">-20%</div>
+                <div class="promo-overlay">
+                    <h5 class="fw-bold">Wino na weekend</h5>
+                    <p class="small mb-0">Sophistication in a bottle <br><small>Pij z klasą, nie z konieczności</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="promo-card">
+                <img src="~/images/beer_promo.png" class="promo-img">
+                <div class="promo-tag" style="background: #FFB800;">-15%</div>
+                <div class="promo-overlay">
+                    <h5 class="fw-bold">Craft Beer Madness</h5>
+                    <p class="small mb-0">Dla koneserów i odkrywców <br><small>Smak ważniejszy niż procenty</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="black-warning shadow-lg">
+        <h2 class="fw-bold text-uppercase" style="letter-spacing: 4px;"><i class="bi bi-exclamation-triangle"></i> UWAGA! <i class="bi bi-exclamation-triangle"></i></h2>
+        <p class="lead text-white mt-3">Nadmierne spożywanie alkoholu jest szkodliwe dla zdrowia.</p>
+        <p class="fw-bold" style="color: #F9812A; font-size: 1.5rem;">Ale za to świetne dla naszego biznesu! 🤑</p>
+        <p class="mt-4 fst-italic" style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">
+            *Żartujemy. Pij odpowiedzialnie. Albo wcale. My i tak zarobimy na tych, co nie czytają małego druku.
+        </p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="cta-box">
+        <h1 class="display-4 fw-bold">Nie zwlekaj! Odwiedź nas dziś! 🍻</h1>
+        <p class="lead mt-3">Najlepszy asortyment w regionie i obsługa, która zna się na rzeczy.</p>
+        <p class="small mb-4 opacity-75 fst-italic">Darmowe porady barmańskie przy każdym zakupie powyżej 100 zł!</p>
+        <a asp-controller="Home" asp-action="ONas" class="btn btn-light btn-lg shadow px-5" style="border-radius: 50px; color: #E83A61; font-weight: 800; border: none;">
+    Sprawdź jak nas znaleźć! 📍
+</a>
+    </div>
+</div>

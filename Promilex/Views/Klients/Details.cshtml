@@ -1,0 +1,211 @@
+﻿@model Promiex.Models.Klient
+
+@{
+    ViewData["Title"] = "Profil Degustatora";
+}
+
+<style>
+    .details-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .details-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(160, 82, 45, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 600px;
+        border: none;
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile-header {
+        background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+        padding: 50px 40px;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+
+    .avatar-circle {
+        width: 100px;
+        height: 100px;
+        background: #F1C40F; 
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 42px;
+        font-weight: 900;
+        color: #A0522D; 
+        margin: 0 auto 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        border: 4px solid rgba(255,255,255,0.3);
+    }
+
+    .profile-name {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+
+    .profile-status {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        background: rgba(255,255,255,0.2);
+        padding: 5px 15px;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+    .details-body {
+        padding: 40px;
+    }
+
+    .data-row {
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .data-row:last-child {
+        border-bottom: none;
+    }
+
+    .data-icon {
+        width: 45px;
+        height: 45px;
+        background: #FEF3DC; 
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #A0522D;
+        font-size: 20px;
+        margin-right: 20px;
+    }
+
+    .data-content label {
+        display: block;
+        font-size: 11px;
+        font-weight: 800;
+        color: #95A5A6;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+    }
+
+    .data-content span {
+        font-size: 17px;
+        font-weight: 600;
+        color: #2C3E50;
+    }
+
+    .details-footer {
+        padding: 0 40px 40px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn-edit-client {
+        background: #A0522D;
+        color: white;
+        border: none;
+        padding: 14px 25px;
+        border-radius: 15px;
+        font-weight: 800;
+        text-transform: uppercase;
+        flex: 2;
+        text-decoration: none;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 5px 15px rgba(160, 82, 45, 0.2);
+    }
+
+    .btn-edit-client:hover {
+        background: #8B4513;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .btn-back-client {
+        background: #f8f9fa;
+        color: #7F8C8D;
+        padding: 14px 20px;
+        border-radius: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        flex: 1;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .btn-back-client:hover {
+        background: #e5e8e8;
+        color: #2C3E50;
+    }
+</style>
+
+<div class="details-page-wrapper">
+    <div class="details-card shadow-lg">
+        
+        <div class="profile-header">
+            <div class="avatar-circle">
+                @(Model.Imie?.Substring(0, 1))@(Model.Nazwisko?.Substring(0, 1))
+            </div>
+            <div class="profile-name">@Model.Imie @Model.Nazwisko</div>
+            <div class="profile-status">Status: VIP (Very Important Pijacz...)</div>
+        </div>
+
+        <div class="details-body">
+            <div class="data-row">
+                <div class="data-icon"><i class="bi bi-person-circle"></i></div>
+                <div class="data-content">
+                    <label>Pełna tożsamość</label>
+                    <span>@Model.Imie @Model.Nazwisko</span>
+                </div>
+            </div>
+
+            <div class="data-row">
+                <div class="data-icon"><i class="bi bi-envelope-paper-heart"></i></div>
+                <div class="data-content">
+                    <label>Kanał komunikacji (E-mail)</label>
+                    <span>@Model.Email</span>
+                </div>
+            </div>
+
+            <div class="data-row">
+                <div class="data-icon"><i class="bi bi-hash"></i></div>
+                <div class="data-content">
+                    <label>Numer w kartotece</label>
+                    <span>Obiekt #@Model.Id</span>
+                </div>
+            </div>
+
+            <p class="text-center text-muted small mt-4 italic">
+                <i>"Ostatnio widziany przy barze, twierdził że zaraz wraca."</i>
+            </p>
+        </div>
+
+        <div class="details-footer">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-edit-client">
+                <i class="bi bi-pencil-fill me-2"></i> Edytuj Profil
+            </a>
+            <a asp-action="Index" class="btn-back-client">
+                Wróć
+            </a>
+        </div>
+    </div>
+</div>

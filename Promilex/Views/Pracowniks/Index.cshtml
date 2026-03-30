@@ -1,0 +1,203 @@
+﻿@model IEnumerable<Promiex.Models.Pracownik>
+
+@{
+    ViewData["Title"] = "Zespół Promiex";
+}
+
+<style>
+    .workers-page {
+        background-color: #FEF3DC; 
+        min-height: 100vh;
+        padding-bottom: 100px;
+    }
+
+    .workers-header {
+        text-align: center;
+        padding: 60px 0;
+    }
+
+    .workers-title {
+        font-size: 42px;
+        font-weight: 900;
+        color: #6C5CE7; 
+        text-transform: uppercase;
+        letter-spacing: -1px;
+    }
+
+    .worker-card {
+        background: white;
+        border-radius: 35px;
+        border: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(108, 92, 231, 0.05);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .worker-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(108, 92, 231, 0.15);
+    }
+
+    .worker-top {
+        background: linear-gradient(135deg, #6C5CE7 0%, #E83A61 100%);
+        padding: 20px;
+        text-align: center;
+        color: white;
+    }
+
+    .worker-avatar-circle {
+        width: 70px;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid #FFB800;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        margin: 0 auto;
+    }
+
+    .worker-content {
+        padding: 25px 20px;
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    .worker-name {
+        font-size: 20px;
+        font-weight: 800;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .worker-position {
+        display: inline-block;
+        padding: 5px 15px;
+        background: #fffcf7;
+        border: 1px solid #FEF3DC;
+        border-radius: 50px;
+        color: #6C5CE7;
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+
+    .worker-actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        padding: 20px;
+        background: #fffcf7;
+        border-top: 1px solid #f9f9f9;
+    }
+
+    .circle-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn-edit { background: #FFB800; }
+    .btn-details { background: #6C5CE7; }
+    .btn-delete { background: #333; }
+
+    .circle-btn:hover {
+        transform: scale(1.15);
+        color: white;
+        filter: brightness(1.1);
+    }
+
+    .fab-add {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        width: 75px;
+        height: 75px;
+        background: linear-gradient(135deg, #6C5CE7 0%, #E83A61 100%);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
+        z-index: 999;
+        text-decoration: none;
+        transition: all 0.4s ease;
+    }
+
+    .fab-add:hover {
+        transform: scale(1.1) rotate(90deg);
+        color: white;
+        box-shadow: 0 15px 30px rgba(108, 92, 231, 0.6);
+    }
+</style>
+
+<div class="workers-page">
+    <div class="container">
+        
+        <div class="workers-header">
+            <h1 class="workers-title">Zasoby Ludzkie 👤</h1>
+            <p class="text-muted">Niektórzy są tu z własnej woli, inni po prostu dobrze pasują do inwentarza.</p>
+        </div>
+
+        @@
+        <div class="row g-4 justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-3">
+                    <div class="worker-card">
+                        <div class="worker-top">
+                            <div class="worker-avatar-circle">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="worker-content">
+                            <div class="worker-name">@item.Imie @item.Nazwisko</div>
+                            <div class="worker-position">@item.Stanowisko</div>
+                        </div>
+
+                        <div class="worker-actions">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="circle-btn btn-edit" title="Edytuj profil">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="circle-btn btn-details" title="Szczegóły">
+                                <i class="bi bi-search"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="circle-btn btn-delete" title="Usuń z zespołu">
+                                <i class="bi bi-person-x-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="col-12 text-center mt-5">
+                    <div class="p-5 border-dashed rounded-5 bg-white opacity-75">
+                        <i class="bi bi-people display-1 text-muted"></i>
+                        <h3 class="mt-3 text-muted">Brak pracowników w bazie</h3>
+                        <p>Zatrudnij kogoś klikając plusik w rogu!</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@@
+<a asp-action="Create" class="fab-add shadow-lg" title="Dodaj nowego pracownika">
+    <i class="bi bi-plus-lg"></i>
+</a>

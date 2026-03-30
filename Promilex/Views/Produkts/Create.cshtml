@@ -1,0 +1,149 @@
+﻿@model Promiex.Models.Produkt
+
+@{
+    ViewData["Title"] = "Dodaj Nowy Trunek";
+}
+
+<style>
+    .create-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        padding: 60px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .create-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        overflow: hidden;
+        border: none;
+        animation: slideUp 0.5s ease-out;
+    }
+
+    @@keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Nagłówek z radosnym gradientem */
+    .create-header {
+        background: linear-gradient(135deg, #FFB800 0%, #F9812A 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .create-header i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .create-body {
+        padding: 50px;
+    }
+
+    /* Pola formularza */
+    .form-control {
+        border-radius: 15px;
+        border: 2px solid #FEF3DC;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #FFB800;
+        box-shadow: 0 0 10px rgba(255, 184, 0, 0.1);
+        background-color: #fffcf7;
+    }
+
+    /* Przycisk Create */
+    .btn-create-custom {
+        background: linear-gradient(90deg, #F9812A 0%, #E83A61 100%);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(232, 58, 97, 0.2);
+    }
+
+    .btn-create-custom:hover {
+        transform: scale(1.02);
+        box-shadow: 0 15px 30px rgba(232, 58, 97, 0.4);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #666;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .back-link:hover { color: #F9812A; }
+</style>
+
+<div class="create-page-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="create-card">
+                    
+                    <div class="create-header">
+                        <i class="bi bi-plus-circle-dotted"></i>
+                        <h2 class="fw-bold m-0">Nowa Dostawa</h2>
+                        <p class="small opacity-75">Dodaj nowy produkt do bazy sklepu</p>
+                    </div>
+
+                    <div class="create-body">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+                            <div class="mb-4">
+                                <label asp-for="Nazwa" class="form-label fw-bold small text-uppercase text-muted">Nazwa Trunku</label>
+                                <input asp-for="Nazwa" class="form-control form-control-lg" placeholder="np. Wyborna Wiśniówka" />
+                                <span asp-validation-for="Nazwa" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="Opis" class="form-label fw-bold small text-uppercase text-muted">Krótki Opis</label>
+                                <textarea asp-for="Opis" class="form-control" rows="2" placeholder="Czym wyróżnia się ten produkt?"></textarea>
+                                <span asp-validation-for="Opis" class="text-danger"></span>
+                            </div>
+
+                            <div class="row mb-5">
+                                <div class="col-6">
+                                    <label asp-for="Cena" class="form-label fw-bold small text-uppercase text-muted">Cena (zł)</label>
+                                    <input asp-for="Cena" class="form-control form-control-lg" placeholder="0.00" />
+                                    <span asp-validation-for="Cena" class="text-danger"></span>
+                                </div>
+                                <div class="col-6">
+                                    <label asp-for="ZawartoscAlkoholu" class="form-label fw-bold small text-uppercase text-muted">Moc (%)</label>
+                                    <input asp-for="ZawartoscAlkoholu" class="form-control form-control-lg" placeholder="40" />
+                                    <span asp-validation-for="ZawartoscAlkoholu" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-create-custom">
+                                <i class="bi bi-plus-lg me-2"></i> Dodaj do Spiżarni
+                            </button>
+
+                            <a asp-action="Index" class="back-link">
+                                <i class="bi bi-x-circle me-1"></i> Anuluj i wróć
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

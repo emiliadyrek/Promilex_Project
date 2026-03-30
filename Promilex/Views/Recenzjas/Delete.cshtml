@@ -1,0 +1,169 @@
+﻿@model Promiex.Models.Recenzja
+
+@{
+    ViewData["Title"] = "Usuwanie Dowodów";
+}
+
+<style>
+    .rev-delete-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .rev-delete-card {
+        background: white;
+        border-radius: 50px;
+        box-shadow: 0 30px 70px rgba(0,0,0,0.15);
+        max-width: 500px;
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+        border: none;
+        animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @@keyframes shake {
+        10%, 90% { transform: translate3d(-1px, 0, 0); }
+        20%, 80% { transform: translate3d(2px, 0, 0); }
+        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+        40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+
+    .rev-delete-header {
+        background: #333; 
+        padding: 50px 20px;
+        color: white;
+    }
+
+    .eraser-icon {
+        font-size: 70px;
+        color: #E83A61; 
+        display: block;
+        margin-bottom: 10px;
+        filter: drop-shadow(0 0 15px rgba(232, 58, 97, 0.4));
+    }
+
+    .rev-delete-body {
+        padding: 45px;
+    }
+
+    .rev-preview-box {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 25px;
+        margin: 20px 0;
+        border: 2px dashed #E83A61;
+        position: relative;
+    }
+
+    .label-mini {
+        font-weight: 800;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #C0308C;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .rev-text-preview {
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+        font-style: italic;
+    }
+
+    .rev-score-badge {
+        position: absolute;
+        top: -15px;
+        right: 20px;
+        background: #333;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-weight: 900;
+        font-size: 14px;
+    }
+
+    .humor-warning {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 30px;
+        line-height: 1.5;
+    }
+
+    .btn-final-burn {
+        background: #E83A61;
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: 0.3s;
+        box-shadow: 0 10px 25px rgba(232, 58, 97, 0.3);
+    }
+
+    .btn-final-burn:hover {
+        background: #000;
+        transform: scale(1.02);
+        color: white;
+    }
+
+    .cancel-link {
+        display: block;
+        margin-top: 20px;
+        color: #999;
+        text-decoration: none;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+
+    .cancel-link:hover {
+        color: #C0308C;
+    }
+</style>
+
+<div class="rev-delete-wrapper">
+    <div class="rev-delete-card shadow-lg">
+        
+        <div class="rev-delete-header">
+            <i class="bi bi-eraser-fill eraser-icon"></i>
+            <h2 class="fw-bold m-0 h3">Czyszczenie Akt</h2>
+            <p class="small opacity-50 mt-2">Ktoś powiedział za dużo? Pora uciszyć te plotki.</p>
+        </div>
+
+        <div class="rev-body">
+            <div class="rev-preview-box">
+    <span class="rev-score-badge">Ocena: @Model.Ocena/5</span>
+    <span class="label-mini">Ostatnie słowa recenzenta</span>
+    <p class="rev-text-preview">"@Model.Tresc"</p>
+    <small class="text-muted">Produkt ID: #@Model.ProduktId</small>
+</div>
+
+            <p class="humor-warning">
+                <i class="bi bi-exclamation-triangle-fill text-warning me-1"></i>
+                Kliknięcie przycisku sprawi, że ta opinia zniknie szybciej niż zaliczka u nieuczciwego dostawcy. 
+                Jesteś gotowy na tę cenzurę?
+            </p>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                
+                <button type="submit" class="btn-final-burn">
+                    <i class="bi bi-fire me-2"></i> Spal dowody
+                </button>
+
+                <a asp-action="Index" class="cancel-link">
+                    <i class="bi bi-shield-lock me-1"></i> Nie, niech świat zna prawdę
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

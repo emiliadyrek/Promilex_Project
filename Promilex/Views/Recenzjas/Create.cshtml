@@ -1,0 +1,159 @@
+﻿@model Promiex.Models.Recenzja
+
+@{
+    ViewData["Title"] = "Wystaw Opinię";
+}
+
+<style>
+    .rev-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .rev-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        max-width: 500px;
+        width: 100%;
+        overflow: hidden;
+        border: none;
+        animation: fadeInScale 0.5s ease-out;
+    }
+
+    @@keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .rev-header {
+        background: linear-gradient(135deg, #C0308C 0%, #E83A61 100%);
+        padding: 45px 30px;
+        color: white;
+        text-align: center;
+    }
+
+    .rev-header i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .rev-body {
+        padding: 45px;
+    }
+
+    .rev-input-styled {
+        border-radius: 15px;
+        border: 2px solid #FEF3DC;
+        padding: 12px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .rev-input-styled:focus {
+        border-color: #C0308C;
+        box-shadow: 0 0 10px rgba(192, 48, 140, 0.1);
+        background-color: #fffcfd;
+        outline: none;
+    }
+
+    .form-label-mini {
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #95A5A6;
+        letter-spacing: 1.5px;
+        font-size: 11px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .btn-rev-submit {
+        background: #333;
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        margin-top: 15px;
+    }
+
+    .btn-rev-submit:hover {
+        background: #C0308C;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(192, 48, 140, 0.2);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #777;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        color: #E83A61;
+        transform: translateX(-3px);
+    }
+</style>
+
+<div class="rev-page-wrapper">
+    <div class="rev-card shadow-lg">
+        
+        <div class="rev-header">
+            <i class="bi bi-chat-heart-fill"></i>
+            <h2 class="fw-bold m-0 h3">Moment Prawdy</h2>
+            <p class="small opacity-75 mt-2">Opisz swoje doznania, zanim działanie towaru ustąpi.</p>
+        </div>
+
+        <div class="rev-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+                <div class="mb-4 text-center">
+                    <label asp-for="ProduktId" class="form-label-mini">ID Towaru</label>
+                    <input asp-for="ProduktId" class="form-control rev-input-styled" placeholder="Wpisz ID..." />
+                    <span asp-validation-for="ProduktId" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4 text-center">
+                    <label asp-for="Tresc" class="form-label-mini">Twoje Zeznania</label>
+                    <textarea asp-for="Tresc" class="form-control rev-input-styled" rows="3" placeholder="Co Ci leży na wątrobie?"></textarea>
+                    <span asp-validation-for="Tresc" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4 text-center">
+    <label asp-for="Ocena" class="form-label-mini">Moc w skali (1-5)</label>
+    <input asp-for="Ocena" class="form-control rev-input-styled" placeholder="Jak bardzo boli głowa? (1-5)" />
+    <span asp-validation-for="Ocena" class="text-danger small"></span>
+</div>
+
+                <button type="submit" class="btn-rev-submit">
+                    <i class="bi bi-megaphone me-2"></i> Wyślij w świat
+                </button>
+
+                <a asp-action="Index" class="back-link">
+                    <i class="bi bi-arrow-left me-1"></i> Zamilcz na wieki
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

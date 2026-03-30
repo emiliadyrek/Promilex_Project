@@ -1,0 +1,189 @@
+﻿@model IEnumerable<Promiex.Models.Dostawca>
+
+@{
+    ViewData["Title"] = "Zarządzaj Dostawcami";
+}
+
+<style>
+    .sup-index-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        padding: 60px 0;
+    }
+
+    .sup-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .sup-title {
+        font-size: 42px;
+        font-weight: 900;
+        color: #C0308C; 
+        text-transform: uppercase;
+    }
+
+    .sup-grid-card {
+        background: white;
+        border-radius: 25px;
+        padding: 30px;
+        border: none;
+        height: 100%;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    }
+
+        .sup-grid-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(192, 48, 140, 0.15);
+        }
+
+    .sup-icon-circle {
+        width: 80px;
+        height: 80px;
+        background: #FEF3DC;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        color: #C0308C; 
+        margin-bottom: 20px;
+        transition: 0.3s;
+    }
+
+    .sup-grid-card:hover .sup-icon-circle {
+        background: #C0308C;
+        color: white;
+    }
+
+    .sup-name {
+        font-size: 20px;
+        font-weight: 800;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .sup-phone {
+        font-size: 14px;
+        font-weight: 600;
+        color: #E83A61; 
+        margin-bottom: 20px;
+    }
+
+    .sup-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: auto;
+    }
+
+    .sup-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .btn-edit {
+        background: #FFB800;
+    }
+    .btn-details {
+        background: #F9812A;
+    }
+    .btn-delete {
+        background: #333;
+    }
+
+    .sup-btn:hover {
+        transform: translateY(-3px);
+        filter: brightness(1.1);
+        color: white;
+    }
+
+    .fab-sup-add {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        width: 70px;
+        height: 70px;
+        background: #C0308C;
+        color: white;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        box-shadow: 0 10px 25px rgba(192, 48, 140, 0.3);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        z-index: 1000;
+    }
+
+        .fab-sup-add:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: #E83A61;
+            color: white;
+        }
+</style>
+
+<div class="sup-index-wrapper">
+    <div class="container">
+        
+        <div class="sup-header">
+            <h1 class="sup-title">Twoi Dostawcy 🚛</h1>
+            <p class="text-muted">Ludzie, którzy dbają, by magazyn zawsze był pełny.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="sup-grid-card shadow-sm">
+                        <div class="sup-icon-circle">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        
+                        <div class="sup-name">@item.NazwaFirmy</div>
+                        <div class="sup-phone">
+                            <i class="bi bi-telephone-fill me-1"></i> @item.NumerTelefonu
+                        </div>
+
+                        <div class="sup-actions">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="sup-btn btn-edit" title="Edytuj">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="sup-btn btn-details" title="Szczegóły">
+                                <i class="bi bi-eye-fill"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="sup-btn btn-delete" title="Usuń">
+                                <i class="bi bi-trash3-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="col-12 text-center py-5">
+                    <i class="bi bi-person-x text-muted display-1"></i>
+                    <p class="mt-3 text-muted">Brak dostawców w bazie. Dodaj pierwszego!</p>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+<a asp-action="Create" class="fab-sup-add shadow-lg" title="Dodaj nowego dostawcę">
+    <i class="bi bi-plus-lg"></i>
+</a>

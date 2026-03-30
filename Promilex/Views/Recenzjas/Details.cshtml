@@ -1,0 +1,203 @@
+﻿@model Promiex.Models.Recenzja
+
+@{
+    ViewData["Title"] = "Protokół Doznań";
+}
+
+<style>
+    .rev-details-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .rev-details-card {
+        background: white;
+        border-radius: 50px;
+        box-shadow: 0 30px 70px rgba(0,0,0,0.1);
+        max-width: 550px;
+        width: 100%;
+        overflow: hidden;
+        border: none;
+        text-align: center;
+        animation: slideUp 0.6s ease-out;
+    }
+
+    @@keyframes slideUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .rev-details-header {
+        background: linear-gradient(135deg, #333 0%, #555 100%);
+        padding: 50px 20px;
+        color: white;
+        position: relative;
+    }
+
+    .rev-icon-main {
+        font-size: 60px;
+        color: #E83A61;
+        display: block;
+        margin-bottom: 10px;
+        filter: drop-shadow(0 5px 15px rgba(232, 58, 97, 0.4));
+    }
+
+    .rev-score-circle {
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 80px;
+        background: #C0308C;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid white;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .rev-score-circle span { font-size: 24px; font-weight: 900; line-height: 1; }
+    .rev-score-circle small { font-size: 10px; text-transform: uppercase; font-weight: 700; }
+
+    .rev-details-body {
+        padding: 60px 45px 45px;
+    }
+
+    .label-mini {
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #C0308C;
+        letter-spacing: 2px;
+        font-size: 11px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .testimonial-box {
+        background: #f8f9fa;
+        border-left: 5px solid #E83A61;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 20px 0 35px;
+        font-style: italic;
+        font-size: 19px;
+        color: #444;
+        line-height: 1.6;
+        position: relative;
+    }
+
+    .testimonial-box::after {
+        content: '\F635'; 
+        font-family: 'bootstrap-icons';
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 40px;
+        opacity: 0.05;
+    }
+
+    .item-id-tag {
+        font-size: 14px;
+        font-weight: 700;
+        color: #999;
+        background: #eee;
+        padding: 4px 12px;
+        border-radius: 50px;
+    }
+
+    .rev-details-footer {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        padding-top: 30px;
+        border-top: 2px solid #FEF3DC;
+    }
+
+    .btn-rev-edit {
+        background: #333;
+        color: white;
+        padding: 14px 35px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+
+    .btn-rev-edit:hover {
+        background: #C0308C;
+        transform: translateY(-3px);
+        color: white;
+    }
+
+    .btn-rev-index {
+        background: white;
+        color: #777;
+        padding: 14px 30px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 13px;
+        border: 2px solid #eee;
+        transition: 0.3s;
+    }
+
+    .btn-rev-index:hover {
+        border-color: #333;
+        color: #333;
+        transform: translateY(-3px);
+    }
+</style>
+
+<div class="rev-details-wrapper">
+    <div class="rev-details-card shadow-lg">
+        
+        <div class="rev-details-header">
+            <i class="bi bi-journal-medical rev-icon-main"></i>
+            <h2 class="fw-bold m-0 h3">Akta Dowodowe</h2>
+            <p class="small opacity-50 mt-1">Spisano pod wpływem chwili i substancji.</p>
+            
+            <div class="rev-score-circle">
+    <span>@Model.Ocena</span>
+    <small>/ 5</small>
+</div>
+        </div>
+
+        <div class="rev-details-body">
+            <span class="label-mini">Zeznania Klienta</span>
+            
+            <div class="testimonial-box">
+                "@Model.Tresc"
+            </div>
+
+            <div class="mb-5">
+                <span class="label-mini">Dotyczy Towaru</span>
+                <span class="item-id-tag">REF_ID: #@Model.ProduktId</span>
+            </div>
+
+            <p class="text-muted small italic">
+                <i class="bi bi-info-circle me-1"></i>
+                Pamiętaj: Opinia jest jak kac – każdy przechodzi ją inaczej.
+            </p>
+
+            <div class="rev-details-footer">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-rev-edit">
+                    <i class="bi bi-pencil-fill me-1"></i> Retuszuj
+                </a>
+                <a asp-action="Index" class="btn-rev-index">
+                    Archiwum
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,178 @@
+﻿@model IEnumerable<Promiex.Models.Klient>
+
+@{
+    ViewData["Title"] = "Rejestr Degustatorów";
+}
+
+<style>
+    .client-index-wrapper {
+        background-color: #FEF3DC; 
+        min-height: 100vh;
+        padding: 60px 0;
+        padding-bottom: 120px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .client-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .client-title {
+        font-size: 42px;
+        font-weight: 900;
+        color: #8E44AD; 
+        color: #A0522D; 
+        text-transform: uppercase;
+        letter-spacing: -1px;
+    }
+
+    .client-card {
+        background: white;
+        border-radius: 30px;
+        padding: 30px 20px;
+        border: none;
+        height: 100%;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(160, 82, 45, 0.05);
+    }
+
+        .client-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(160, 82, 45, 0.15);
+        }
+
+    .client-avatar-box {
+        width: 80px;
+        height: 80px;
+        background: #FEF3DC; 
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 800;
+        color: #A0522D;
+        margin-bottom: 20px;
+        transition: 0.3s;
+    }
+
+    .client-card:hover .client-avatar-box {
+        background: #A0522D;
+        color: white;
+    }
+
+    .client-full-name {
+        font-size: 20px;
+        font-weight: 800;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .client-email-tag {
+        font-size: 13px;
+        color: #7F8C8D;
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
+
+    .client-action-pill {
+        display: flex;
+        gap: 8px;
+        margin-top: auto;
+        background: #fdfaf3;
+        padding: 8px 12px;
+        border-radius: 50px;
+    }
+
+    .action-btn-mini {
+        color: #A0522D;
+        text-decoration: none;
+        font-size: 18px;
+        transition: 0.2s;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+        .action-btn-mini:hover {
+            background: white;
+            transform: scale(1.2);
+        }
+
+    .fab-add-client {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        width: 75px;
+        height: 75px;
+        background: #A0522D;
+        color: white;
+        border-radius: 20px; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        box-shadow: 0 10px 30px rgba(160, 82, 45, 0.3);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        z-index: 1000;
+    }
+
+        .fab-add-client:hover {
+            transform: scale(1.1) rotate(90deg);
+            background: #8B4513; 
+            color: white;
+        }
+</style>
+
+<div class="client-index-wrapper">
+    <div class="container">
+        
+        <div class="client-header">
+            <h1 class="client-title">Klub Degustatora 🥂</h1>
+            <p class="text-muted">Lista osób, które twierdzą, że "wpadły tylko na jedno".</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="client-card shadow-sm">
+                        <div class="client-avatar-box">
+                            @(item.Imie?.Substring(0, 1))@(item.Nazwisko?.Substring(0, 1))
+                        </div>
+                        
+                        <div class="client-full-name">@item.Imie @item.Nazwisko</div>
+                        <div class="client-email-tag">
+                            <i class="bi bi-envelope-fill me-1"></i> @item.Email
+                        </div>
+
+                        <div class="client-action-pill shadow-sm">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="action-btn-mini" title="Edytuj profil">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="action-btn-mini" title="Szczegóły">
+                                <i class="bi bi-eye-fill"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="action-btn-mini btn-del" title="Usuń z listy">
+                                <i class="bi bi-trash3-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<a asp-action="Create" class="fab-add-client shadow-lg" title="Zrekrutuj nowego wspólnika">
+    <i class="bi bi-plus-lg"></i>
+</a>

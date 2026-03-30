@@ -1,0 +1,179 @@
+﻿@model Promiex.Models.Pracownik
+
+@{
+    ViewData["Title"] = "Edycja Danych Pracownika";
+}
+
+<style>
+    .edit-page-wrapper {
+        background-color: #FEF3DC; 
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .edit-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(108, 92, 231, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 500px;
+        border: none;
+        animation: fadeInScale 0.5s ease-out;
+    }
+
+    @@keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .edit-header {
+        background: linear-gradient(135deg, #6C5CE7 0%, #E83A61 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .edit-header i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        display: block;
+        color: #FFB800; 
+    }
+
+    .edit-body {
+        padding: 40px;
+    }
+
+    .form-label-custom {
+        font-weight: 800;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #95A5A6;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .form-control-custom {
+        border-radius: 15px;
+        border: 2px solid #FEF3DC;
+        padding: 12px 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .form-control-custom:focus {
+        border-color: #6C5CE7;
+        box-shadow: 0 0 12px rgba(108, 92, 231, 0.15);
+        background-color: #fffcf7;
+        outline: none;
+    }
+
+    .btn-save-worker {
+        background: linear-gradient(90deg, #6C5CE7 0%, #E83A61 100%);
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        margin-top: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
+    }
+
+    .btn-save-worker:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(108, 92, 231, 0.4);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #7F8C8D;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        color: #6C5CE7;
+    }
+
+    .input-group-text {
+        border-radius: 15px 0 0 15px !important;
+        background-color: #fffcf7;
+        border: 2px solid #FEF3DC;
+        border-right: none;
+        color: #6C5CE7;
+    }
+
+    .grouped-input {
+        border-radius: 0 15px 15px 0 !important;
+    }
+</style>
+
+<div class="edit-page-wrapper">
+    <div class="edit-card shadow-lg">
+        
+        <div class="edit-header">
+            <i class="bi bi-person-gear"></i>
+            <h2 class="fw-bold m-0 h3">Korekta Profilu</h2>
+            <p class="small opacity-75 mt-2">Aktualizujesz dane: @Model.Imie @Model.Nazwisko</p>
+        </div>
+
+        <div class="edit-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="Imie" class="form-label-custom">Imię Pracownika</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input asp-for="Imie" class="form-control form-control-custom grouped-input" />
+                    </div>
+                    <span asp-validation-for="Imie" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Nazwisko" class="form-label-custom">Nazwisko</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                        <input asp-for="Nazwisko" class="form-control form-control-custom grouped-input" />
+                    </div>
+                    <span asp-validation-for="Nazwisko" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Stanowisko" class="form-label-custom">Stanowisko / Rola</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                        <input asp-for="Stanowisko" class="form-control form-control-custom grouped-input" />
+                    </div>
+                    <span asp-validation-for="Stanowisko" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn-save-worker">
+                    <i class="bi bi-check2-all me-2"></i> Zapisz zmiany
+                </button>
+
+                <a asp-action="Index" class="back-link">
+                    <i class="bi bi-arrow-left-short"></i> Wróć bez zmian
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

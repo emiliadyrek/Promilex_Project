@@ -1,0 +1,157 @@
+﻿@model Promiex.Models.Dostawca
+
+@{
+    ViewData["Title"] = "Zerwanie Kontraktu";
+}
+
+<style>
+    .delete-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .delete-card {
+        background: white;
+        border-radius: 50px;
+        box-shadow: 0 30px 70px rgba(0,0,0,0.15);
+        max-width: 500px;
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+        border: none;
+        animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @@keyframes shake {
+        10%, 90% { transform: translate3d(-1px, 0, 0); }
+        20%, 80% { transform: translate3d(2px, 0, 0); }
+        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+        40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+
+    .delete-header-dark {
+        background: #333; 
+        padding: 50px 20px;
+        color: white;
+    }
+
+    .skull-icon {
+        font-size: 70px;
+        color: #E83A61; 
+        display: block;
+        margin-bottom: 10px;
+        filter: drop-shadow(0 0 15px rgba(232, 58, 97, 0.4));
+    }
+
+    .delete-body {
+        padding: 50px 40px;
+    }
+
+    .sup-preview-box {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 25px;
+        margin: 20px 0;
+        border: 2px dashed #E83A61;
+        text-align: center;
+    }
+
+    .info-label {
+        font-weight: 800;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #C0308C;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+
+    .info-value {
+        font-size: 24px;
+        font-weight: 900;
+        color: #333;
+    }
+
+    .dark-humor-warning {
+        font-size: 13px;
+        color: #666;
+        font-style: italic;
+        line-height: 1.5;
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
+
+    .btn-final-delete {
+        background: #E83A61;
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: 0.3s;
+        box-shadow: 0 10px 25px rgba(232, 58, 97, 0.3);
+    }
+
+    .btn-final-delete:hover {
+        background: #000;
+        transform: scale(1.02);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        color: white;
+    }
+
+    .cancel-link {
+        display: block;
+        margin-top: 20px;
+        color: #999;
+        text-decoration: none;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+
+    .cancel-link:hover {
+        color: #333;
+    }
+</style>
+
+<div class="delete-page-wrapper">
+    <div class="delete-card shadow-lg">
+        
+        <div class="delete-header-dark">
+            <i class="bi bi-skull skull-icon"></i>
+            <h2 class="fw-bold m-0">Palenie mostów</h2>
+            <p class="small opacity-50 mt-2">To nie jest zwykłe "Usuń". To jest eksmisja z pamięci.</p>
+        </div>
+
+        <div class="delete-body">
+            <div class="sup-preview-box">
+                <div class="info-label">Cel do wyeliminowania</div>
+                <div class="info-value">@Model.NazwaFirmy</div>
+            </div>
+
+            <p class="dark-humor-warning">
+                <i class="bi bi-info-circle me-1"></i>
+                Uważaj. Po tym kliknięciu jedyne, co po nich zostanie, to puste butelki i nieodebrane połączenia. 
+                System nie przewiduje wskrzeszenia.
+            </p>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                
+                <button type="submit" class="btn-final-delete">
+                    <i class="bi bi-trash3-fill me-2"></i> Potwierdzam wyrok
+                </button>
+
+                <a asp-action="Index" class="cancel-link">
+                    <i class="bi bi-shield-check me-1"></i> Nie, dajmy im jeszcze pożyć
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

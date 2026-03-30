@@ -1,0 +1,185 @@
+﻿@model Promiex.Models.Produkt
+
+@{
+    ViewData["Title"] = "Szczegóły produktu";
+}
+
+<style>
+    .details-page-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        padding: 60px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .details-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        overflow: hidden;
+        border: none;
+        transition: transform 0.3s ease;
+    }
+
+    /* Lewa kolumna z ikoną */
+    .details-visual {
+        background: linear-gradient(135deg, #F9812A 0%, #E83A61 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        padding: 40px;
+        min-height: 300px;
+    }
+
+    .details-icon {
+        font-size: 100px;
+        margin-bottom: 20px;
+        filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+    }
+
+    .details-badge {
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    /* Prawa kolumna z info */
+    .details-content {
+        padding: 50px;
+    }
+
+    .details-label {
+        color: #F9812A;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        margin-bottom: 5px;
+    }
+
+    .details-title {
+        font-size: 42px;
+        font-weight: 900;
+        color: #333;
+        margin-bottom: 20px;
+        line-height: 1.1;
+    }
+
+    .details-description {
+        font-size: 18px;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 30px;
+        padding-left: 15px;
+        border-left: 4px solid #FEF3DC;
+    }
+
+    .price-box {
+        background: #FFF9F0;
+        padding: 20px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 40px;
+    }
+
+    .price-value {
+        font-size: 36px;
+        font-weight: 900;
+        color: #E83A61;
+    }
+
+    /* Przyciski na dole */
+    .details-footer {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .btn-edit-details {
+        background: #F9812A;
+        color: white;
+        padding: 12px 35px;
+        border-radius: 50px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(249, 129, 42, 0.3);
+    }
+
+        .btn-edit-details:hover {
+            background: #e67521;
+            transform: translateY(-3px);
+            color: white;
+        }
+
+    .btn-back {
+        color: #666;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 12px 20px;
+    }
+
+        .btn-back:hover {
+            color: #F9812A;
+        }
+</style>
+
+<div class="details-page-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="details-card shadow-lg">
+                    <div class="row g-0">
+                        <div class="col-md-5 details-visual">
+                            <div class="details-icon">
+                                @if (Model.Nazwa.ToLower().Contains("wino"))
+                                {
+                                    <i class="bi bi-smartwatch">🍷</i> @* Wykorzystujemy emoji dla klimatu *@
+                                }
+                                else if (Model.Nazwa.ToLower().Contains("piwo"))
+                                {
+                                    <span>🍺</span>
+                                }
+                                else
+                                {
+                                    <span>🍾</span>
+                                }
+                            </div>
+                            <div class="details-badge">
+                                @Model.ZawartoscAlkoholu% VOL.
+                            </div>
+                        </div>
+
+                        <div class="col-md-7 details-content">
+                            <div class="details-label">Produkt Premium</div>
+                            <h1 class="details-title">@Model.Nazwa</h1>
+                            
+                            <div class="details-label">O trunku</div>
+                            <p class="details-description">@Model.Opis</p>
+
+                            <div class="price-box">
+                                <span class="details-label d-block">Cena detaliczna:</span>
+                                <span class="price-value">@Model.Cena.ToString("N2") zł</span>
+                            </div>
+
+                            <div class="details-footer">
+                                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-edit-details">
+                                    <i class="bi bi-pencil-square me-2"></i> Edytuj trunek
+                                </a>
+                                <a asp-action="Index" class="btn-back">
+                                    <i class="bi bi-arrow-left me-1"></i> Wróć do listy
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,133 @@
+﻿@model Promiex.Models.Kategoria
+
+@{
+    ViewData["Title"] = "Szczegóły Kategorii";
+}
+
+<style>
+    .details-category-wrapper {
+        background-color: #FEF3DC;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .category-display-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+        max-width: 600px;
+        width: 100%;
+        overflow: hidden;
+        border: none;
+        text-align: center;
+    }
+
+    .category-visual-header {
+        background: linear-gradient(135deg, #C0308C 0%, #E83A61 100%);
+        padding: 60px 40px;
+        color: white;
+    }
+
+    .category-icon-large {
+        font-size: 80px;
+        margin-bottom: 10px;
+        display: block;
+        filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    }
+
+    .category-info-body {
+        padding: 50px 40px;
+    }
+
+    .label-mini {
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #C0308C;
+        letter-spacing: 2px;
+        font-size: 12px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .category-main-name {
+        font-size: 42px;
+        font-weight: 900;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .details-action-bar {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        border-top: 2px solid #FEF3DC;
+        padding-top: 30px;
+    }
+
+    .btn-cat-edit {
+        background: #C0308C;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.3s;
+        box-shadow: 0 8px 20px rgba(192, 48, 140, 0.2);
+    }
+
+        .btn-cat-edit:hover {
+            background: #a32876;
+            transform: translateY(-3px);
+            color: white;
+        }
+
+    .btn-cat-back {
+        background: #333;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .btn-cat-back:hover {
+            background: #000;
+            transform: translateY(-3px);
+            color: white;
+        }
+</style>
+
+<div class="details-category-wrapper">
+    <div class="category-display-card">
+        <div class="category-visual-header">
+            <span class="category-icon-large">
+                <i class="bi bi-collection-fill"></i>
+            </span>
+            <div class="badge bg-white text-dark rounded-pill px-3 py-2 fw-bold shadow-sm">
+                ID Sekcji: #@Model.Id
+            </div>
+        </div>
+
+        <div class="category-info-body">
+            <span class="label-mini">Nazwa kategorii</span>
+            <h1 class="category-main-name">@Html.DisplayFor(model => model.Nazwa)</h1>
+            
+            <p class="text-muted mb-5">
+                Wszystkie produkty przypisane do tej kategorii będą wyświetlane <br> w dedykowanej sekcji Twojego sklepu.
+            </p>
+
+            <div class="details-action-bar">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn-cat-edit">
+                    <i class="bi bi-pencil-fill me-2"></i> Edytuj nazwę
+                </a>
+                <a asp-action="Index" class="btn-cat-back">
+                    <i class="bi bi-list-ul me-2"></i> Lista
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
