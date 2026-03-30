@@ -37,10 +37,10 @@
         flex-direction: column;
     }
 
-        .order-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(232, 58, 97, 0.15);
-        }
+    .order-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(232, 58, 97, 0.15);
+    }
 
     .order-top {
         background: linear-gradient(135deg, #E83A61 0%, #F9812A 100%);
@@ -147,20 +147,20 @@
         transition: all 0.4s ease;
     }
 
-        .fab-add:hover {
-            transform: scale(1.1);
-            color: white;
-            box-shadow: 0 15px 30px rgba(232, 58, 97, 0.6);
-        }
+    .fab-add:hover {
+        transform: scale(1.1);
+        color: white;
+        box-shadow: 0 15px 30px rgba(232, 58, 97, 0.6);
+    }
 
-        .fab-add i {
-            transition: transform 0.4s ease;
-            display: inline-block;
-        }
+    .fab-add i {
+        transition: transform 0.4s ease;
+        display: inline-block;
+    }
 
-        .fab-add:hover i {
-            transform: rotate(90deg);
-        }
+    .fab-add:hover i {
+        transform: rotate(90deg);
+    }
 </style>
 
 <div class="orders-page">
@@ -171,7 +171,6 @@
             <p class="text-muted">Ruch w interesie musi być! Zarządzaj operacjami poniżej.</p>
         </div>
 
-        @@
         <div class="row g-4 justify-content-center">
             @foreach (var item in Model)
             {
@@ -223,7 +222,6 @@
     </div>
 </div>
 
-@@
 <a asp-action="Create" class="fab-add shadow-lg" title="Dodaj nowe zamówienie">
     <i class="bi bi-plus-lg"></i>
 </a>
