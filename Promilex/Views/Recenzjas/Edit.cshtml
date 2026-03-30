@@ -47,16 +47,23 @@
         padding: 45px;
     }
 
-    .rev-input-styled {
+    .rev-input-styled, .rev-select-styled {
         border-radius: 15px;
         border: 2px solid #FEF3DC;
         padding: 12px 20px;
         font-weight: 600;
         transition: all 0.3s ease;
         text-align: center;
+        width: 100%;
     }
 
-    .rev-input-styled:focus {
+    .rev-select-styled {
+        text-align-last: center;
+        appearance: none;
+        background-color: white;
+    }
+
+    .rev-input-styled:focus, .rev-select-styled:focus {
         border-color: #C0308C;
         box-shadow: 0 0 10px rgba(192, 48, 140, 0.1);
         background-color: #fffcfd;
@@ -126,8 +133,8 @@
                 <input type="hidden" asp-for="Id" />
 
                 <div class="mb-4 text-center">
-                    <label asp-for="ProduktId" class="form-label-mini">ID Dowodu (Produkt)</label>
-                    <input asp-for="ProduktId" class="form-control rev-input-styled" />
+                    <label asp-for="ProduktId" class="form-label-mini">Dotyczy towaru:</label>
+                    <select asp-for="ProduktId" class="rev-select-styled" asp-items="ViewBag.ProduktId"></select>
                     <span asp-validation-for="ProduktId" class="text-danger small"></span>
                 </div>
 
@@ -138,10 +145,10 @@
                 </div>
 
                 <div class="mb-4 text-center">
-    <label asp-for="Ocena" class="form-label-mini">Nowa Skala Bólu (1-5)</label>
-    <input asp-for="Ocena" class="form-control rev-input-styled" />
-    <span asp-validation-for="Ocena" class="text-danger small"></span>
-</div>
+                    <label asp-for="Ocena" class="form-label-mini">Nowa Skala Bólu (1-5)</label>
+                    <input asp-for="Ocena" class="form-control rev-input-styled" />
+                    <span asp-validation-for="Ocena" class="text-danger small"></span>
+                </div>
 
                 <button type="submit" class="btn-rev-save">
                     <i class="bi bi-check-lg me-1"></i> Zalegalizuj zmiany

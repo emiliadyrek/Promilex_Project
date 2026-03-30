@@ -27,7 +27,6 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Nagłówek z radosnym gradientem */
     .create-header {
         background: linear-gradient(135deg, #FFB800 0%, #F9812A 100%);
         padding: 40px;
@@ -45,21 +44,19 @@
         padding: 50px;
     }
 
-    /* Pola formularza */
-    .form-control {
+    .form-control, .form-select {
         border-radius: 15px;
         border: 2px solid #FEF3DC;
         padding: 12px 15px;
         transition: all 0.3s ease;
     }
 
-    .form-control:focus {
+    .form-control:focus, .form-select:focus {
         border-color: #FFB800;
         box-shadow: 0 0 10px rgba(255, 184, 0, 0.1);
         background-color: #fffcf7;
     }
 
-    /* Przycisk Create */
     .btn-create-custom {
         background: linear-gradient(90deg, #F9812A 0%, #E83A61 100%);
         color: white;
@@ -114,6 +111,22 @@
                             </div>
 
                             <div class="mb-4">
+                                <label asp-for="KategoriaId" class="form-label fw-bold small text-uppercase text-muted">Rodzaj (Kategoria)</label>
+                                <select asp-for="KategoriaId" class="form-select form-control-lg" asp-items="ViewBag.KategoriaId">
+                                    <option value="">-- Wybierz kategorię --</option>
+                                </select>
+                                <span asp-validation-for="KategoriaId" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="ProducentId" class="form-label fw-bold small text-uppercase text-muted">Źródło (Producent)</label>
+                                <select asp-for="ProducentId" class="form-select form-control-lg" asp-items="ViewBag.ProducentId">
+                                    <option value="">-- Wybierz producenta --</option>
+                                </select>
+                                <span asp-validation-for="ProducentId" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
                                 <label asp-for="Opis" class="form-label fw-bold small text-uppercase text-muted">Krótki Opis</label>
                                 <textarea asp-for="Opis" class="form-control" rows="2" placeholder="Czym wyróżnia się ten produkt?"></textarea>
                                 <span asp-validation-for="Opis" class="text-danger"></span>
@@ -146,4 +159,3 @@
         </div>
     </div>
 </div>
-

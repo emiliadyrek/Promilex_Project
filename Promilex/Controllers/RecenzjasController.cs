@@ -20,28 +20,27 @@ namespace Promilex.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Recenzje.ToListAsync());
+            
+            var recenzje = _context.Recenzje.Include(r => r.Produkt);
+            return View(await recenzje.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var recenzja = await _context.Recenzje
+                .Include(r => r.Produkt)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (recenzja == null)
-            {
-                return NotFound();
-            }
+
+            if (recenzja == null) return NotFound();
 
             return View(recenzja);
         }
 
         public IActionResult Create()
         {
+            ViewData["ProduktId"] = new SelectList(_context.Produkty, "Id", "Nazwa");
             return View();
         }
 
@@ -55,21 +54,19 @@ namespace Promilex.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["ProduktId"] = new SelectList(_context.Produkty, "Id", "Nazwa", recenzja.ProduktId);
             return View(recenzja);
         }
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var recenzja = await _context.Recenzje.FindAsync(id);
-            if (recenzja == null)
-            {
-                return NotFound();
-            }
+            if (recenzja == null) return NotFound();
+
+            ViewData["ProduktId"] = new SelectList(_context.Produkty, "Id", "Nazwa", recenzja.ProduktId);
             return View(recenzja);
         }
 
@@ -77,10 +74,7 @@ namespace Promilex.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ProduktId,Tresc,Ocena")] Recenzja recenzja)
         {
-            if (id != recenzja.Id)
-            {
-                return NotFound();
-            }
+            if (id != recenzja.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -91,33 +85,24 @@ namespace Promilex.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RecenzjaExists(recenzja.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!RecenzjaExists(recenzja.Id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ProduktId"] = new SelectList(_context.Produkty, "Id", "Nazwa", recenzja.ProduktId);
             return View(recenzja);
         }
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var recenzja = await _context.Recenzje
+                .Include(r => r.Produkt)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (recenzja == null)
-            {
-                return NotFound();
-            }
+
+            if (recenzja == null) return NotFound();
 
             return View(recenzja);
         }
@@ -130,9 +115,8 @@ namespace Promilex.Controllers
             if (recenzja != null)
             {
                 _context.Recenzje.Remove(recenzja);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

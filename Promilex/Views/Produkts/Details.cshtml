@@ -22,7 +22,6 @@
         transition: transform 0.3s ease;
     }
 
-    /* Lewa kolumna z ikoną */
     .details-visual {
         background: linear-gradient(135deg, #F9812A 0%, #E83A61 100%);
         display: flex;
@@ -49,7 +48,6 @@
         letter-spacing: 1px;
     }
 
-    /* Prawa kolumna z info */
     .details-content {
         padding: 50px;
     }
@@ -61,13 +59,14 @@
         font-size: 13px;
         letter-spacing: 1.5px;
         margin-bottom: 5px;
+        display: block;
     }
 
     .details-title {
         font-size: 42px;
         font-weight: 900;
         color: #333;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         line-height: 1.1;
     }
 
@@ -78,6 +77,34 @@
         margin-bottom: 30px;
         padding-left: 15px;
         border-left: 4px solid #FEF3DC;
+    }
+
+    .fk-info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .fk-item {
+        background: #fff;
+        border: 1px solid #eee;
+        padding: 15px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .fk-item i {
+        font-size: 24px;
+        color: #E83A61;
+    }
+
+    .fk-text {
+        font-weight: 700;
+        color: #444;
+        font-size: 15px;
     }
 
     .price-box {
@@ -112,11 +139,11 @@
         box-shadow: 0 10px 20px rgba(249, 129, 42, 0.3);
     }
 
-        .btn-edit-details:hover {
-            background: #e67521;
-            transform: translateY(-3px);
-            color: white;
-        }
+    .btn-edit-details:hover {
+        background: #e67521;
+        transform: translateY(-3px);
+        color: white;
+    }
 
     .btn-back {
         color: #666;
@@ -125,9 +152,9 @@
         padding: 12px 20px;
     }
 
-        .btn-back:hover {
-            color: #F9812A;
-        }
+    .btn-back:hover {
+        color: #F9812A;
+    }
 </style>
 
 <div class="details-page-wrapper">
@@ -138,11 +165,11 @@
                     <div class="row g-0">
                         <div class="col-md-5 details-visual">
                             <div class="details-icon">
-                                @if (Model.Nazwa.ToLower().Contains("wino"))
+                                @if (Model.Nazwa != null && Model.Nazwa.ToLower().Contains("wino"))
                                 {
-                                    <i class="bi bi-smartwatch">🍷</i> @* Wykorzystujemy emoji dla klimatu *@
+                                    <span>🍷</span>
                                 }
-                                else if (Model.Nazwa.ToLower().Contains("piwo"))
+                                else if (Model.Nazwa != null && Model.Nazwa.ToLower().Contains("piwo"))
                                 {
                                     <span>🍺</span>
                                 }
@@ -160,11 +187,28 @@
                             <div class="details-label">Produkt Premium</div>
                             <h1 class="details-title">@Model.Nazwa</h1>
                             
+                            <div class="fk-info-grid">
+                                <div class="fk-item">
+                                    <i class="bi bi-tags"></i>
+                                    <div>
+                                        <small class="details-label" style="font-size: 10px;">Kategoria</small>
+                                        <div class="fk-text">@Model.Kategoria?.Nazwa</div>
+                                    </div>
+                                </div>
+                                <div class="fk-item">
+                                    <i class="bi bi-building"></i>
+                                    <div>
+                                        <small class="details-label" style="font-size: 10px;">Producent</small>
+                                        <div class="fk-text">@Model.Producent?.Nazwa</div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="details-label">O trunku</div>
                             <p class="details-description">@Model.Opis</p>
 
                             <div class="price-box">
-                                <span class="details-label d-block">Cena detaliczna:</span>
+                                <span class="details-label">Cena detaliczna:</span>
                                 <span class="price-value">@Model.Cena.ToString("N2") zł</span>
                             </div>
 

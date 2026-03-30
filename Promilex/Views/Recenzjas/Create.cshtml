@@ -47,16 +47,23 @@
         padding: 45px;
     }
 
-    .rev-input-styled {
+    .rev-input-styled, .rev-select-styled {
         border-radius: 15px;
         border: 2px solid #FEF3DC;
         padding: 12px 20px;
         font-weight: 600;
         transition: all 0.3s ease;
         text-align: center;
+        width: 100%;
     }
 
-    .rev-input-styled:focus {
+    .rev-select-styled {
+        text-align-last: center;
+        appearance: none;
+        background-color: white;
+    }
+
+    .rev-input-styled:focus, .rev-select-styled:focus {
         border-color: #C0308C;
         box-shadow: 0 0 10px rgba(192, 48, 140, 0.1);
         background-color: #fffcfd;
@@ -125,8 +132,10 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
 
                 <div class="mb-4 text-center">
-                    <label asp-for="ProduktId" class="form-label-mini">ID Towaru</label>
-                    <input asp-for="ProduktId" class="form-control rev-input-styled" placeholder="Wpisz ID..." />
+                    <label asp-for="ProduktId" class="form-label-mini">Co degustowałeś?</label>
+                    <select asp-for="ProduktId" class="rev-select-styled" asp-items="ViewBag.ProduktId">
+                        <option value="">-- Wybierz towar z listy --</option>
+                    </select>
                     <span asp-validation-for="ProduktId" class="text-danger small"></span>
                 </div>
 
@@ -137,10 +146,10 @@
                 </div>
 
                 <div class="mb-4 text-center">
-    <label asp-for="Ocena" class="form-label-mini">Moc w skali (1-5)</label>
-    <input asp-for="Ocena" class="form-control rev-input-styled" placeholder="Jak bardzo boli głowa? (1-5)" />
-    <span asp-validation-for="Ocena" class="text-danger small"></span>
-</div>
+                    <label asp-for="Ocena" class="form-label-mini">Moc w skali (1-5)</label>
+                    <input asp-for="Ocena" class="form-control rev-input-styled" placeholder="Jak bardzo boli głowa? (1-5)" />
+                    <span asp-validation-for="Ocena" class="text-danger small"></span>
+                </div>
 
                 <button type="submit" class="btn-rev-submit">
                     <i class="bi bi-megaphone me-2"></i> Wyślij w świat

@@ -38,10 +38,10 @@
         box-shadow: 0 10px 30px rgba(0,0,0,0.04);
     }
 
-        .rev-grid-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 45px rgba(192, 48, 140, 0.12);
-        }
+    .rev-grid-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 45px rgba(192, 48, 140, 0.12);
+    }
 
     .rev-rating-badge {
         position: absolute;
@@ -77,13 +77,20 @@
     }
 
     .rev-product-info {
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 800;
         text-transform: uppercase;
-        color: #95A5A6;
+        color: #E83A61; 
         letter-spacing: 1px;
         border-top: 1px solid #f8f9fa;
         padding-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .rev-product-info i {
+        font-size: 16px;
     }
 
     .rev-actions {
@@ -106,15 +113,9 @@
         transition: 0.2s;
     }
 
-    .btn-edit {
-        background: #FFB800;
-    }
-    .btn-details {
-        background: #F9812A;
-    }
-    .btn-delete {
-        background: #333;
-    }
+    .btn-edit { background: #FFB800; }
+    .btn-details { background: #F9812A; }
+    .btn-delete { background: #333; }
 
     .rev-btn:hover {
         transform: scale(1.15);
@@ -140,11 +141,11 @@
         z-index: 1000;
     }
 
-        .fab-rev-add:hover {
-            transform: scale(1.1) rotate(180deg);
-            background: #E83A61;
-            color: white;
-        }
+    .fab-rev-add:hover {
+        transform: scale(1.1) rotate(180deg);
+        background: #E83A61;
+        color: white;
+    }
 </style>
 
 <div class="rev-index-wrapper">
@@ -173,7 +174,15 @@
                         </div>
 
                         <div class="rev-product-info">
-                            <i class="bi bi-box-seam me-1"></i> Produkt ID: #@item.ProduktId
+                            <i class="bi bi-glass-margin me-2"></i>
+                            @if (item.Produkt != null)
+                            {
+                                <span>@item.Produkt.Nazwa</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Produkt nieznany</span>
+                            }
                         </div>
 
                         <div class="rev-actions">

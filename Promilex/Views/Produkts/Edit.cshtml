@@ -21,7 +21,6 @@
         border: none;
     }
 
-    /* Nagłówek formularza */
     .edit-header {
         background: linear-gradient(135deg, #F9812A 0%, #E83A61 100%);
         padding: 40px;
@@ -35,30 +34,23 @@
             display: block;
         }
 
-    /* Stylizacja pól formularza */
     .edit-body {
         padding: 50px;
     }
 
-    .form-floating > label {
-        color: #999;
-        font-weight: 600;
-    }
-
-    .form-control {
+    .form-control, .form-select {
         border-radius: 15px;
         border: 2px solid #FEF3DC;
         padding: 15px;
         transition: all 0.3s ease;
     }
 
-        .form-control:focus {
+        .form-control:focus, .form-select:focus {
             border-color: #F9812A;
             box-shadow: 0 0 10px rgba(249, 129, 42, 0.1);
             background-color: #fffcf7;
         }
 
-    /* Przyciski */
     .btn-save-custom {
         background: #F9812A;
         color: white;
@@ -94,7 +86,6 @@
             color: #F9812A;
         }
 
-    /* Błędy walidacji */
     .text-danger {
         font-size: 13px;
         font-weight: 600;
@@ -122,13 +113,25 @@
 
                             <div class="mb-4">
                                 <label asp-for="Nazwa" class="form-label fw-bold small text-uppercase text-muted"></label>
-                                <input asp-for="Nazwa" class="form-control form-control-lg" placeholder="np. Wino Bordeaux" />
+                                <input asp-for="Nazwa" class="form-control form-control-lg" />
                                 <span asp-validation-for="Nazwa" class="text-danger"></span>
                             </div>
 
                             <div class="mb-4">
+                                <label asp-for="KategoriaId" class="form-label fw-bold small text-uppercase text-muted">Kategoria (Rodzaj)</label>
+                                <select asp-for="KategoriaId" class="form-select" asp-items="ViewBag.KategoriaId"></select>
+                                <span asp-validation-for="KategoriaId" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="ProducentId" class="form-label fw-bold small text-uppercase text-muted">Producent (Źródło)</label>
+                                <select asp-for="ProducentId" class="form-select" asp-items="ViewBag.ProducentId"></select>
+                                <span asp-validation-for="ProducentId" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
                                 <label asp-for="Opis" class="form-label fw-bold small text-uppercase text-muted"></label>
-                                <textarea asp-for="Opis" class="form-control" rows="3" placeholder="Opisz ten wyjątkowy produkt..."></textarea>
+                                <textarea asp-for="Opis" class="form-control" rows="3"></textarea>
                                 <span asp-validation-for="Opis" class="text-danger"></span>
                             </div>
 
@@ -136,14 +139,14 @@
                                 <div class="col-md-6">
                                     <label asp-for="Cena" class="form-label fw-bold small text-uppercase text-muted"></label>
                                     <div class="input-group">
-                                        <input asp-for="Cena" class="form-control form-control-lg" />
+                                        <input asp-for="Cena" class="form-control" />
                                         <span class="input-group-text bg-white border-start-0" style="border-radius: 0 15px 15px 0; border: 2px solid #FEF3DC; border-left: none;">zł</span>
                                     </div>
                                     <span asp-validation-for="Cena" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mt-3 mt-md-0">
                                     <label asp-for="ZawartoscAlkoholu" class="form-label fw-bold small text-uppercase text-muted">Procenty (%)</label>
-                                    <input asp-for="ZawartoscAlkoholu" class="form-control form-control-lg" />
+                                    <input asp-for="ZawartoscAlkoholu" class="form-control" />
                                     <span asp-validation-for="ZawartoscAlkoholu" class="text-danger"></span>
                                 </div>
                             </div>
@@ -162,4 +165,3 @@
         </div>
     </div>
 </div>
-

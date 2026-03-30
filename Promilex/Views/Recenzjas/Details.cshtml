@@ -94,23 +94,23 @@
         position: relative;
     }
 
-    .testimonial-box::after {
-        content: '\F635'; 
-        font-family: 'bootstrap-icons';
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        font-size: 40px;
-        opacity: 0.05;
+    .product-display-box {
+        background: #FEF3DC;
+        padding: 15px;
+        border-radius: 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #333;
+        font-weight: 800;
+        margin-bottom: 30px;
+        border: 2px solid transparent;
+        transition: 0.3s;
     }
 
-    .item-id-tag {
-        font-size: 14px;
-        font-weight: 700;
-        color: #999;
-        background: #eee;
-        padding: 4px 12px;
-        border-radius: 50px;
+    .product-display-box i {
+        color: #E83A61;
+        font-size: 20px;
     }
 
     .rev-details-footer {
@@ -168,9 +168,9 @@
             <p class="small opacity-50 mt-1">Spisano pod wpływem chwili i substancji.</p>
             
             <div class="rev-score-circle">
-    <span>@Model.Ocena</span>
-    <small>/ 5</small>
-</div>
+                <span>@Model.Ocena</span>
+                <small>/ 5</small>
+            </div>
         </div>
 
         <div class="rev-details-body">
@@ -182,7 +182,20 @@
 
             <div class="mb-5">
                 <span class="label-mini">Dotyczy Towaru</span>
-                <span class="item-id-tag">REF_ID: #@Model.ProduktId</span>
+                
+                <div class="product-display-box">
+                    <i class="bi bi-glass-margin"></i>
+                    @if (Model.Produkt != null)
+                    {
+                        <span>@Model.Produkt.Nazwa</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Produkt nieznany</span>
+                    }
+                </div>
+                <br />
+                <small class="text-muted">Identyfikator systemowy: #@Model.ProduktId</small>
             </div>
 
             <p class="text-muted small italic">
