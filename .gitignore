@@ -1,0 +1,7 @@
+﻿################################################################################
+# Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Promilex/bin/Debug/net10.0
+/Promilex/obj
