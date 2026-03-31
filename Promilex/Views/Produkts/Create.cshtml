@@ -57,6 +57,12 @@
         background-color: #fffcf7;
     }
 
+    /* Styl dla Multi-Selecta składników */
+    .multi-select-skladniki {
+        height: 120px !important;
+        background-image: none !important; /* Usuwamy strzałkę dropdownu dla multiple */
+    }
+
     .btn-create-custom {
         background: linear-gradient(90deg, #F9812A 0%, #E83A61 100%);
         color: white;
@@ -110,20 +116,35 @@
                                 <span asp-validation-for="Nazwa" class="text-danger"></span>
                             </div>
 
-                            <div class="mb-4">
-                                <label asp-for="KategoriaId" class="form-label fw-bold small text-uppercase text-muted">Rodzaj (Kategoria)</label>
-                                <select asp-for="KategoriaId" class="form-select form-control-lg" asp-items="ViewBag.KategoriaId">
-                                    <option value="">-- Wybierz kategorię --</option>
-                                </select>
-                                <span asp-validation-for="KategoriaId" class="text-danger"></span>
+                            <div class="row">
+                                <div class="col-6 mb-4">
+                                    <label asp-for="KategoriaId" class="form-label fw-bold small text-uppercase text-muted">Kategoria</label>
+                                    <select asp-for="KategoriaId" class="form-select" asp-items="ViewBag.KategoriaId">
+                                        <option value="">-- Wybierz --</option>
+                                    </select>
+                                    <span asp-validation-for="KategoriaId" class="text-danger"></span>
+                                </div>
+                                <div class="col-6 mb-4">
+                                    <label asp-for="ProducentId" class="form-label fw-bold small text-uppercase text-muted">Producent</label>
+                                    <select asp-for="ProducentId" class="form-select" asp-items="ViewBag.ProducentId">
+                                        <option value="">-- Wybierz --</option>
+                                    </select>
+                                    <span asp-validation-for="ProducentId" class="text-danger"></span>
+                                </div>
                             </div>
 
                             <div class="mb-4">
-                                <label asp-for="ProducentId" class="form-label fw-bold small text-uppercase text-muted">Źródło (Producent)</label>
-                                <select asp-for="ProducentId" class="form-select form-control-lg" asp-items="ViewBag.ProducentId">
-                                    <option value="">-- Wybierz producenta --</option>
+                                <label class="form-label fw-bold small text-uppercase text-muted">
+                                    <i class="bi bi-droplet-half me-1"></i> Składniki (Relacja Many-to-Many)
+                                </label>
+                                <select name="wybraneSkladniki" 
+                                        class="form-select multi-select-skladniki" 
+                                        multiple="multiple" 
+                                        asp-items="ViewBag.SkladnikiId">
                                 </select>
-                                <span asp-validation-for="ProducentId" class="text-danger"></span>
+                                <div class="form-text mt-2" style="font-size: 0.75rem; color: #888;">
+                                    <i class="bi bi-info-circle me-1"></i> Przytrzymaj klawisz <strong>CTRL</strong> (lub CMD na Mac), aby zaznaczyć więcej niż jeden składnik.
+                                </div>
                             </div>
 
                             <div class="mb-4">
@@ -159,3 +180,4 @@
         </div>
     </div>
 </div>
+

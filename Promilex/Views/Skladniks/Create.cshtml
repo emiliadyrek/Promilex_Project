@@ -1,0 +1,144 @@
+﻿@model Promiex.Models.Skladnik
+
+@{
+    ViewData["Title"] = "Nowy Składnik";
+}
+
+<style>
+    .skladnik-page-wrapper {
+        background-color: #FEF3DC; /* Twoje ulubione tło bez zmian */
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 60px 0;
+    }
+
+    .skladnik-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(142, 68, 173, 0.08); /* Delikatny fioletowy cień */
+        overflow: hidden;
+        border: none;
+        animation: slideUp 0.5s ease-out;
+    }
+
+    @@keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .skladnik-header {
+        /* Nowy gradient: Fioletowo-Malinowy */
+        background: linear-gradient(135deg, #8E44AD 0%, #C71585 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .skladnik-header i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .skladnik-body {
+        padding: 50px;
+    }
+
+    .form-control-custom {
+        border-radius: 15px;
+        border: 2px solid #FEF3DC;
+        padding: 15px;
+        transition: all 0.3s ease;
+        font-size: 18px;
+    }
+
+    .form-control-custom:focus {
+        border-color: #8E44AD; /* Fioletowy focus */
+        box-shadow: 0 0 15px rgba(142, 68, 173, 0.1);
+        background-color: #fcfaff;
+        outline: none;
+    }
+
+    .btn-save-skladnik {
+        /* Przycisk w stylu fioletowo-malinowym */
+        background: linear-gradient(90deg, #8E44AD 0%, #C71585 100%);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(199, 21, 133, 0.2);
+        margin-top: 20px;
+    }
+
+    .btn-save-skladnik:hover {
+        transform: scale(1.02);
+        box-shadow: 0 15px 30px rgba(142, 68, 173, 0.4);
+        color: white;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #666;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        color: #8E44AD;
+    }
+
+    .text-danger {
+        font-size: 13px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="skladnik-page-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-5">
+                <div class="skladnik-card">
+                    
+                    <div class="skladnik-header">
+                        <i class="bi bi-funnel-fill"></i>
+                        <h2 class="fw-bold m-0">Nowy Składnik</h2>
+                        <p class="small opacity-75">Dodaj element do bazy receptur</p>
+                    </div>
+
+                    <div class="skladnik-body">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+                            <div class="mb-4">
+                                <label asp-for="Nazwa" class="form-label fw-bold small text-uppercase text-muted">Nazwa Składnika</label>
+                                <input asp-for="Nazwa" class="form-control form-control-custom" placeholder="np. Jagody leśne, Lawenda..." />
+                                <span asp-validation-for="Nazwa" class="text-danger"></span>
+                            </div>
+
+                            <p class="text-muted small text-center mb-4">
+                                <i class="bi bi-info-circle me-1"></i> Składnik będzie dostępny do wyboru przy edycji Twoich trunków.
+                            </p>
+
+                            <button type="submit" class="btn-save-skladnik">
+                                <i class="bi bi-plus-lg me-2"></i> Dodaj do bazy
+                            </button>
+
+                            <a asp-action="Index" class="back-link">
+                                <i class="bi bi-arrow-left me-1"></i> Wróć do listy
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

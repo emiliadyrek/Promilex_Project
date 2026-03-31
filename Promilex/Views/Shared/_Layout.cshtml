@@ -116,10 +116,12 @@
                 @{
                     var controller = ViewContext.RouteData.Values["controller"]?.ToString();
                     
+                    // LOGIKA ETYKIET
                     string prodLabel = "Asortyment";
                     if (controller == "Kategorias") prodLabel = "Kategorie";
                     if (controller == "Producents") prodLabel = "Producenci";
                     if (controller == "Produkts") prodLabel = "Produkty";
+                    if (controller == "Skladniks") prodLabel = "Składniki";
 
                     string firmLabel = "Zasoby Ludzkie";
                     if (controller == "Klients") firmLabel = "Wspólnicy";
@@ -137,14 +139,16 @@
                 </a>
                 
                 <div class="dropdown">
-                    <a class="promilex-nav-item dropdown-toggle @(controller == "Produkts" || controller == "Kategorias" || controller == "Producents" ? "active-section" : "")" 
+                    <a class="promilex-nav-item dropdown-toggle @(controller == "Produkts" || controller == "Kategorias" || controller == "Producents" || controller == "Skladniks" ? "active-section" : "")" 
                        href="#" role="button" data-bs-toggle="dropdown">
                         <i class="bi bi-box-seam me-2"></i> @prodLabel
                     </a>
                     <ul class="dropdown-menu shadow">
-                        <li><a class="dropdown-item" asp-controller="Produkts" asp-action="Index">Lista Towarów</a></li>
-                        <li><a class="dropdown-item" asp-controller="Kategorias" asp-action="Index">Kategorie</a></li>
-                        <li><a class="dropdown-item" asp-controller="Producents" asp-action="Index">Producenci</a></li>
+                        <li><a class="dropdown-item" asp-controller="Produkts" asp-action="Index"><i class="bi bi-list-ul me-2"></i>Lista Towarów</a></li>
+                        <li><a class="dropdown-item" asp-controller="Kategorias" asp-action="Index"><i class="bi bi-tags me-2"></i>Kategorie</a></li>
+                        <li><a class="dropdown-item" asp-controller="Producents" asp-action="Index"><i class="bi bi-building me-2"></i>Producenci</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" asp-controller="Skladniks" asp-action="Index"><i class="bi bi-droplet me-2"></i>Składniki (M-M)</a></li>
                     </ul>
                 </div>
 
@@ -175,7 +179,9 @@
     </header>
 
     <main role="main" class="pb-3">
-        @RenderBody()
+        <div class="container mt-4">
+            @RenderBody()
+        </div>
     </main>
 
     <footer class="promilex-footer">

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Promiex.Models
@@ -22,18 +23,24 @@ namespace Promiex.Models
         [Display(Name = "Zawartość Alkoholu (%)")]
         public double ZawartoscAlkoholu { get; set; }
 
+        // Relacje Many-to-One (Klucze obce)
         [Required(ErrorMessage = "Wybierz kategorię trunku")]
         [Display(Name = "Kategoria")]
-        public int KategoriaId { get; set; } 
+        public int KategoriaId { get; set; }
 
         [ForeignKey("KategoriaId")]
-        public virtual Kategoria? Kategoria { get; set; } 
+        public virtual Kategoria? Kategoria { get; set; }
 
         [Required(ErrorMessage = "Wybierz producenta")]
         [Display(Name = "Producent")]
-        public int ProducentId { get; set; } 
+        public int ProducentId { get; set; }
 
         [ForeignKey("ProducentId")]
-        public virtual Producent? Producent { get; set; } 
+        public virtual Producent? Producent { get; set; }
+
+        // --- RELACJA WIELE-DO-WIELU (MANY-TO-MANY) ---
+        // To jest kluczowy element: Produkt posiada listę wielu składników
+        [Display(Name = "Składniki")]
+        public virtual ICollection<Skladnik> Skladniki { get; set; } = new List<Skladnik>();
     }
 }

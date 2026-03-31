@@ -1,0 +1,205 @@
+﻿@model Promiex.Models.Skladnik
+
+@{
+    ViewData["Title"] = "Szczegóły Składnika";
+}
+
+<style>
+    .skladnik-details-wrapper {
+        background-color: #FEF3DC; /* Twoje niezmienne kremowe tło */
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 60px 0;
+    }
+
+    .skladnik-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(142, 68, 173, 0.08);
+        overflow: hidden;
+        border: none;
+        animation: slideUp 0.5s ease-out;
+    }
+
+    @@keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .skladnik-header {
+        /* Gradient fioletowo-malinowy */
+        background: linear-gradient(135deg, #8E44AD 0%, #C71585 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .skladnik-header i {
+        font-size: 50px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .skladnik-body {
+        padding: 50px;
+    }
+
+    .section-label {
+        color: #8E44AD; /* Fioletowy akcent dla etykiet */
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .skladnik-title {
+        font-size: 42px;
+        font-weight: 900;
+        color: #333;
+        margin-bottom: 30px;
+        line-height: 1.1;
+    }
+
+    .product-relation-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
+        margin-bottom: 40px;
+    }
+
+    .product-item {
+        background: #fcfaff; /* Bardzo delikatny fioletowy odcień tła */
+        border: 2px solid #FEF3DC; 
+        padding: 15px 20px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .product-item:hover {
+        border-color: #C71585; /* Malinowy border przy hoverze */
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(142, 68, 173, 0.1);
+    }
+
+    .product-item i {
+        font-size: 20px;
+        color: #8E44AD;
+    }
+
+    .product-name-link {
+        font-weight: 700;
+        color: #444;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .product-name-link:hover {
+        color: #C71585;
+    }
+
+    .btn-action-group {
+        display: flex;
+        gap: 15px;
+        border-top: 1px solid #f8f8f8;
+        padding-top: 30px;
+        align-items: center;
+    }
+
+    .btn-edit-skladnik {
+        background: linear-gradient(90deg, #8E44AD 0%, #C71585 100%);
+        color: white;
+        padding: 14px 35px;
+        border-radius: 50px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(142, 68, 173, 0.2);
+    }
+
+    .btn-edit-skladnik:hover {
+        transform: translateY(-3px);
+        color: white;
+        box-shadow: 0 15px 30px rgba(199, 21, 133, 0.3);
+    }
+
+    .btn-back-skladnik {
+        color: #666;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 12px 20px;
+    }
+
+    .btn-back-skladnik:hover {
+        color: #8E44AD;
+    }
+
+    .empty-state {
+        background: #fdfcf9;
+        border: 2px dashed #eee;
+        padding: 20px;
+        border-radius: 20px;
+        color: #999;
+    }
+</style>
+
+<div class="skladnik-details-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="skladnik-card">
+                    
+                    <div class="skladnik-header">
+                        <i class="bi bi-droplet-fill"></i>
+                        <h2 class="fw-bold m-0">Karta Składnika</h2>
+                    </div>
+
+                    <div class="skladnik-body">
+                        <span class="section-label">Nazwa elementu bazy</span>
+                        <h1 class="skladnik-title">@Model.Nazwa</h1>
+
+                        <span class="section-label">
+                            <i class="bi bi-link-45deg"></i> Wykorzystywany w recepturach
+                        </span>
+
+                        <div class="product-relation-list">
+                            @if (Model.Produkty != null && Model.Produkty.Any())
+                            {
+                                foreach (var produkt in Model.Produkty)
+                                {
+                                    <div class="product-item">
+                                        <i class="bi bi-cup-straw"></i>
+                                        <a asp-controller="Produkts" asp-action="Details" asp-route-id="@produkt.Id" class="product-name-link">
+                                            @produkt.Nazwa
+                                        </a>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="col-12 text-center empty-state">
+                                    <i class="bi bi-slash-circle me-1"></i>
+                                    <em>Ten składnik nie jest obecnie przypisany do żadnego trunku.</em>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="btn-action-group">
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-edit-skladnik">
+                                <i class="bi bi-pencil-square me-2"></i> Edytuj nazwę
+                            </a>
+                            <a asp-action="Index" class="btn-back-skladnik">
+                                <i class="bi bi-arrow-left me-1"></i> Wróć do bazy
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

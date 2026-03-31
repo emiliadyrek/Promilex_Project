@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Promiex.Models;
 
 namespace Promiex.Models
 {
@@ -17,5 +18,6 @@ namespace Promiex.Models
         public DbSet<Klient> Klienci { get; set; }
         public DbSet<Zamowienie> Zamowienia { get; set; }
         public DbSet<Recenzja> Recenzje { get; set; }
+        public DbSet<Skladnik> Skladniki { get; set; }
     }
 }

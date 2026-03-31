@@ -74,9 +74,30 @@
         font-size: 18px;
         color: #666;
         line-height: 1.6;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         padding-left: 15px;
         border-left: 4px solid #FEF3DC;
+    }
+
+    /* Styl dla składników Many-to-Many */
+    .ingredients-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 30px;
+    }
+
+    .ingredient-pill {
+        background: #fdf2e9;
+        color: #d35400;
+        border: 1px solid #fad7a0;
+        padding: 6px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 6px;
     }
 
     .fk-info-grid {
@@ -96,10 +117,10 @@
         gap: 12px;
     }
 
-    .fk-item i {
-        font-size: 24px;
-        color: #E83A61;
-    }
+        .fk-item i {
+            font-size: 24px;
+            color: #E83A61;
+        }
 
     .fk-text {
         font-weight: 700;
@@ -121,7 +142,6 @@
         color: #E83A61;
     }
 
-    /* Przyciski na dole */
     .details-footer {
         display: flex;
         gap: 15px;
@@ -139,11 +159,11 @@
         box-shadow: 0 10px 20px rgba(249, 129, 42, 0.3);
     }
 
-    .btn-edit-details:hover {
-        background: #e67521;
-        transform: translateY(-3px);
-        color: white;
-    }
+        .btn-edit-details:hover {
+            background: #e67521;
+            transform: translateY(-3px);
+            color: white;
+        }
 
     .btn-back {
         color: #666;
@@ -152,9 +172,9 @@
         padding: 12px 20px;
     }
 
-    .btn-back:hover {
-        color: #F9812A;
-    }
+        .btn-back:hover {
+            color: #F9812A;
+        }
 </style>
 
 <div class="details-page-wrapper">
@@ -202,6 +222,23 @@
                                         <div class="fk-text">@Model.Producent?.Nazwa</div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="details-label">Receptura (Składniki)</div>
+                            <div class="ingredients-container mt-2">
+                                @if (Model.Skladniki != null && Model.Skladniki.Any())
+                                {
+                                    @foreach (var s in Model.Skladniki)
+                                    {
+                                        <div class="ingredient-pill">
+                                            <i class="bi bi-funnel-fill"></i> @s.Nazwa
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="text-muted small"><em>Brak zdefiniowanych składników.</em></span>
+                                }
                             </div>
 
                             <div class="details-label">O trunku</div>

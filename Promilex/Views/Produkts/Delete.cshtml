@@ -16,114 +16,151 @@
 
     .delete-card {
         background: white;
-        border-radius: 30px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        padding: 40px;
+        border-radius: 40px; /* Zwiększyłem dla spójności z Create/Edit */
+        box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        padding: 50px;
         max-width: 600px;
         width: 100%;
         text-align: center;
-        border-top: 8px solid #dc3545; /* Czerwony pasek ostrzegawczy */
+        border-top: 10px solid #dc3545;
+        animation: shake 0.5s ease-in-out;
+    }
+
+    @@keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
     }
 
     .warning-icon {
-        font-size: 60px;
+        font-size: 70px;
         color: #dc3545;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     .product-preview-box {
-        background: #fdf2f4;
-        border-radius: 20px;
-        padding: 25px;
+        background: #fff5f5;
+        border: 2px dashed #f8d7da;
+        border-radius: 25px;
+        padding: 30px;
         margin: 25px 0;
         text-align: left;
     }
 
     .info-label {
         font-weight: 800;
-        color: #666;
-        font-size: 13px;
+        color: #999;
+        font-size: 11px;
         text-transform: uppercase;
-        margin-bottom: 2px;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
     }
 
     .info-value {
         font-size: 18px;
+        font-weight: 700;
         color: #333;
         margin-bottom: 15px;
     }
 
     .info-value-price {
-        font-size: 24px;
+        font-size: 26px;
         font-weight: 900;
         color: #E83A61;
     }
 
-    .btn-delete-final {
-        background: #dc3545;
-        color: white;
-        border: none;
-        padding: 12px 35px;
-        border-radius: 50px;
-        font-weight: 700;
-        transition: 0.3s;
-        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+    .relation-badge {
+        display: inline-block;
+        background: #eee;
+        padding: 4px 12px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #666;
+        margin-top: 10px;
     }
 
-        .btn-delete-final:hover {
-            background: #a71d2a;
-            transform: scale(1.05);
-            color: white;
-        }
+    .btn-delete-final {
+        background: linear-gradient(90deg, #dc3545 0%, #a71d2a 100%);
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3);
+        width: 100%;
+    }
+
+    .btn-delete-final:hover {
+        background: #a71d2a;
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(220, 53, 69, 0.5);
+        color: white;
+    }
 
     .btn-cancel {
         color: #666;
         text-decoration: none;
-        font-weight: 600;
+        font-weight: 700;
+        margin-top: 20px;
+        display: inline-block;
         transition: 0.3s;
     }
 
-        .btn-cancel:hover {
-            color: #333;
-        }
+    .btn-cancel:hover {
+        color: #F9812A;
+    }
 </style>
 
 <div class="delete-page-wrapper">
     <div class="delete-card">
         <div class="warning-icon">
-            <i class="bi bi-exclamation-octagon-fill"></i>
+            <i class="bi bi-trash3-fill"></i>
         </div>
         
-        <h2 class="fw-bold">Chwileczkę! 🛑</h2>
-        <p class="text-muted">Czy na pewno chcesz na zawsze usunąć ten trunek z naszej spiżarni?</p>
+        <h2 class="fw-bold" style="color: #333;">Ostateczna decyzja?</h2>
+        <p class="text-muted">Usunięcie produktu spowoduje również wycofanie go z transakcji i wyczyszczenie powiązań w recepturach.</p>
 
         <div class="product-preview-box">
-            <div class="info-label">Nazwa produktu</div>
-            <div class="info-value">@Model.Nazwa</div>
+            <div class="info-label">Trunek do usunięcia</div>
+            <div class="info-value" style="font-size: 24px; color: #dc3545;">@Model.Nazwa</div>
 
-            <div class="info-label">Opis</div>
-            <div class="info-value">@Model.Opis</div>
-
-            <div class="row">
+            <div class="row mt-3">
+                <div class="col-6 border-end">
+                    <div class="info-label">Kategoria</div>
+                    <div class="info-value" style="font-size: 15px;">@Model.Kategoria?.Nazwa</div>
+                </div>
                 <div class="col-6">
-                    <div class="info-label">Cena</div>
+                    <div class="info-label">Producent</div>
+                    <div class="info-value" style="font-size: 15px;">@Model.Producent?.Nazwa</div>
+                </div>
+            </div>
+
+            <hr style="opacity: 0.1;">
+
+            <div class="row align-items-center">
+                <div class="col-6">
+                    <div class="info-label">Wartość rynkowa</div>
                     <div class="info-value-price">@Model.Cena.ToString("N2") zł</div>
                 </div>
                 <div class="col-6 text-end">
-                    <div class="info-label">Moc</div>
-                    <div class="info-value">@Model.ZawartoscAlkoholu%</div>
+                    <div class="relation-badge">
+                        <i class="bi bi-link-45deg"></i> Relacja Many-to-Many
+                    </div>
                 </div>
             </div>
         </div>
 
         <form asp-action="Delete">
             <input type="hidden" asp-for="Id" />
-            <div class="d-flex flex-column gap-3 align-items-center">
-                <button type="submit" class="btn btn-delete-final">
-                    <i class="bi bi-trash3-fill me-2"></i> Tak, usuń bezpowrotnie
+            <div class="d-flex flex-column align-items-center">
+                <button type="submit" class="btn-delete-final">
+                    <i class="bi bi-fire me-2"></i> Potwierdzam usunięcie
                 </button>
                 <a asp-action="Index" class="btn-cancel">
-                    Nie, rozmyśliłem się – wróć do listy
+                    <i class="bi bi-arrow-left me-1"></i> Nie usuwaj, wróć do listy
                 </a>
             </div>
         </form>

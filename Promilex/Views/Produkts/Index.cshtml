@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Promiex.Models.Produkt>
 
 @{
-    ViewData["Title"] = "Nasze Trunki";
+    ViewData["Title"] = "Nasza Spiżarnia";
 }
 
 <style>
@@ -23,126 +23,212 @@
         color: #F9812A;
         text-transform: uppercase;
         letter-spacing: -1px;
+        margin-bottom: 10px;
     }
 
     .product-card {
         background: white;
         border: none;
-        border-radius: 30px;
+        border-radius: 35px;
         overflow: hidden;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         height: 100%;
         box-shadow: 0 10px 30px rgba(0,0,0,0.04);
         position: relative;
+        display: flex;
+        flex-direction: column;
     }
 
     .product-card:hover {
         transform: translateY(-12px);
-        box-shadow: 0 20px 40px rgba(249, 129, 42, 0.15);
+        box-shadow: 0 25px 50px rgba(142, 68, 173, 0.15); /* Fioletowa poświata przy hoverze */
     }
 
     .fk-badges {
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         display: flex;
         justify-content: center;
-        gap: 5px;
+        gap: 6px;
         flex-wrap: wrap;
     }
 
-    .badge-kategoria {
-        background: #F9812A;
-        color: white;
+    .badge-custom {
         font-size: 10px;
-        padding: 3px 10px;
+        padding: 4px 12px;
         border-radius: 50px;
         text-transform: uppercase;
-        font-weight: 700;
+        font-weight: 800;
+        letter-spacing: 0.5px;
     }
 
-    .badge-producent {
-        background: #333;
-        color: white;
-        font-size: 10px;
-        padding: 3px 10px;
-        border-radius: 50px;
-        text-transform: uppercase;
-        font-weight: 700;
-    }
+    .badge-kategoria { background: #F9812A; color: white; }
+    .badge-producent { background: #333; color: white; }
 
     .product-img-box {
         height: 180px;
-        background: #fffcf7;
+        background: linear-gradient(180deg, #fffcf7 0%, #FEF3DC 100%);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 70px;
-        border-bottom: 2px solid #FEF3DC;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 
     .alcohol-badge {
         position: absolute;
         top: 15px;
         left: 15px;
-        background: rgba(232, 58, 97, 0.1);
-        color: #E83A61;
-        padding: 4px 10px;
-        border-radius: 12px;
+        background: white;
+        color: #C71585; /* ZMIANA: Malinowy fiolet zamiast różu */
+        padding: 5px 12px;
+        border-radius: 15px;
         font-weight: 800;
-        font-size: 12px;
+        font-size: 13px;
         z-index: 10;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    .product-info { padding: 20px; text-align: center; }
-    .product-name { font-size: 20px; font-weight: 800; color: #333; margin-bottom: 5px; }
-    .product-desc { color: #777; font-size: 13px; height: 38px; overflow: hidden; margin-bottom: 10px; }
-    .product-price-tag { font-size: 24px; font-weight: 900; color: #E83A61; margin-bottom: 15px; }
-    .btn-actions-group { display: flex; justify-content: center; gap: 8px; border-top: 1px solid #eee; padding-top: 15px; }
-    .circle-btn { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: 0.3s; }
-    .btn-edit { background-color: #FFB800; }
-    .btn-details { background-color: #F9812A; }
-    .btn-delete { background-color: #333; }
-    .fab-add { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #F9812A 0%, #E83A61 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 25px; box-shadow: 0 10px 20px rgba(232, 58, 97, 0.3); text-decoration: none; z-index: 1000; }
+    /* FIOLETOWY LICZNIK SKŁADNIKÓW - Teraz pasuje do bazy receptur */
+    .ingredients-count {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: #8E44AD; /* ZMIANA: Głęboki fiolet zamiast zieleni */
+        color: white;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-weight: 800;
+        font-size: 13px;
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(142, 68, 173, 0.3);
+    }
+
+    .product-info { 
+        padding: 25px 20px; 
+        text-align: center; 
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-name { font-size: 22px; font-weight: 800; color: #333; margin-bottom: 8px; line-height: 1.2; }
+    .product-desc { color: #888; font-size: 13px; height: 38px; overflow: hidden; margin-bottom: 15px; line-height: 1.4; }
+    
+    .product-price-tag { 
+        font-size: 26px; 
+        font-weight: 900; 
+        color: #C71585; /* ZMIANA: Malinowy fiolet dla ceny */
+        margin-top: auto; 
+        padding-bottom: 15px; 
+    }
+    
+    .btn-actions-group { 
+        display: flex; 
+        justify-content: center; 
+        gap: 12px; 
+        padding-top: 15px;
+        border-top: 1px solid #f8f8f8;
+    }
+    
+    .circle-btn { 
+        width: 42px; 
+        height: 42px; 
+        border-radius: 50%; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        color: white; 
+        text-decoration: none; 
+        transition: all 0.3s ease; 
+        font-size: 16px;
+    }
+    
+    .btn-edit { background: #FFB800; }
+    .btn-details { background: #F9812A; }
+    .btn-delete { background: #333; }
+    
+    .circle-btn:hover {
+        transform: scale(1.15);
+        color: white;
+    }
+
+    .fab-add { 
+        position: fixed; 
+        bottom: 40px; 
+        right: 40px; 
+        width: 65px; 
+        height: 65px; 
+        /* Gradient: Pomarańcz -> Malinowy Fiolet */
+        background: linear-gradient(135deg, #F9812A 0%, #C71585 100%); 
+        color: white; 
+        border-radius: 50%; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        font-size: 28px; 
+        box-shadow: 0 15px 35px rgba(199, 21, 133, 0.4); 
+        text-decoration: none; 
+        z-index: 1000; 
+        transition: 0.4s;
+    }
+
+    .fab-add:hover {
+        transform: rotate(90deg) scale(1.1);
+        color: white;
+    }
 </style>
 
 <div class="products-page">
     <div class="container">
         <div class="products-header">
-            <h1 class="products-title">Nasza Spiżarnia 🍷</h1>
-            <p class="text-muted">Obsługa relacji: Kategoria & Producent</p>
+            <h1 class="products-title">Nasza Spiżarnia</h1>
+            <p class="text-muted">Przeglądaj swoje trunki i ich receptury</p>
         </div>
 
         <div class="row g-4">
             @foreach (var item in Model) {
-                <div class="col-md-4 col-lg-3">
-                    <div class="product-card shadow-sm">
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="product-card">
                         <div class="alcohol-badge">
-                            <i class="bi bi-percent"></i> @item.ZawartoscAlkoholu%
+                            <i class="bi bi-percent"></i> @item.ZawartoscAlkoholu
+                        </div>
+
+                        <div class="ingredients-count" title="Liczba składników w recepturze">
+                            <i class="bi bi-funnel-fill me-1"></i> @(item.Skladniki?.Count() ?? 0)
                         </div>
 
                         <div class="product-img-box">
-                            @if (item.Nazwa.ToLower().Contains("wino")) { <span>🍷</span> }
-                            else if (item.Nazwa.ToLower().Contains("piwo")) { <span>🍺</span> }
-                            else { <span>🍾</span> }
+                            @{
+                                string n = item.Nazwa?.ToLower() ?? "";
+                                if (n.Contains("wino")) { <span>🍷</span> }
+                                else if (n.Contains("piwo")) { <span>🍺</span> }
+                                else if (n.Contains("szampan") || n.Contains("prosecco")) { <span>🥂</span> }
+                                else if (n.Contains("wódka") || n.Contains("nalewka")) { <span>🥃</span> }
+                                else { <span>🍾</span> }
+                            }
                         </div>
                         
                         <div class="product-info">
                             <div class="fk-badges">
                                 @if (item.Kategoria != null) {
-                                    <span class="badge-kategoria">@item.Kategoria.Nazwa</span>
+                                    <span class="badge-custom badge-kategoria">@item.Kategoria.Nazwa</span>
                                 }
                                 @if (item.Producent != null) {
-                                    <span class="badge-producent">@item.Producent.Nazwa</span>
+                                    <span class="badge-custom badge-producent">@item.Producent.Nazwa</span>
                                 }
                             </div>
 
                             <h3 class="product-name">@item.Nazwa</h3>
                             <p class="product-desc">@item.Opis</p>
-                            <div class="product-price-tag">@item.Cena.ToString("N2") zł</div>
+                            
+                            <div class="product-price-tag">
+                                @item.Cena.ToString("N2") <small style="font-size: 14px;">zł</small>
+                            </div>
                             
                             <div class="btn-actions-group">
-                                <a asp-action="Edit" asp-route-id="@item.Id" class="circle-btn btn-edit"><i class="bi bi-pencil-fill"></i></a>
-                                <a asp-action="Details" asp-route-id="@item.Id" class="circle-btn btn-details"><i class="bi bi-search"></i></a>
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="circle-btn btn-delete"><i class="bi bi-trash3-fill"></i></a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="circle-btn btn-edit" title="Edytuj"><i class="bi bi-pencil-fill"></i></a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="circle-btn btn-details" title="Szczegóły"><i class="bi bi-search"></i></a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="circle-btn btn-delete" title="Usuń"><i class="bi bi-trash3-fill"></i></a>
                             </div>
                         </div>
                     </div>
@@ -152,4 +238,6 @@
     </div>
 </div>
 
-<a asp-action="Create" class="fab-add shadow-lg"><i class="bi bi-plus-lg"></i></a>
+<a asp-action="Create" class="fab-add shadow-lg" title="Dodaj nowy produkt">
+    <i class="bi bi-plus-lg"></i>
+</a>

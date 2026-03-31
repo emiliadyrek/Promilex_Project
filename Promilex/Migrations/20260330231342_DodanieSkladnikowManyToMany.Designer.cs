@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Promiex.Models;
 
@@ -11,9 +12,11 @@ using Promiex.Models;
 namespace Promilex.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260330231342_DodanieSkladnikowManyToMany")]
+    partial class DodanieSkladnikowManyToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace Promilex.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ProduktSkladnik", b =>
-                {
-                    b.Property<int>("ProduktyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkladnikiId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProduktyId", "SkladnikiId");
-
-                    b.HasIndex("SkladnikiId");
-
-                    b.ToTable("ProduktSkladnik");
-                });
 
             modelBuilder.Entity("Promiex.Models.Dostawca", b =>
                 {
@@ -171,6 +159,9 @@ namespace Promilex.Migrations
                     b.Property<int>("ProducentId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SkladnikId")
+                        .HasColumnType("int");
+
                     b.Property<double>("ZawartoscAlkoholu")
                         .HasColumnType("float");
 
@@ -179,6 +170,8 @@ namespace Promilex.Migrations
                     b.HasIndex("KategoriaId");
 
                     b.HasIndex("ProducentId");
+
+                    b.HasIndex("SkladnikId");
 
                     b.ToTable("Produkty");
                 });
@@ -249,21 +242,6 @@ namespace Promilex.Migrations
                     b.ToTable("Zamowienia");
                 });
 
-            modelBuilder.Entity("ProduktSkladnik", b =>
-                {
-                    b.HasOne("Promiex.Models.Produkt", null)
-                        .WithMany()
-                        .HasForeignKey("ProduktyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Promiex.Models.Skladnik", null)
-                        .WithMany()
-                        .HasForeignKey("SkladnikiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Promiex.Models.Produkt", b =>
                 {
                     b.HasOne("Promiex.Models.Kategoria", "Kategoria")
@@ -277,6 +255,10 @@ namespace Promilex.Migrations
                         .HasForeignKey("ProducentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Promiex.Models.Skladnik", null)
+                        .WithMany("Produkty")
+                        .HasForeignKey("SkladnikId");
 
                     b.Navigation("Kategoria");
 
@@ -292,6 +274,11 @@ namespace Promilex.Migrations
                         .IsRequired();
 
                     b.Navigation("Produkt");
+                });
+
+            modelBuilder.Entity("Promiex.Models.Skladnik", b =>
+                {
+                    b.Navigation("Produkty");
                 });
 #pragma warning restore 612, 618
         }

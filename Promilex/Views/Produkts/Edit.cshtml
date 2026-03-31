@@ -51,6 +51,13 @@
             background-color: #fffcf7;
         }
 
+    /* Styl dla Multi-Selecta składników */
+    .multi-select-skladniki {
+        height: 130px !important;
+        background-image: none !important;
+        border: 2px solid #FEF3DC;
+    }
+
     .btn-save-custom {
         background: #F9812A;
         color: white;
@@ -103,7 +110,7 @@
                     <div class="edit-header">
                         <i class="bi bi-pencil-square"></i>
                         <h2 class="fw-bold m-0">Edytuj Trunek</h2>
-                        <p class="small opacity-75">Aktualizacja danych produktu: @Model.Nazwa</p>
+                        <p class="small opacity-75">Aktualizacja danych produktu: <strong>@Model.Nazwa</strong></p>
                     </div>
 
                     <div class="edit-body">
@@ -112,32 +119,47 @@
                             <input type="hidden" asp-for="Id" />
 
                             <div class="mb-4">
-                                <label asp-for="Nazwa" class="form-label fw-bold small text-uppercase text-muted"></label>
+                                <label asp-for="Nazwa" class="form-label fw-bold small text-uppercase text-muted">Nazwa Trunku</label>
                                 <input asp-for="Nazwa" class="form-control form-control-lg" />
                                 <span asp-validation-for="Nazwa" class="text-danger"></span>
                             </div>
 
-                            <div class="mb-4">
-                                <label asp-for="KategoriaId" class="form-label fw-bold small text-uppercase text-muted">Kategoria (Rodzaj)</label>
-                                <select asp-for="KategoriaId" class="form-select" asp-items="ViewBag.KategoriaId"></select>
-                                <span asp-validation-for="KategoriaId" class="text-danger"></span>
+                            <div class="row">
+                                <div class="col-6 mb-4">
+                                    <label asp-for="KategoriaId" class="form-label fw-bold small text-uppercase text-muted">Kategoria</label>
+                                    <select asp-for="KategoriaId" class="form-select" asp-items="ViewBag.KategoriaId"></select>
+                                    <span asp-validation-for="KategoriaId" class="text-danger"></span>
+                                </div>
+                                <div class="col-6 mb-4">
+                                    <label asp-for="ProducentId" class="form-label fw-bold small text-uppercase text-muted">Producent</label>
+                                    <select asp-for="ProducentId" class="form-select" asp-items="ViewBag.ProducentId"></select>
+                                    <span asp-validation-for="ProducentId" class="text-danger"></span>
+                                </div>
                             </div>
 
                             <div class="mb-4">
-                                <label asp-for="ProducentId" class="form-label fw-bold small text-uppercase text-muted">Producent (Źródło)</label>
-                                <select asp-for="ProducentId" class="form-select" asp-items="ViewBag.ProducentId"></select>
-                                <span asp-validation-for="ProducentId" class="text-danger"></span>
+                                <label class="form-label fw-bold small text-uppercase text-muted">
+                                    <i class="bi bi-droplet-half me-1"></i> Składniki Receptury (M-M)
+                                </label>
+                                <select name="wybraneSkladniki"
+                                        class="form-select multi-select-skladniki"
+                                        multiple="multiple"
+                                        asp-items="ViewBag.SkladnikiId">
+                                </select>
+                                <div class="form-text mt-2" style="font-size: 0.75rem; color: #888;">
+                                    <i class="bi bi-info-circle me-1"></i> Przytrzymaj <strong>CTRL</strong>, aby dodać/usunąć składniki z listy.
+                                </div>
                             </div>
 
                             <div class="mb-4">
-                                <label asp-for="Opis" class="form-label fw-bold small text-uppercase text-muted"></label>
+                                <label asp-for="Opis" class="form-label fw-bold small text-uppercase text-muted">Opis Smaku i Aromatu</label>
                                 <textarea asp-for="Opis" class="form-control" rows="3"></textarea>
                                 <span asp-validation-for="Opis" class="text-danger"></span>
                             </div>
 
                             <div class="row mb-5">
                                 <div class="col-md-6">
-                                    <label asp-for="Cena" class="form-label fw-bold small text-uppercase text-muted"></label>
+                                    <label asp-for="Cena" class="form-label fw-bold small text-uppercase text-muted">Cena rynkowa</label>
                                     <div class="input-group">
                                         <input asp-for="Cena" class="form-control" />
                                         <span class="input-group-text bg-white border-start-0" style="border-radius: 0 15px 15px 0; border: 2px solid #FEF3DC; border-left: none;">zł</span>
@@ -145,14 +167,14 @@
                                     <span asp-validation-for="Cena" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mt-3 mt-md-0">
-                                    <label asp-for="ZawartoscAlkoholu" class="form-label fw-bold small text-uppercase text-muted">Procenty (%)</label>
+                                    <label asp-for="ZawartoscAlkoholu" class="form-label fw-bold small text-uppercase text-muted">Moc (%)</label>
                                     <input asp-for="ZawartoscAlkoholu" class="form-control" />
                                     <span asp-validation-for="ZawartoscAlkoholu" class="text-danger"></span>
                                 </div>
                             </div>
 
                             <button type="submit" class="btn-save-custom">
-                                <i class="bi bi-check-lg me-2"></i> Zapisz zmiany
+                                <i class="bi bi-check-lg me-2"></i> Zaktualizuj Dane
                             </button>
 
                             <a asp-action="Index" class="back-link">
@@ -165,3 +187,4 @@
         </div>
     </div>
 </div>
+

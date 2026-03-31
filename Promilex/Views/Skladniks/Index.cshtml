@@ -1,0 +1,185 @@
+﻿@model IEnumerable<Promiex.Models.Skladnik>
+
+@{
+    ViewData["Title"] = "Baza Receptur";
+}
+
+<style>
+    .skladnik-index-wrapper {
+        background-color: #FEF3DC; /* Spójne tło całej aplikacji */
+        min-height: 100vh;
+        padding-bottom: 100px;
+    }
+
+    .skladnik-header {
+        text-align: center;
+        padding: 60px 0;
+    }
+
+    .skladnik-title {
+        font-size: 48px;
+        font-weight: 900;
+        color: #8E44AD; /* Fioletowy kolor tytułu */
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        margin-bottom: 10px;
+    }
+
+    .skladnik-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 25px;
+    }
+
+    .skladnik-item-card {
+        background: white;
+        border-radius: 35px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    }
+
+    .skladnik-item-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(142, 68, 173, 0.12); /* Fioletowa poświata */
+    }
+
+    .skladnik-main-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .skladnik-icon-box {
+        width: 55px;
+        height: 55px;
+        background: #fcfaff; /* Bardzo jasny fiolet */
+        color: #8E44AD;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .skladnik-name {
+        font-weight: 800;
+        font-size: 20px;
+        color: #333;
+        margin: 0;
+        line-height: 1.1;
+    }
+
+    .usage-badge {
+        font-size: 11px;
+        background: linear-gradient(90deg, #8E44AD 0%, #C71585 100%); /* Malinowo-fioletowy gradient */
+        color: white;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-top: 5px;
+        display: inline-block;
+    }
+
+    .skladnik-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .circle-btn-sm {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 15px;
+        color: white;
+    }
+
+    .btn-edit-sm { background: #FFB800; }
+    .btn-details-sm { background: #8E44AD; } /* Fioletowy dla szczegółów */
+    .btn-delete-sm { background: #333; }
+
+    .circle-btn-sm:hover {
+        transform: scale(1.15);
+        color: white;
+        filter: brightness(1.1);
+    }
+
+    .fab-add-skladnik {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        width: 65px;
+        height: 65px;
+        background: linear-gradient(135deg, #8E44AD 0%, #C71585 100%); /* Nowy gradient FAB */
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        box-shadow: 0 15px 35px rgba(142, 68, 173, 0.4);
+        text-decoration: none;
+        z-index: 1000;
+        transition: 0.4s;
+    }
+
+    .fab-add-skladnik:hover {
+        transform: rotate(90deg) scale(1.1);
+        color: white;
+        box-shadow: 0 20px 45px rgba(199, 21, 133, 0.5);
+    }
+</style>
+
+<div class="skladnik-index-wrapper">
+    <div class="container">
+        <div class="skladnik-header">
+            <h1 class="skladnik-title">Baza Receptur</h1>
+            <p class="text-muted">Twoje składniki</p>
+        </div>
+
+        <div class="skladnik-grid">
+            @foreach (var item in Model) {
+                <div class="skladnik-item-card">
+                    <div class="skladnik-main-info">
+                        <div class="skladnik-icon-box">
+                            <i class="bi bi-heptagon-fill"></i>
+                        </div>
+                        <div>
+                            <h3 class="skladnik-name">@item.Nazwa</h3>
+                            <span class="usage-badge">
+                                <i class="bi bi-stars me-1"></i> 
+                                W użyciu: @(item.Produkty?.Count() ?? 0)
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="skladnik-actions">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="circle-btn-sm btn-edit-sm" title="Edytuj">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="circle-btn-sm btn-details-sm" title="Szczegóły">
+                            <i class="bi bi-search"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="circle-btn-sm btn-delete-sm" title="Usuń">
+                            <i class="bi bi-trash3-fill"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<a asp-action="Create" class="fab-add-skladnik shadow-lg" title="Dodaj nowy składnik">
+    <i class="bi bi-plus-lg"></i>
+</a>
