@@ -6,10 +6,10 @@
 
 <style>
     .orders-page {
-        background-color: #FEF3DC; 
-        min-height: 100vh;
-        padding-bottom: 100px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--promilex-bg); 
+        min-height: 80vh;
+        padding-bottom: 60px;
+        transition: background-color var(--transition-speed);
     }
 
     .orders-header {
@@ -20,18 +20,17 @@
     .orders-title {
         font-size: 42px;
         font-weight: 900;
-        color: #E83A61; 
+        color: var(--promilex-malina); 
         text-transform: uppercase;
         letter-spacing: -1px;
     }
 
     .order-card {
-        background: white;
+        background: var(--card-bg);
         border-radius: 30px;
-        border: none;
+        border: 1px solid var(--border-color);
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         overflow: hidden;
-        box-shadow: 0 10px 25px rgba(232, 58, 97, 0.05);
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -39,11 +38,13 @@
 
     .order-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 15px 35px rgba(232, 58, 97, 0.15);
+        border-color: var(--promilex-purple) !important;
+
+        box-shadow: 0 15px 35px rgba(142, 68, 173, 0.25) !important;
     }
 
     .order-top {
-        background: linear-gradient(135deg, #E83A61 0%, #F9812A 100%);
+        background: linear-gradient(135deg, var(--promilex-malina) 0%, var(--promilex-purple) 100%);
         padding: 15px 20px;
         color: white;
         display: flex;
@@ -67,12 +68,12 @@
     .order-date {
         font-size: 20px;
         font-weight: 800;
-        color: #333;
+        color: var(--text-main);
         margin-bottom: 5px;
     }
 
     .order-client {
-        color: #7F8C8D;
+        color: var(--text-muted);
         font-size: 14px;
         font-weight: 600;
         margin-bottom: 20px;
@@ -81,10 +82,10 @@
     .status-pill {
         display: inline-block;
         padding: 6px 18px;
-        background: #fffcf7;
-        border: 2px solid #FFB800; 
+        background: var(--promilex-bg);
+        border: 1px solid var(--promilex-orange); 
         border-radius: 50px;
-        color: #F9812A; 
+        color: var(--promilex-orange); 
         font-weight: 800;
         font-size: 11px;
         text-transform: uppercase;
@@ -96,35 +97,29 @@
         justify-content: center;
         gap: 15px;
         padding: 20px;
-        background: #fffcf7;
-        border-top: 1px solid #f0f0f0;
+        background: var(--promilex-bg);
+        border-top: 1px solid var(--border-color);
     }
 
     .circle-btn {
         width: 42px;
         height: 42px;
-        border-radius: 50%;
+        border-radius: 14px; 
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: white !important;
         text-decoration: none;
         transition: 0.3s;
-        border: none;
     }
 
-    .btn-edit {
-        background-color: #FFB800;
-    }
-    .btn-details {
-        background-color: #F9812A;
-    }
-    .btn-delete {
-        background-color: #333;
-    }
+    .btn-edit { background-color: #FFB800; }
+    .btn-details { background-color: var(--promilex-purple); }
+    .btn-delete { background-color: #333; }
+    [data-theme="dark"] .btn-delete { background-color: #444; }
+
     .circle-btn:hover {
-        transform: scale(1.2);
-        color: white;
+        transform: translateY(-3px) scale(1.1);
         filter: brightness(1.1);
     }
 
@@ -134,32 +129,22 @@
         right: 40px;
         width: 75px;
         height: 75px;
-        background: linear-gradient(135deg, #F9812A 0%, #E83A61 100%);
-        color: white;
-        border-radius: 50%;
+        background: linear-gradient(135deg, var(--promilex-purple) 0%, var(--promilex-malina) 100%);
+        color: white !important;
+        border-radius: 22px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 32px;
-        box-shadow: 0 10px 25px rgba(232, 58, 97, 0.4);
+        box-shadow: 0 10px 25px rgba(142, 68, 173, 0.4);
         z-index: 1000;
         text-decoration: none;
         transition: all 0.4s ease;
     }
 
     .fab-add:hover {
-        transform: scale(1.1);
-        color: white;
-        box-shadow: 0 15px 30px rgba(232, 58, 97, 0.6);
-    }
-
-    .fab-add i {
-        transition: transform 0.4s ease;
-        display: inline-block;
-    }
-
-    .fab-add:hover i {
-        transform: rotate(90deg);
+        transform: scale(1.1) rotate(90deg);
+        box-shadow: 0 15px 35px rgba(142, 68, 173, 0.6);
     }
 </style>
 
@@ -211,7 +196,7 @@
             @if (!Model.Any())
             {
                 <div class="col-12 text-center mt-5">
-                    <div class="p-5 border-dashed rounded-5 bg-white opacity-75">
+                    <div class="p-5 border border-dashed rounded-5 bg-transparent opacity-75" style="border-style: dashed !important;">
                         <i class="bi bi-clipboard-x display-1 text-muted"></i>
                         <h3 class="mt-3 text-muted">Brak zamówień w bazie</h3>
                         <p>Kliknij plusik w rogu, aby dodać pierwsze!</p>

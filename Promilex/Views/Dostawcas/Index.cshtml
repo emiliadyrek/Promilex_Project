@@ -6,9 +6,10 @@
 
 <style>
     .sup-index-wrapper {
-        background-color: #FEF3DC;
-        min-height: 100vh;
-        padding: 60px 0;
+        background-color: var(--promilex-bg);
+        min-height: 80vh;
+        padding: 40px 0;
+        transition: background-color var(--transition-speed);
     }
 
     .sup-header {
@@ -19,59 +20,64 @@
     .sup-title {
         font-size: 42px;
         font-weight: 900;
-        color: #C0308C; 
+        color: var(--promilex-malina); 
         text-transform: uppercase;
     }
 
     .sup-grid-card {
-        background: white;
+        background: var(--card-bg);
         border-radius: 25px;
         padding: 30px;
-        border: none;
+        border: 1px solid var(--border-color);
         height: 100%;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        position: relative;
+        overflow: hidden;
     }
 
-        .sup-grid-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(192, 48, 140, 0.15);
-        }
+    .sup-grid-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--promilex-purple) !important;
+
+        box-shadow: 0 15px 40px rgba(142, 68, 173, 0.3) !important;
+    }
 
     .sup-icon-circle {
         width: 80px;
         height: 80px;
-        background: #FEF3DC;
+        background: var(--promilex-bg);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 32px;
-        color: #C0308C; 
+        color: var(--promilex-purple); 
         margin-bottom: 20px;
         transition: 0.3s;
+        border: 1px solid var(--border-color);
     }
 
     .sup-grid-card:hover .sup-icon-circle {
-        background: #C0308C;
+        background: var(--promilex-purple);
         color: white;
+        transform: rotate(-10deg);
     }
 
     .sup-name {
         font-size: 20px;
         font-weight: 800;
-        color: #333;
+        color: var(--text-main); 
         margin-bottom: 5px;
     }
 
     .sup-phone {
         font-size: 14px;
         font-weight: 600;
-        color: #E83A61; 
+        color: var(--promilex-pink); 
         margin-bottom: 20px;
     }
 
@@ -79,6 +85,7 @@
         display: flex;
         gap: 8px;
         margin-top: auto;
+        z-index: 2;
     }
 
     .sup-btn {
@@ -88,25 +95,20 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: white !important;
         text-decoration: none;
         transition: 0.2s;
     }
 
-    .btn-edit {
-        background: #FFB800;
-    }
-    .btn-details {
-        background: #F9812A;
-    }
-    .btn-delete {
-        background: #333;
-    }
+    .btn-edit { background: #FFB800; }
+    .btn-details { background: var(--promilex-orange); }
+    .btn-delete { background: #333; }
+
+    [data-theme="dark"] .btn-delete { background: #444; }
 
     .sup-btn:hover {
         transform: translateY(-3px);
         filter: brightness(1.1);
-        color: white;
     }
 
     .fab-sup-add {
@@ -115,24 +117,23 @@
         right: 40px;
         width: 70px;
         height: 70px;
-        background: #C0308C;
-        color: white;
-        border-radius: 20px;
+        background: linear-gradient(135deg, var(--promilex-purple), var(--promilex-malina));
+        color: white !important;
+        border-radius: 22px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 28px;
-        box-shadow: 0 10px 25px rgba(192, 48, 140, 0.3);
+        box-shadow: 0 10px 25px rgba(142, 68, 173, 0.4);
         transition: all 0.3s ease;
         text-decoration: none;
         z-index: 1000;
     }
 
-        .fab-sup-add:hover {
-            transform: rotate(90deg) scale(1.1);
-            background: #E83A61;
-            color: white;
-        }
+    .fab-sup-add:hover {
+        transform: rotate(90deg) scale(1.1);
+        box-shadow: 0 15px 30px rgba(142, 68, 173, 0.6);
+    }
 </style>
 
 <div class="sup-index-wrapper">
@@ -180,7 +181,6 @@
                 </div>
             }
         </div>
-
     </div>
 </div>
 

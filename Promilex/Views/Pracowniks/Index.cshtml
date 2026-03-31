@@ -6,9 +6,10 @@
 
 <style>
     .workers-page {
-        background-color: #FEF3DC; 
-        min-height: 100vh;
-        padding-bottom: 100px;
+        background-color: var(--promilex-bg); 
+        min-height: 80vh;
+        padding-bottom: 60px;
+        transition: background-color var(--transition-speed);
     }
 
     .workers-header {
@@ -19,18 +20,17 @@
     .workers-title {
         font-size: 42px;
         font-weight: 900;
-        color: #6C5CE7; 
+        color: var(--promilex-purple); 
         text-transform: uppercase;
         letter-spacing: -1px;
     }
 
     .worker-card {
-        background: white;
+        background: var(--card-bg);
         border-radius: 35px;
-        border: none;
+        border: 1px solid var(--border-color);
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         overflow: hidden;
-        box-shadow: 0 10px 25px rgba(108, 92, 231, 0.05);
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -38,27 +38,34 @@
 
     .worker-card:hover {
         transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(108, 92, 231, 0.15);
+        border-color: var(--promilex-purple) !important;
+        box-shadow: 0 15px 40px rgba(142, 68, 173, 0.3) !important;
     }
 
     .worker-top {
-        background: linear-gradient(135deg, #6C5CE7 0%, #E83A61 100%);
-        padding: 20px;
+        background: linear-gradient(135deg, var(--promilex-purple) 0%, var(--promilex-malina) 100%);
+        padding: 25px;
         text-align: center;
         color: white;
     }
 
     .worker-avatar-circle {
-        width: 70px;
-        height: 70px;
-        background: rgba(255, 255, 255, 0.2);
-        border: 2px solid #FFB800;
+        width: 75px;
+        height: 75px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid rgba(255, 255, 255, 0.5);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 30px;
         margin: 0 auto;
+        transition: 0.3s;
+    }
+
+    .worker-card:hover .worker-avatar-circle {
+        border-color: #FFB800; 
+        transform: scale(1.1);
     }
 
     .worker-content {
@@ -70,20 +77,21 @@
     .worker-name {
         font-size: 20px;
         font-weight: 800;
-        color: #333;
-        margin-bottom: 5px;
+        color: var(--text-main);
+        margin-bottom: 8px;
     }
 
     .worker-position {
         display: inline-block;
-        padding: 5px 15px;
-        background: #fffcf7;
-        border: 1px solid #FEF3DC;
+        padding: 5px 18px;
+        background: var(--promilex-bg);
+        border: 1px solid var(--border-color);
         border-radius: 50px;
-        color: #6C5CE7;
+        color: var(--promilex-malina);
         font-weight: 700;
-        font-size: 12px;
+        font-size: 11px;
         text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .worker-actions {
@@ -91,29 +99,31 @@
         justify-content: center;
         gap: 12px;
         padding: 20px;
-        background: #fffcf7;
-        border-top: 1px solid #f9f9f9;
+        background: var(--promilex-bg);
+        border-top: 1px solid var(--border-color);
+        transition: background-color var(--transition-speed);
     }
 
     .circle-btn {
-        width: 40px;
-        height: 40px;
+        width: 42px;
+        height: 42px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: white !important;
         text-decoration: none;
         transition: 0.3s;
     }
 
     .btn-edit { background: #FFB800; }
-    .btn-details { background: #6C5CE7; }
+    .btn-details { background: var(--promilex-purple); }
     .btn-delete { background: #333; }
+    
+    [data-theme="dark"] .btn-delete { background: #555; }
 
     .circle-btn:hover {
-        transform: scale(1.15);
-        color: white;
+        transform: translateY(-3px) scale(1.1);
         filter: brightness(1.1);
     }
 
@@ -123,23 +133,22 @@
         right: 40px;
         width: 75px;
         height: 75px;
-        background: linear-gradient(135deg, #6C5CE7 0%, #E83A61 100%);
-        color: white;
+        background: linear-gradient(135deg, var(--promilex-purple) 0%, var(--promilex-malina) 100%);
+        color: white !important;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 30px;
-        box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
-        z-index: 999;
+        box-shadow: 0 10px 25px rgba(142, 68, 173, 0.4);
+        z-index: 1000;
         text-decoration: none;
         transition: all 0.4s ease;
     }
 
     .fab-add:hover {
         transform: scale(1.1) rotate(90deg);
-        color: white;
-        box-shadow: 0 15px 30px rgba(108, 92, 231, 0.6);
+        box-shadow: 0 15px 30px rgba(142, 68, 173, 0.6);
     }
 </style>
 
@@ -148,14 +157,14 @@
         
         <div class="workers-header">
             <h1 class="workers-title">Zasoby Ludzkie 👤</h1>
-            <p class="text-muted">Niektórzy są tu z własnej woli, inni po prostu dobrze pasują do inwentarza.</p>
+            <p class="text-muted">Ludzie, którzy napędzają mechanizm Twojej spiżarni.</p>
         </div>
 
         <div class="row g-4 justify-content-center">
             @foreach (var item in Model)
             {
                 <div class="col-md-6 col-lg-3">
-                    <div class="worker-card">
+                    <div class="worker-card shadow-sm">
                         <div class="worker-top">
                             <div class="worker-avatar-circle">
                                 <i class="bi bi-person-fill"></i>
@@ -185,9 +194,9 @@
             @if (!Model.Any())
             {
                 <div class="col-12 text-center mt-5">
-                    <div class="p-5 border-dashed rounded-5 bg-white opacity-75">
+                    <div class="p-5 border border-dashed rounded-5 bg-transparent opacity-75" style="border-style: dashed !important;">
                         <i class="bi bi-people display-1 text-muted"></i>
-                        <h3 class="mt-3 text-muted">Brak pracowników w bazie</h3>
+                        <h3 class="mt-3 text-muted">Brak personelu w bazie</h3>
                         <p>Zatrudnij kogoś klikając plusik w rogu!</p>
                     </div>
                 </div>

@@ -6,11 +6,10 @@
 
 <style>
     .client-index-wrapper {
-        background-color: #FEF3DC; 
-        min-height: 100vh;
-        padding: 60px 0;
-        padding-bottom: 120px;
-        font-family: 'Segoe UI', sans-serif;
+        background-color: var(--promilex-bg);
+        min-height: 80vh;
+        padding: 40px 0;
+        transition: background-color var(--transition-speed);
     }
 
     .client-header {
@@ -21,90 +20,100 @@
     .client-title {
         font-size: 42px;
         font-weight: 900;
-        color: #8E44AD; 
-        color: #A0522D; 
+        color: var(--promilex-purple);
         text-transform: uppercase;
         letter-spacing: -1px;
     }
 
     .client-card {
-        background: white;
+        background: var(--card-bg);
         border-radius: 30px;
         padding: 30px 20px;
-        border: none;
+        border: 1px solid var(--border-color);
         height: 100%;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        box-shadow: 0 10px 30px rgba(160, 82, 45, 0.05);
+        position: relative;
     }
 
         .client-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(160, 82, 45, 0.15);
+            border-color: var(--promilex-purple) !important;
+            box-shadow: 0 15px 40px rgba(142, 68, 173, 0.3) !important;
         }
 
     .client-avatar-box {
         width: 80px;
         height: 80px;
-        background: #FEF3DC; 
+        background: var(--promilex-bg);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 32px;
+        font-size: 28px;
         font-weight: 800;
-        color: #A0522D;
+        color: var(--promilex-purple);
         margin-bottom: 20px;
         transition: 0.3s;
+        border: 1px solid var(--border-color);
+        text-transform: uppercase;
     }
 
     .client-card:hover .client-avatar-box {
-        background: #A0522D;
+        background: var(--promilex-purple);
         color: white;
+        transform: scale(1.1);
     }
 
     .client-full-name {
         font-size: 20px;
         font-weight: 800;
-        color: #333;
+        color: var(--text-main);
         margin-bottom: 5px;
     }
 
     .client-email-tag {
         font-size: 13px;
-        color: #7F8C8D;
+        color: var(--text-muted);
         font-weight: 600;
         margin-bottom: 25px;
     }
 
     .client-action-pill {
         display: flex;
-        gap: 8px;
+        gap: 12px;
         margin-top: auto;
-        background: #fdfaf3;
-        padding: 8px 12px;
+        background: var(--promilex-bg);
+        padding: 8px 20px;
         border-radius: 50px;
+        border: 1px solid var(--border-color);
+        transition: 0.3s;
+    }
+
+    .client-card:hover .client-action-pill {
+        border-color: var(--promilex-purple);
     }
 
     .action-btn-mini {
-        color: #A0522D;
+        color: var(--text-main);
         text-decoration: none;
         font-size: 18px;
         transition: 0.2s;
-        width: 36px;
-        height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 50%;
     }
 
         .action-btn-mini:hover {
-            background: white;
-            transform: scale(1.2);
+            color: var(--promilex-malina) !important;
+            transform: scale(1.3);
+        }
+
+        .action-btn-mini.btn-del:hover {
+            color: #dc3545 !important;
         }
 
     .fab-add-client {
@@ -113,14 +122,14 @@
         right: 40px;
         width: 75px;
         height: 75px;
-        background: #A0522D;
-        color: white;
-        border-radius: 20px; 
+        background: linear-gradient(135deg, var(--promilex-purple), var(--promilex-malina));
+        color: white !important;
+        border-radius: 22px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 32px;
-        box-shadow: 0 10px 30px rgba(160, 82, 45, 0.3);
+        box-shadow: 0 10px 30px rgba(142, 68, 173, 0.4);
         transition: all 0.3s ease;
         text-decoration: none;
         z-index: 1000;
@@ -128,8 +137,7 @@
 
         .fab-add-client:hover {
             transform: scale(1.1) rotate(90deg);
-            background: #8B4513; 
-            color: white;
+            box-shadow: 0 15px 35px rgba(142, 68, 173, 0.6);
         }
 </style>
 
@@ -147,7 +155,7 @@
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <div class="client-card shadow-sm">
                         <div class="client-avatar-box">
-                            @(item.Imie?.Substring(0, 1))@(item.Nazwisko?.Substring(0, 1))
+                            @(item.Imie?.Length > 0 ? item.Imie.Substring(0, 1) : "?")@(item.Nazwisko?.Length > 0 ? item.Nazwisko.Substring(0, 1) : "")
                         </div>
                         
                         <div class="client-full-name">@item.Imie @item.Nazwisko</div>
@@ -155,7 +163,7 @@
                             <i class="bi bi-envelope-fill me-1"></i> @item.Email
                         </div>
 
-                        <div class="client-action-pill shadow-sm">
+                        <div class="client-action-pill">
                             <a asp-action="Edit" asp-route-id="@item.Id" class="action-btn-mini" title="Edytuj profil">
                                 <i class="bi bi-pencil-fill"></i>
                             </a>
@@ -167,6 +175,14 @@
                             </a>
                         </div>
                     </div>
+                </div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="col-12 text-center py-5">
+                    <i class="bi bi- people text-muted display-1"></i>
+                    <p class="mt-3 text-muted">Klub jest jeszcze pusty. Zaproś pierwszych gości!</p>
                 </div>
             }
         </div>

@@ -11,21 +11,175 @@
         :root {
             --promilex-orange: #F9812A;
             --promilex-pink: #E83A61;
+            --promilex-purple: #8E44AD;
+            --promilex-malina: #C71585;
             --promilex-bg: #FEF3DC;
-            --promilex-teal: #1ABC9C;
-            --promilex-crimson: #C0392B;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --nav-item-bg: rgba(255, 255, 255, 0.15);
+            --dropdown-bg: #ffffff;
+            --img-box-bg: linear-gradient(180deg, #fffcf7 0%, #FEF3DC 100%);
+            --input-bg: #ffffff;
+            --border-color: rgba(0,0,0,0.05);
+            --transition-speed: 0.3s;
+        }
+
+        [data-theme="dark"] {
+            --promilex-bg: #121212;
+            --card-bg: #1E1E1E;
+            --text-main: #F5F5F5;
+            --text-muted: #BBBBBB;
+            --nav-item-bg: rgba(0, 0, 0, 0.3);
+            --dropdown-bg: #2D2D2D;
+            --img-box-bg: linear-gradient(180deg, #2D2D2D 0%, #1E1E1E 100%);
+            --input-bg: #2D2D2D;
+            --border-color: #333333;
         }
 
         body {
-            background-color: var(--promilex-bg);
+            background-color: var(--promilex-bg) !important;
+            color: var(--text-main) !important;
             font-family: 'Segoe UI', Roboto, sans-serif;
             margin: 0;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            position: relative;
+            z-index: 0;
+        }
+
+    
+        @@keyframes mesh-movement {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.05) translate(2%, 2%); }
+            100% { transform: scale(1) translate(0, 0); }
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 15% 20%, rgba(142, 68, 173, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 85% 80%, rgba(249, 129, 42, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none; 
+            animation: mesh-movement 20s ease-in-out infinite;
+            transition: background var(--transition-speed);
+        }
+
+        [data-theme="dark"] body::before {
+            background: radial-gradient(circle at 15% 20%, rgba(142, 68, 173, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 85% 80%, rgba(249, 129, 42, 0.08) 0%, transparent 50%);
+        }
+
+        [data-theme="dark"] .card, 
+        [data-theme="dark"] [class*="card"],
+        [data-theme="dark"] .bg-white,
+        [data-theme="dark"] .bg-light {
+            background-color: var(--card-bg) !important;
+            color: var(--text-main) !important;
+            border-color: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] *[style*="#FEF3DC"],
+        [data-theme="dark"] *[style*="#fef3dc"],
+        [data-theme="dark"] *[style*="rgb(254, 243, 220)"],
+        [data-theme="dark"] *[style*="#ffffff"],
+        [data-theme="dark"] *[style*="#FFF"],
+        [data-theme="dark"] *[style*="white"],
+        [data-theme="dark"] *[style*="rgb(255, 255, 255)"] {
+            background-color: var(--card-bg) !important;
+            color: var(--text-main) !important;
+        }
+
+        [data-theme="dark"] main section,
+        [data-theme="dark"] main .container > div:not(.card):not(.row) {
+            background-color: transparent !important;
+        }
+
+        .product-img-box, .skladnik-icon-box {
+            background: var(--img-box-bg) !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            transition: background var(--transition-speed);
+        }
+
+
+        [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, 
+        [data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6, 
+        [data-theme="dark"] .card-title, [data-theme="dark"] .display-4, [data-theme="dark"] .fw-bold {
+            color: var(--text-main) !important;
+        }
+
+        [data-theme="dark"] p, [data-theme="dark"] span, [data-theme="dark"] .text-muted, 
+        [data-theme="dark"] .small, [data-theme="dark"] .card-text {
+            color: var(--text-muted) !important;
+        }
+
+        html:not([data-theme="dark"]) .text-white:not(.promilex-header *):not(.promilex-footer *):not(.badge) {
+            color: var(--text-main) !important;
+        }
+        
+        html:not([data-theme="dark"]) h1, 
+        html:not([data-theme="dark"]) h2 {
+            color: var(--promilex-orange) !important; 
+        }
+
+        .form-control, .form-select, .form-control-custom {
+            background-color: var(--input-bg) !important;
+            color: var(--text-main) !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            background-color: var(--input-bg) !important;
+            color: var(--text-main) !important;
+            border-color: var(--promilex-malina) !important;
+            box-shadow: 0 0 0 0.25rem rgba(199, 21, 133, 0.25) !important;
+        }
+
+        main .card {
+            transition: all 0.3s ease-in-out;
+            border: 1px solid var(--border-color);
+        }
+        main .card:hover {
+            border-color: var(--promilex-purple) !important;
+            box-shadow: 0 8px 25px rgba(142, 68, 173, 0.25) !important;
+            transform: translateY(-5px);
+        }
+        [data-theme="dark"] main .card:hover {
+            box-shadow: 0 8px 25px rgba(142, 68, 173, 0.45) !important;
+        }
+
+        main .table tbody tr {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        main .table tbody tr:hover {
+            background-color: rgba(142, 68, 173, 0.05) !important;
+            box-shadow: inset 4px 0 0 var(--promilex-purple);
+            transform: scale(1.01);
+        }
+        [data-theme="dark"] main .table tbody tr:hover {
+            background-color: rgba(142, 68, 173, 0.15) !important;
+        }
+
+        .promilex-glow {
+            transition: all 0.3s ease-in-out;
+            border: 1px solid var(--border-color);
+            border-radius: 8px; 
+        }
+        .promilex-glow:hover {
+            border-color: var(--promilex-purple) !important;
+            box-shadow: 0 8px 25px rgba(142, 68, 173, 0.25) !important;
+            transform: translateY(-5px);
+        }
+        [data-theme="dark"] .promilex-glow:hover {
+            box-shadow: 0 8px 25px rgba(142, 68, 173, 0.45) !important;
         }
 
         .promilex-header {
-            background: linear-gradient(90deg, #F9812A 0%, #E83A61 100%);
+            background: linear-gradient(90deg, var(--promilex-orange) 0%, var(--promilex-malina) 100%);
             padding: 12px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -52,15 +206,15 @@
             align-items: center;
             justify-content: center;
             height: 42px;
-            padding: 0 20px;
+            padding: 0 18px;
             border-radius: 50px;
             font-weight: 600;
             font-size: 14px;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
             border: 1px solid rgba(255,255,255,0.2);
             color: white !important;
-            background-color: rgba(255,255,255,0.15);
+            background-color: var(--nav-item-bg);
         }
 
         .promilex-nav-item.active-section {
@@ -75,29 +229,56 @@
             transform: translateY(-2px);
         }
 
-        .dropdown-menu {
-            border-radius: 15px;
+        #theme-toggle {
+            cursor: pointer;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
             border: none;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        #theme-toggle:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .dropdown-menu {
+            background-color: var(--dropdown-bg) !important;
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
             padding: 10px;
             margin-top: 10px !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+            transition: background-color var(--transition-speed);
         }
+
         .dropdown-item {
+            color: var(--text-main) !important;
             border-radius: 8px;
             padding: 8px 15px;
             font-weight: 500;
+            transition: 0.2s;
         }
+
         .dropdown-item:hover {
-            background-color: var(--promilex-bg);
-            color: var(--promilex-pink);
+            background-color: var(--promilex-bg) !important;
+            color: var(--promilex-malina) !important;
         }
 
         .promilex-footer {
-            background: linear-gradient(90deg, #F9812A 0%, #E83A61 100%);
-            color: white;
+            background: linear-gradient(90deg, var(--promilex-orange) 0%, var(--promilex-malina) 100%);
             padding: 40px 0;
             margin-top: 60px;
             text-align: center;
+        }
+
+        .promilex-footer, .promilex-footer h4, .promilex-footer p {
+            color: white !important;
         }
     </style>
 </head>
@@ -142,7 +323,7 @@
                        href="#" role="button" data-bs-toggle="dropdown">
                         <i class="bi bi-box-seam me-2"></i> @prodLabel
                     </a>
-                    <ul class="dropdown-menu shadow">
+                    <ul class="dropdown-menu">
                         <li><a class="dropdown-item" asp-controller="Produkts" asp-action="Index"><i class="bi bi-list-ul me-2"></i>Lista Towarów</a></li>
                         <li><a class="dropdown-item" asp-controller="Kategorias" asp-action="Index"><i class="bi bi-tags me-2"></i>Kategorie</a></li>
                         <li><a class="dropdown-item" asp-controller="Producents" asp-action="Index"><i class="bi bi-building me-2"></i>Producenci</a></li>
@@ -156,7 +337,7 @@
                        href="#" role="button" data-bs-toggle="dropdown">
                         <i class="bi bi-person-lines-fill me-2"></i> @firmLabel
                     </a>
-                    <ul class="dropdown-menu shadow">
+                    <ul class="dropdown-menu">
                         <li><a class="dropdown-item" asp-controller="Klients" asp-action="Index">Wspólnicy (Klienci)</a></li>
                         <li><a class="dropdown-item" asp-controller="Zamowienies" asp-action="Index">Rejestr Zamówień</a></li>
                         <li><a class="dropdown-item" asp-controller="Pracowniks" asp-action="Index">Lista Zasobów (Ludzi)</a></li>
@@ -168,11 +349,15 @@
                        href="#" role="button" data-bs-toggle="dropdown">
                         <i class="bi bi-truck me-2"></i> @logLabel
                     </a>
-                    <ul class="dropdown-menu shadow">
+                    <ul class="dropdown-menu">
                         <li><a class="dropdown-item" asp-controller="Dostawcas" asp-action="Index">Kurierzy (Dostawcy)</a></li>
                         <li><a class="dropdown-item" asp-controller="Recenzjas" asp-action="Index">Ostatnie Słowa (Recenzje)</a></li>
                     </ul>
                 </div>
+
+                <button id="theme-toggle" title="Przełącz tryb nocny">
+                    <i id="theme-icon" class="bi bi-moon-stars-fill"></i>
+                </button>
             </nav>
         </div>
     </header>
@@ -193,6 +378,36 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        updateIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        function updateIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+                themeIcon.style.color = '#FFB800'; 
+            } else {
+                themeIcon.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+                themeIcon.style.color = 'white'; 
+            }
+        }
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

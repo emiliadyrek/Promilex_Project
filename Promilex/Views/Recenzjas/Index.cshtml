@@ -6,10 +6,10 @@
 
 <style>
     .rev-index-wrapper {
-        background-color: #FEF3DC;
-        min-height: 100vh;
-        padding: 60px 0;
-        font-family: 'Poppins', sans-serif;
+        background-color: var(--promilex-bg);
+        min-height: 80vh;
+        padding: 40px 0;
+        transition: background-color var(--transition-speed);
     }
 
     .rev-header {
@@ -20,34 +20,34 @@
     .rev-title {
         font-size: 42px;
         font-weight: 900;
-        color: #C0308C;
+        color: var(--promilex-purple);
         text-transform: uppercase;
         letter-spacing: -1px;
     }
 
     .rev-grid-card {
-        background: white;
+        background: var(--card-bg);
         border-radius: 30px;
         padding: 30px;
-        border: none;
+        border: 1px solid var(--border-color);
         height: 100%;
         transition: all 0.4s ease;
         display: flex;
         flex-direction: column;
         position: relative;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.04);
     }
 
     .rev-grid-card:hover {
         transform: translateY(-10px);
-        box-shadow: 0 20px 45px rgba(192, 48, 140, 0.12);
+        border-color: var(--promilex-purple) !important;
+        box-shadow: 0 20px 45px rgba(142, 68, 173, 0.25) !important;
     }
 
     .rev-rating-badge {
         position: absolute;
         top: -15px;
         right: 25px;
-        background: linear-gradient(135deg, #C0308C 0%, #E83A61 100%);
+        background: linear-gradient(135deg, var(--promilex-purple) 0%, var(--promilex-malina) 100%);
         color: white;
         width: 50px;
         height: 50px;
@@ -57,19 +57,26 @@
         justify-content: center;
         font-weight: 900;
         font-size: 20px;
-        box-shadow: 0 8px 15px rgba(232, 58, 97, 0.3);
+        box-shadow: 0 8px 15px rgba(142, 68, 173, 0.4);
         transform: rotate(5deg);
+        z-index: 5;
     }
 
     .rev-quote-icon {
-        color: #FEF3DC;
+        color: var(--promilex-bg);
         font-size: 40px;
         margin-bottom: -20px;
+        transition: 0.3s;
+    }
+
+    .rev-grid-card:hover .rev-quote-icon {
+        color: var(--promilex-purple);
+        opacity: 0.3;
     }
 
     .rev-content {
         font-style: italic;
-        color: #444;
+        color: var(--text-main);
         font-size: 16px;
         line-height: 1.6;
         margin: 20px 0;
@@ -80,17 +87,13 @@
         font-size: 12px;
         font-weight: 800;
         text-transform: uppercase;
-        color: #E83A61; 
+        color: var(--promilex-malina); 
         letter-spacing: 1px;
-        border-top: 1px solid #f8f9fa;
+        border-top: 1px solid var(--border-color);
         padding-top: 15px;
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-
-    .rev-product-info i {
-        font-size: 16px;
     }
 
     .rev-actions {
@@ -101,25 +104,25 @@
     }
 
     .rev-btn {
-        width: 35px;
-        height: 35px;
-        border-radius: 10px;
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: white !important;
         text-decoration: none;
-        font-size: 14px;
         transition: 0.2s;
     }
 
     .btn-edit { background: #FFB800; }
-    .btn-details { background: #F9812A; }
+    .btn-details { background: var(--promilex-purple); }
     .btn-delete { background: #333; }
+    [data-theme="dark"] .btn-delete { background: #444; }
 
     .rev-btn:hover {
         transform: scale(1.15);
-        color: white;
+        filter: brightness(1.1);
     }
 
     .fab-rev-add {
@@ -128,14 +131,14 @@
         right: 40px;
         width: 70px;
         height: 70px;
-        background: #C0308C;
-        color: white;
-        border-radius: 20px;
+        background: linear-gradient(135deg, var(--promilex-purple), var(--promilex-malina));
+        color: white !important;
+        border-radius: 22px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 28px;
-        box-shadow: 0 10px 25px rgba(192, 48, 140, 0.3);
+        box-shadow: 0 10px 25px rgba(142, 68, 173, 0.4);
         transition: 0.3s;
         text-decoration: none;
         z-index: 1000;
@@ -143,8 +146,7 @@
 
     .fab-rev-add:hover {
         transform: scale(1.1) rotate(180deg);
-        background: #E83A61;
-        color: white;
+        box-shadow: 0 15px 35px rgba(142, 68, 173, 0.6);
     }
 </style>
 
@@ -153,7 +155,7 @@
         
         <div class="rev-header">
             <h1 class="rev-title">Giełda Prawdy 📣</h1>
-            <p class="fw-bold text-muted">Zbiór dowodów na to, że nasz towar zmienia życie (albo przynajmniej wieczór).</p>
+            <p class="text-muted">Zbiór dowodów na to, że nasz towar zmienia życie (albo przynajmniej wieczór).</p>
         </div>
 
         <div class="row g-4 justify-content-center">
@@ -174,7 +176,7 @@
                         </div>
 
                         <div class="rev-product-info">
-                            <i class="bi bi-glass-margin me-2"></i>
+                            <i class="bi bi-info-circle me-2"></i>
                             @if (item.Produkt != null)
                             {
                                 <span>@item.Produkt.Nazwa</span>
