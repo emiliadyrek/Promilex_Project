@@ -18,11 +18,8 @@ namespace Promilex.Controllers
             _context = context;
         }
 
-        // GET: Produkts
         public async Task<IActionResult> Index()
         {
-            // KLUCZOWA POPRAWKA: Dodano .Include(p => p.Skladniki)
-            // Teraz zielona ikonka w widoku odczyta poprawną liczbę składników
             var produkty = _context.Produkty
                 .Include(p => p.Kategoria)
                 .Include(p => p.Producent)
@@ -31,7 +28,6 @@ namespace Promilex.Controllers
             return View(await produkty.ToListAsync());
         }
 
-        // GET: Produkts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -47,7 +43,6 @@ namespace Promilex.Controllers
             return View(produkt);
         }
 
-        // GET: Produkts/Create
         public IActionResult Create()
         {
             ViewData["KategoriaId"] = new SelectList(_context.Kategorie, "Id", "Nazwa");
@@ -56,14 +51,12 @@ namespace Promilex.Controllers
             return View();
         }
 
-        // POST: Produkts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nazwa,Opis,Cena,ZawartoscAlkoholu,KategoriaId,ProducentId")] Produkt produkt, int[] wybraneSkladniki)
         {
             if (ModelState.IsValid)
             {
-                // Inicjalizacja listy, jeśli jest nullem w modelu
                 produkt.Skladniki = new List<Skladnik>();
 
                 if (wybraneSkladniki != null)
@@ -86,7 +79,6 @@ namespace Promilex.Controllers
             return View(produkt);
         }
 
-        // GET: Produkts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -106,7 +98,6 @@ namespace Promilex.Controllers
             return View(produkt);
         }
 
-        // POST: Produkts/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nazwa,Opis,Cena,ZawartoscAlkoholu,KategoriaId,ProducentId")] Produkt produkt, int[] wybraneSkladniki)
@@ -123,10 +114,8 @@ namespace Promilex.Controllers
 
                     if (produktToUpdate == null) return NotFound();
 
-                    // Mapowanie pól
                     _context.Entry(produktToUpdate).CurrentValues.SetValues(produkt);
 
-                    // Aktualizacja Many-to-Many
                     produktToUpdate.Skladniki.Clear();
                     if (wybraneSkladniki != null)
                     {
@@ -152,7 +141,6 @@ namespace Promilex.Controllers
             return View(produkt);
         }
 
-        // GET: Produkts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -167,13 +155,12 @@ namespace Promilex.Controllers
             return View(produkt);
         }
 
-        // POST: Produkts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var produkt = await _context.Produkty
-                .Include(p => p.Skladniki) // Zapewnia poprawne usunięcie powiązań w tabeli łączącej
+                .Include(p => p.Skladniki) 
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (produkt != null)

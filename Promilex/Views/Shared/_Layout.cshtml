@@ -116,7 +116,6 @@
                 @{
                     var controller = ViewContext.RouteData.Values["controller"]?.ToString();
                     
-                    // LOGIKA ETYKIET
                     string prodLabel = "Asortyment";
                     if (controller == "Kategorias") prodLabel = "Kategorie";
                     if (controller == "Producents") prodLabel = "Producenci";

@@ -23,7 +23,6 @@ namespace Promiex.Models
         [Display(Name = "Zawartość Alkoholu (%)")]
         public double ZawartoscAlkoholu { get; set; }
 
-        // Relacje Many-to-One (Klucze obce)
         [Required(ErrorMessage = "Wybierz kategorię trunku")]
         [Display(Name = "Kategoria")]
         public int KategoriaId { get; set; }
@@ -38,8 +37,6 @@ namespace Promiex.Models
         [ForeignKey("ProducentId")]
         public virtual Producent? Producent { get; set; }
 
-        // --- RELACJA WIELE-DO-WIELU (MANY-TO-MANY) ---
-        // To jest kluczowy element: Produkt posiada listę wielu składników
         [Display(Name = "Składniki")]
         public virtual ICollection<Skladnik> Skladniki { get; set; } = new List<Skladnik>();
     }

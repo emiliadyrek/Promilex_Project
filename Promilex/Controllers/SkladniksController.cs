@@ -18,24 +18,21 @@ namespace Promilex.Controllers
             _context = context;
         }
 
-        // GET: Skladniks
-        // To zasila zielone licznik w "Bazie Receptur"
         public async Task<IActionResult> Index()
         {
             var skladniki = await _context.Skladniki
-                .Include(s => s.Produkty) // Kluczowe dla licznika @item.Produkty.Count()
+                .Include(s => s.Produkty) 
                 .AsNoTracking()
                 .ToListAsync();
             return View(skladniki);
         }
 
-        // GET: Skladniks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
 
             var skladnik = await _context.Skladniki
-                .Include(s => s.Produkty) // Pozwala wyświetlić listę trunków w Details
+                .Include(s => s.Produkty) 
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (skladnik == null) return NotFound();
@@ -43,13 +40,11 @@ namespace Promilex.Controllers
             return View(skladnik);
         }
 
-        // GET: Skladniks/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Skladniks/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nazwa")] Skladnik skladnik)
@@ -63,7 +58,6 @@ namespace Promilex.Controllers
             return View(skladnik);
         }
 
-        // GET: Skladniks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -74,7 +68,6 @@ namespace Promilex.Controllers
             return View(skladnik);
         }
 
-        // POST: Skladniks/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nazwa")] Skladnik skladnik)
@@ -98,13 +91,12 @@ namespace Promilex.Controllers
             return View(skladnik);
         }
 
-        // GET: Skladniks/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
 
             var skladnik = await _context.Skladniki
-                .Include(s => s.Produkty) // Dzięki temu widok Delete wie, czy składnik jest używany
+                .Include(s => s.Produkty) 
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (skladnik == null) return NotFound();
@@ -112,13 +104,12 @@ namespace Promilex.Controllers
             return View(skladnik);
         }
 
-        // POST: Skladniks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var skladnik = await _context.Skladniki
-                .Include(s => s.Produkty) // Ważne: EF usunie też wpisy w tabeli łączącej
+                .Include(s => s.Produkty) 
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (skladnik != null)

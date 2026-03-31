@@ -11,7 +11,6 @@ namespace Promiex.Models
         [Display(Name = "Nazwa Składnika")]
         public string Nazwa { get; set; }
 
-        // Relacja wiele-do-wielu: Składnik może występować w wielu produktach
         public virtual ICollection<Produkt> Produkty { get; set; } = new List<Produkt>();
     }
 }
